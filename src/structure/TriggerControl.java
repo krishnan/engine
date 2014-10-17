@@ -17,7 +17,7 @@ import definitions.folder;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
-import main.coreSPDX;
+import main.engine;
 import script.Trigger;
 import script.log;
 
@@ -38,7 +38,7 @@ public final class TriggerControl {
      * This method adds up all the triggers found on the triggers folder
      */
     private void addTriggers(){
-        File folderTriggers = new File(coreSPDX.getWorkFolder(), folder.triggers);
+        File folderTriggers = new File(engine.getWorkFolder(), folder.triggers);
         //log.write(is.INFO, "Adding triggers from %1", folderTriggers.getAbsolutePath());
         ArrayList<File> files = utils.files.findFilesFiltered(folderTriggers, ".java", 2);
         for(File file : files){

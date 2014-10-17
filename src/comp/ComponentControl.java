@@ -21,7 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import main.coreSPDX;
+import main.engine;
 import utils.www.html;
 import utils.www.Link;
 
@@ -73,7 +73,7 @@ public class ComponentControl {
      */
     public Component get(final String id) {
         // try to find a custom component first
-        Component result = findId(id, SearchType.exactId, coreSPDX.getComponentFolder(), 25);
+        Component result = findId(id, SearchType.exactId, engine.getComponentFolder(), 25);
         return result;
     }
     
@@ -245,7 +245,7 @@ public class ComponentControl {
      * @return 
      */
     public Component getFromRepository(final String path, final String param) {
-        return repositoryFindId(param, new File(coreSPDX.getComponentFolder(), path));
+        return repositoryFindId(param, new File(engine.getComponentFolder(), path));
     }
     /**
      * Shows an HTML list of all the components that we have available on disk
@@ -255,7 +255,7 @@ public class ComponentControl {
      */
     public String getReport(ArrayList<LinkType> link) {
         componentCounter = 0;
-        String result = getReportCustomComponents(link, coreSPDX.getComponentFolder(), 25);
+        String result = getReportCustomComponents(link, engine.getComponentFolder(), 25);
         
         result = html.h3("Custom components available (" + componentCounter + ")")
                 + result;
@@ -288,7 +288,7 @@ public class ComponentControl {
             rep.read(line);
             // get the relative path
             final String path = file.getAbsolutePath()
-                    .replace(coreSPDX.getComponentFolder().getAbsolutePath(), "").replace("\\", "/");
+                    .replace(engine.getComponentFolder().getAbsolutePath(), "").replace("\\", "/");
             // now define the type of dataset we are using to help with the link
             final String type = "&type=" + rep.getType()
                     + "&path=" + path
@@ -391,12 +391,12 @@ public class ComponentControl {
         String result = "" 
                 + html.div()
                 + html.h2("Local components")
-                + searchLocalRepository(links, coreSPDX.getComponentFolder(), searchTerm, 25)
+                + searchLocalRepository(links, engine.getComponentFolder(), searchTerm, 25)
                 + html.br
                 + html.h2("Results on public repositories")
                 + html.div()
                 + searchRepositoriesHTML
-                    (searchTerm, link, coreSPDX.getComponentFolder(), 25)
+                    (searchTerm, link, engine.getComponentFolder(), 25)
                 + html._div
                 + html._div
                 ;

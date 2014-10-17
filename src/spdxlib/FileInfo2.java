@@ -16,7 +16,7 @@ package spdxlib;
 import spdxlib.swing.TreeNodeSPDX;
 import java.io.File;
 import java.util.ArrayList;
-import main.coreSPDX;
+import main.engine;
 import script.FileExtension;
 import spdxlib.swing.TreeviewUtils;
 
@@ -343,12 +343,12 @@ public class FileInfo2 {
         // get the extension
         final int lastDot = name.lastIndexOf(".");
         extension = name.substring(lastDot+1).toLowerCase();
-        fileExtensionIndex = coreSPDX.extensions.getIndex(extension);
+        fileExtensionIndex = engine.extensions.getIndex(extension);
         // add the file extension object
         if(fileExtensionIndex != -1){
-            fileExtensionObject = coreSPDX.extensions.get(fileExtensionIndex);
+            fileExtensionObject = engine.extensions.get(fileExtensionIndex);
         }else{
-            fileExtensionObject = coreSPDX.extensions.getUnknownExtension();
+            fileExtensionObject = engine.extensions.getUnknownExtension();
         }        
     }
     

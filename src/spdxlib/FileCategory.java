@@ -12,7 +12,7 @@
 package spdxlib;
 
 import javax.swing.Icon;
-import main.coreSPDX;
+import main.engine;
 
 public enum FileCategory{
     TEXT,
@@ -43,26 +43,26 @@ public enum FileCategory{
      */
     public Icon toIcon() {
         switch(this){
-            case TEXT: return coreSPDX.iconTEXT;
-            case SOURCE: return coreSPDX.iconSOURCE;
-            case DOCUMENT: return coreSPDX.iconDOCUMENT;
-            case INTERNET: return coreSPDX.iconINTERNET;
-            case SCRIPT: return coreSPDX.iconSCRIPT;
-            case SCHEMA: return coreSPDX.iconSCHEMA;
-            case CONFIG: return coreSPDX.iconCONFIG;
-            case VERSIONING: return coreSPDX.iconVERSIONING;
-            case EXECUTABLE: return coreSPDX.iconEXECUTABLE;
-            case FONT: return coreSPDX.iconFONT;
-            case ARCHIVE: return coreSPDX.iconARCHIVE;
-            case BINARY: return coreSPDX.iconBINARY;
-            case DATABASE: return coreSPDX.iconDATABASE;
-            case IMAGE: return coreSPDX.iconIMAGE;
-            case VIDEO: return coreSPDX.iconVIDEO;
-            case SOUND: return coreSPDX.iconSOUND;
-            case MUSIC: return coreSPDX.iconMUSIC;
-            case OTHER: return coreSPDX.iconOTHER;
-            case TEMP: return coreSPDX.iconTEMP;
-            default: return coreSPDX.iconUNKNOWN;
+            case TEXT: return engine.iconTEXT;
+            case SOURCE: return engine.iconSOURCE;
+            case DOCUMENT: return engine.iconDOCUMENT;
+            case INTERNET: return engine.iconINTERNET;
+            case SCRIPT: return engine.iconSCRIPT;
+            case SCHEMA: return engine.iconSCHEMA;
+            case CONFIG: return engine.iconCONFIG;
+            case VERSIONING: return engine.iconVERSIONING;
+            case EXECUTABLE: return engine.iconEXECUTABLE;
+            case FONT: return engine.iconFONT;
+            case ARCHIVE: return engine.iconARCHIVE;
+            case BINARY: return engine.iconBINARY;
+            case DATABASE: return engine.iconDATABASE;
+            case IMAGE: return engine.iconIMAGE;
+            case VIDEO: return engine.iconVIDEO;
+            case SOUND: return engine.iconSOUND;
+            case MUSIC: return engine.iconMUSIC;
+            case OTHER: return engine.iconOTHER;
+            case TEMP: return engine.iconTEMP;
+            default: return engine.iconUNKNOWN;
         }
     }
     

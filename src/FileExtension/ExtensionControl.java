@@ -17,7 +17,7 @@ package FileExtension;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
-import main.coreSPDX;
+import main.engine;
 import script.FileExtension;
 import script.log;
 import spdxlib.ContentType;
@@ -66,7 +66,7 @@ public final class ExtensionControl {
         listIndexes.clear();
         
              
-        File folder = coreSPDX.getExtensionsFolder();
+        File folder = engine.getExtensionsFolder();
         ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
         for(File file : files){   
             // ignore the extensions inside the "unknown" folder
@@ -255,7 +255,7 @@ public final class ExtensionControl {
 //    public void generateJsonFiles(File targetFolder) {
 //        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //        int counter = 0;
-//        for(FileExtension fileExtension : coreSPDX.extensions.getList()){
+//        for(FileExtension fileExtension : engine.extensions.getList()){
 //            final String Id = fileExtension.getIdentifierShort();
 //            // avoid the template
 //            if(Id.contains("#")){

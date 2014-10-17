@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.coreSPDX;
+import main.engine;
 import script.log;
 
 
@@ -60,7 +60,7 @@ public final class ReportsControl {
      * @return 
      */
     private void findSPDX(){
-        File folder = new File(coreSPDX.getWorkFolder(), is.reports);
+        File folder = new File(engine.getWorkFolder(), is.reports);
         // only find the SPDX documents with .SPDX extension
         ArrayList<File> files = utils.files.findFilesFiltered(folder, ".spdx", 25);
         int counter = 0;

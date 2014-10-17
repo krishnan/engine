@@ -18,7 +18,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import main.coreSPDX;
+import main.engine;
 import script.FileExtension;
 
 
@@ -47,7 +47,7 @@ public class ExtensionCreate {
      * @param overWrite
      */
     public void automatically(String extension, boolean overWrite) {
-        File template = new File(coreSPDX.getExtensionsFolder(), "template.java");
+        File template = new File(engine.getExtensionsFolder(), "template.java");
         // preflight check
 //        String safeExt =
 //                utils.text.findRegEx( extension,"[a-zA-Z]+$", 0);
@@ -57,12 +57,12 @@ public class ExtensionCreate {
                    + utils.text.findRegEx( extension,"[a-zA-Z0-9_]+$", 0);
 //        }
         
-        File newExtension = new File(coreSPDX.getExtensionsUnknown(), 
+        File newExtension = new File(engine.getExtensionsUnknown(), 
                 safeExt + ".java");
         // don't overwrite already existent unknown files
         if(overWrite == false){
             // don't add a registered extension
-            for(FileExtension thisExtension : coreSPDX.extensions.getList()){
+            for(FileExtension thisExtension : engine.extensions.getList()){
                 if(utils.text.equals(thisExtension.getIdentifierShort(), extension))
                     return;
                 }

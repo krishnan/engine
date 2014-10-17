@@ -14,7 +14,7 @@
 package spdxlib.generators;
 
 import java.io.File;
-import main.coreSPDX;
+import main.engine;
 import spdxlib.License;
 
 
@@ -253,7 +253,7 @@ public class GetLicenses {
      */
     private static void writeLicenseToDisk(License license) {
         // get the license list folder
-        File folder = new File(coreSPDX.getLicensesFolder(), 
+        File folder = new File(engine.getLicensesFolder(), 
                 definitions.folder.spdxLL);
         
         // write this license to disk
@@ -266,7 +266,7 @@ public class GetLicenses {
      */
     private static void writeLicenseToEnum(License license) {
         // get the license list folder
-        File folder = new File(coreSPDX.getLicensesFolder(), 
+        File folder = new File(engine.getLicensesFolder(), 
                 definitions.folder.spdxLL);
         
         

@@ -15,7 +15,7 @@ package spdxlib;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import main.coreSPDX;
+import main.engine;
 import utils.www.html;
 
 
@@ -87,7 +87,7 @@ public class License {
      * @param folder the Folder where this file will be stored
      */
     public void writeToDisk(File folder){
-        File template = new File(coreSPDX.getLicensesFolder(), "LicenseTemplate.java");
+        File template = new File(engine.getLicensesFolder(), "LicenseTemplate.java");
         // no need to continue if it does not exist
         if(template.exists() == false){
             return;

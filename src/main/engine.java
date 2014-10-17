@@ -4,7 +4,7 @@
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2013-09-01T00:00:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: coreSPDX.java  
+ * FileName: engine.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2013 Nuno Brito, TripleCheck </text>
  * FileComment: <text> A static class used as Singleton to keep a single
@@ -22,12 +22,13 @@ import java.io.File;
 import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import script.Script;
 import structure.ReportsControl;
 import structure.TriggerControl;
 import utils.Settings;
 
 
-public class coreSPDX {
+public class engine {
 
     public static String version = "0.9.6";
     
@@ -50,6 +51,9 @@ public class coreSPDX {
     public static ReportsControl
             reports; // = new ReportsControl();
    
+    public static 
+            Script script = new Script();
+    
     public static ComponentControl components = new ComponentControl();
     
     // where we define that we are working
@@ -104,16 +108,22 @@ public class coreSPDX {
     
     static void defineWorkFolder(){
            // we need to switch between base path in IDE mode and real-usage mode
-        final File f = new File(coreSPDX.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        final File f = new File(engine.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         final String currentPath = f.getAbsolutePath().replaceAll("\\\\", "/");
         // are we running in IDE mode?
         if(currentPath.endsWith("/build/classes")){
             workFolder = new File(".").getAbsoluteFile().getParentFile();
         }else{
             // define it as the currently running folder
-            workFolder = new File(coreSPDX.class.getProtectionDomain()
+            workFolder = new File(engine.class.getProtectionDomain()
                     .getCodeSource().getLocation().getPath()).getParentFile();
          }
+        
+        // or else, are we running as library or as standalone?
+        String startupMode = System.getProperty(is.methodStartUp);
+        if(startupMode.equalsIgnoreCase(is.library)){
+            workFolder = new File(".").getAbsoluteFile().getParentFile();
+        }
     }
     
     /**
@@ -148,7 +158,7 @@ public class coreSPDX {
      * @return 
      */
     public File getGithubFolder(){
-        File result = new File(coreSPDX.getMiscFolder(),"github");
+        File result = new File(engine.getMiscFolder(),"github");
         // if the folder doesn't exist, create one
         if(result.exists() == false){
             utils.files.mkdirs(result);
@@ -210,7 +220,7 @@ public class coreSPDX {
     public static void warmUp(){
      // initialize the settings
         settings = new Settings(
-                    new File(coreSPDX.getWorkFolder(), "settings.xml"), "");
+                    new File(engine.getWorkFolder(), "settings.xml"), "");
         extensions = new ExtensionControl();
         triggers = new TriggerControl();
         reports = new ReportsControl();

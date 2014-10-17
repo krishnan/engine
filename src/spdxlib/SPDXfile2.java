@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.coreSPDX;
+import main.engine;
 import script.log;
 import spdxlib.summary.SummaryControl;
 import spdxlib.swing.NodeType;
@@ -196,7 +196,7 @@ public class SPDXfile2 implements Serializable{
      * @return 
      */
     public String getRelativePath() {
-        return file.getAbsolutePath().replace(coreSPDX.getProductsFolder().
+        return file.getAbsolutePath().replace(engine.getProductsFolder().
                 getAbsolutePath(), "").replace("\\", "/");
     }
 
@@ -243,10 +243,11 @@ public class SPDXfile2 implements Serializable{
                     // read the tag/value information
                     processFileLine(line, charPosition);
                } catch (Exception ex) {
-                    log.write(is.ERROR, "Error reading line: %1 of file %2"
+                    log.write(is.ERROR, "SPDX246: Error reading line: %1 of file %2"
                             + " with content: %3"
                             ,lineCounter + "", file.getAbsolutePath(),
                             line);
+                    ex.printStackTrace();
                     // no need to stop, continue to the next item
                     continue;
                 }
@@ -481,12 +482,12 @@ public class SPDXfile2 implements Serializable{
         // get the title
         final String title = id.SOURCEFOLDER + file.getName();
         
-        if(coreSPDX.settings.hasKey(title)==false){
+        if(engine.settings.hasKey(title)==false){
             System.err.println("SPDXfile344: Didn't found " + title);
             return null;
         }
         // create the folder pointer
-        File folder = new File(coreSPDX.settings.read(title));
+        File folder = new File(engine.settings.read(title));
         
         // doesn't exist?
         if(folder.exists() == false){
@@ -507,7 +508,7 @@ public class SPDXfile2 implements Serializable{
         }
         // get the title
         final String title = id.SOURCEFOLDER + file.getName();
-        coreSPDX.settings.write(title, folder.getAbsolutePath());
+        engine.settings.write(title, folder.getAbsolutePath());
             
     }
     
@@ -802,10 +803,16 @@ public class SPDXfile2 implements Serializable{
      * for IF conditions during processing
      */
     private void postProcessing() {
+
+        // no need to continue if empty
+        if(nodeFiles.getChildCount() ==0){
+            return;
+        }
+        
         nodeFiles = (TreeNodeSPDX) nodeFiles.getFirstChild();
         nodeFiles.nodeType = NodeType.sectionFile;
         nodeFiles.id = "./";
-        nodeFiles.icon = coreSPDX.iconFiles;
+        nodeFiles.icon = engine.iconFiles;
         // set the title
         if(fileCounter > 1){
             nodeFiles.setTitle("Files (" + fileCounter + ")");
@@ -844,7 +851,7 @@ public class SPDXfile2 implements Serializable{
     private TreeNodeSPDX createNode(final String title, final String scriptPath, 
             final NodeType nodeType){
         // create the tree node
-        final File componentsFile = new File(coreSPDX.getPluginsFolder(), scriptPath);
+        final File componentsFile = new File(engine.getPluginsFolder(), scriptPath);
         TreeNodeSPDX node = new TreeNodeSPDX(title);
         node.scriptFile = componentsFile;
         node.scriptFolder = componentsFile.getParentFile();

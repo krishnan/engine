@@ -18,7 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import main.coreSPDX;
+import main.engine;
 import script.log;
 import spdxlib.FileInfo2;
 import spdxlib.SPDXfile2;
@@ -53,7 +53,7 @@ public class swingUtils {
         
         // write the key
         if(key.isEmpty() == false){
-            coreSPDX.settings.write(key, fc.getSelectedFile().getAbsolutePath());
+            engine.settings.write(key, fc.getSelectedFile().getAbsolutePath());
         }
             
         log.write(is.ACCEPTED, "Folder chosen: %1"
@@ -293,10 +293,10 @@ public class swingUtils {
     
 //    // find all components inside our common library
 //        File baseFolder = new File(".");
-////        coreSPDX.components = actions.findSPDX(new File(baseFolder, 
+////        engine.components = actions.findSPDX(new File(baseFolder, 
 ////                is.library));
 //        // now find our reports
-//        coreSPDX.reports = actions.findSPDX(new File(baseFolder, 
+//        engine.reports = actions.findSPDX(new File(baseFolder, 
 //                is.reports));
 //        
 //        // get the current UID of the selected node

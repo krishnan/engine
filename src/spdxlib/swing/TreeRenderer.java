@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import main.coreSPDX;
+import main.engine;
 import spdxlib.FileInfo2;
 
 
@@ -35,7 +35,7 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
     
 //    // get our icons
 //    private Icon get(String what){
-//        return new ImageIcon(coreSPDX.getIcon(what).getAbsolutePath());
+//        return new ImageIcon(engine.getIcon(what).getAbsolutePath());
 //    }
     
 //    Icon 
@@ -90,28 +90,28 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
             setIcon(node.icon);
         }
         else // do the switch based on type of icon
-                switch(node.nodeType){
+                                                                switch(node.nodeType){
             case folder:
-                setIcon(coreSPDX.iconFolderClosed);
-                node.iconWhenSelected = coreSPDX.iconFolderOpen;
+                setIcon(engine.iconFolderClosed);
+                node.iconWhenSelected = engine.iconFolderOpen;
                 break;
             case sectionFile:
-                setIcon(coreSPDX.iconFiles);
+                setIcon(engine.iconFiles);
                 break;
             case sectionCreator:
-                setIcon(coreSPDX.iconFingerprint);
+                setIcon(engine.iconFingerprint);
                 break;
             case sectionSettings:
-                setIcon(coreSPDX.iconCONFIG);
+                setIcon(engine.iconCONFIG);
                 break;
             case sectionComponents:
-                setIcon(coreSPDX.iconCOMPONENTS);
+                setIcon(engine.iconCOMPONENTS);
                 break;
             case sectionExport:
-                setIcon(coreSPDX.iconEXPORT);
+                setIcon(engine.iconEXPORT);
                 break;
             default:
-                setIcon(coreSPDX.iconUNKNOWN);
+                setIcon(engine.iconUNKNOWN);
                 break;
         }
             

@@ -21,7 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.coreSPDX;
+import main.engine;
 import script.FileExtension;
 import script.Trigger;
 import ssdeep.ssdeep;
@@ -89,7 +89,7 @@ public class DocumentCreate2 {
     public boolean create(final File folderToAnalyze) {
         String filename = folderToAnalyze.getName() + ".spdx";
         // create the file pointer
-        outputFile = new File(coreSPDX.getProductsFolder(), filename);
+        outputFile = new File(engine.getProductsFolder(), filename);
         return create(folderToAnalyze, outputFile);
     }
     /**
@@ -389,7 +389,7 @@ public class DocumentCreate2 {
             // try to identify some of the most common triggers
         
         if(file.length() < 15000000){
-            for(Trigger thisTrigger: coreSPDX.triggers.getList()){
+            for(Trigger thisTrigger: engine.triggers.getList()){
                 // does our text contains an applicable trigger?
                 if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
                    result = result.concat(thisTrigger.getResult()).concat("\n");
@@ -475,7 +475,7 @@ public class DocumentCreate2 {
                 
                 + addParagraph("Creation Information")
                 + addText("Creator: " + documentCreator)
-                + addText("Creator: Tool: TripleCheck " + coreSPDX.version)
+                + addText("Creator: Tool: TripleCheck " + engine.version)
                 + addText("Created: " + utils.time.getDateSPDX())
                 + "\n"
                 

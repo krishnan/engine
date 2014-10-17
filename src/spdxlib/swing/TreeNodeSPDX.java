@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import main.coreSPDX;
+import main.engine;
 import spdxlib.swing.NodeType;
 
 
@@ -132,7 +132,7 @@ public class TreeNodeSPDX extends DefaultMutableTreeNode{
       * @param what the icon file name that is located under the "icons" folder
       */
      public void setIcon(String what){
-        icon = new ImageIcon(coreSPDX.getIcon(what).getAbsolutePath());
+        icon = new ImageIcon(engine.getIcon(what).getAbsolutePath());
     }
      
      /**
@@ -140,7 +140,7 @@ public class TreeNodeSPDX extends DefaultMutableTreeNode{
       * @param what the icon file name that is located under the "icons" folder
       */
      public void setIconWhenSelected(String what){
-        iconWhenSelected = new ImageIcon(coreSPDX.getIcon(what).getAbsolutePath());
+        iconWhenSelected = new ImageIcon(engine.getIcon(what).getAbsolutePath());
     }
 
      /**

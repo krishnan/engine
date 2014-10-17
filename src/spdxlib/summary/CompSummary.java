@@ -16,7 +16,7 @@ package spdxlib.summary;
 import comp.Component;
 import java.util.HashMap;
 import java.util.Map;
-import main.coreSPDX;
+import main.engine;
 import spdxlib.FileInfo2;
 import spdxlib.FileOrigin;
 import spdxlib.SPDXfile2;
@@ -94,7 +94,7 @@ public class CompSummary {
             
             int count = map.get(componentID);
             
-            Component component = coreSPDX.components.get(componentID);
+            Component component = engine.components.get(componentID);
             
             // what happens if the component was not found?
             if(component == null){

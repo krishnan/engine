@@ -8,13 +8,14 @@ import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import main.engine;
 
 /**
  *
  * @author Nuno Brito, 12th of January 2013 in Darmstadt, Germany.
  */
 public class Hooks {
-    private HashMap<String, ArrayList<Hook>> hookList = new HashMap();
+    private final HashMap<String, ArrayList<Hook>> hookList = new HashMap();
     
     
     /**
@@ -25,7 +26,7 @@ public class Hooks {
     }
     
     /**
-     * @param hook The log message that triggers this action
+     * @param hookText
      * @param script The file pointer to a script
      * @param method The method that we want to run
      */
@@ -59,7 +60,7 @@ public class Hooks {
         ArrayList<Hook> selectedHooks = hookList.get(what);
         for(Hook hook : selectedHooks){
             System.err.println("HK61 - Running hook " + hook.script);
-//            core.script.run(hook.script, hook.method, is.plugin);
+            engine.script.run(hook.script, hook.method, is.plugin);
         }
     }
     

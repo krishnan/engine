@@ -15,7 +15,7 @@ package spdxlib.generators;
 
 import java.io.File;
 import java.util.ArrayList;
-import main.coreSPDX;
+import main.engine;
 import spdxlib.License;
 
 
@@ -258,7 +258,7 @@ public class GetLicensesEnum {
 //     */
 //    private static void writeLicenseToDisk(License license) {
 //        // get the license list folder
-//        File folder = new File(coreSPDX.getLicensesFolder(), 
+//        File folder = new File(engine.getLicensesFolder(), 
 //                definitions.folder.spdxLL);
 //        
 //        // write this license to disk
@@ -271,7 +271,7 @@ public class GetLicensesEnum {
      */
     private static void writeLicenseToEnum(License license) {
         // get the license list folder
-        File folder = new File(coreSPDX.getLicensesFolder(), 
+        File folder = new File(engine.getLicensesFolder(), 
                 definitions.folder.spdxLL);
         
         String enumID = convertToEnum(license.getId());
@@ -376,7 +376,7 @@ public class GetLicensesEnum {
         enumTypes = header + enumTypes;
         
         System.out.println(enumTypes);
-        File output = new File(coreSPDX.getMiscFolder(), "LicenseType.java");
+        File output = new File(engine.getMiscFolder(), "LicenseType.java");
         utils.files.SaveStringToFile(output, enumTypes);
         
     }
