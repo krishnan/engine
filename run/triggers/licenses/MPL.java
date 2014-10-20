@@ -39,6 +39,7 @@ public class MPL implements Trigger {
         "Mozilla Public License",
         "http://www.mozilla.org/MPL",
         //"MPL",
+        "MPL/2.0",
         "MPL 1.0",
         "MPL 1.1",
         "MPL 2.0",
@@ -123,27 +124,10 @@ public class MPL implements Trigger {
     private String normalizeText(String text){
         String result = text.replace("\n", "");
             result = result.replace("\r", "");
+            result = result.replace("*", "");
+            
         return result;
     }
-    
-//      /**
-//     * Only accepts an entry that passes the triggers if it hasn't been somehow
-//     * blacklisted in the past.
-//     * @param text  the source code
-//     * @return      true if permitted to be added, false if it should be discarded
-//     */
-//    private Boolean isNotBlackListed(String text) {
-//        // cover the specific case of the GPL terms that include LGPL in text:
-//        /**
-//         *   The GNU General Public License does not permit incorporating your program
-//         * into proprietary programs.  If your program is a subroutine library, you
-//         * may consider it more useful to permit linking proprietary applications with
-//         * the library.  If this is what you want to do, use the GNU Lesser General
-//         * Public License instead of this License.  But first, please read
-//         * <http://www.gnu.org/philosophy/why-not-lgpl.html>.
-//         */
-//        return !text.contains("why-not-lgpl.html");
-//    }
     
     
     /**
@@ -165,14 +149,15 @@ public class MPL implements Trigger {
      * @param text      source code
      * @return          true if we have match, false if nothing was found
      */
-    private boolean hasVersion(String version, String text){
+    private boolean hasVersion(final String version, final String text){
         return    text.contains("MPL " + version)
                 ||text.contains("MPL-"+version)
                 ||text.contains("Mozilla Public License, version "+version)
-                // we need to find a way of removing these exceptions
+                // we need to find a way of removing the exceptions
                 ||text.contains("Mozilla Public License  Version "+version)
                 ||text.contains("MPLv"+version)
-                ||text.contains("Mozilla Public License v"+version);
+                ||text.contains("Mozilla Public License v"+version)
+                ||text.contains("MPL/"+version + "/");
     }
     
     /**
