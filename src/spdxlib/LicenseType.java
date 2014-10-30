@@ -14,6 +14,7 @@ public enum LicenseType {
         // added for own use
 	Public_Domain,
         Proprietary,
+        MPL_1_1_plus,
         MPL_2_0_plus,
         GPL,
         LGPL,
