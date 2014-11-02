@@ -125,8 +125,8 @@ public class engine {
          }
         
         // or else, are we running as library or as standalone?
-        String startupMode = System.getProperty(is.methodStartUp);
-        if(startupMode.equalsIgnoreCase(is.library)){
+        final String startupMode = System.getProperty(is.methodStartUp);
+        if(startupMode != null && startupMode.equalsIgnoreCase(is.library)){
             workFolder = new File(".").getAbsoluteFile().getParentFile();
         }
     }

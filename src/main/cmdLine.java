@@ -14,8 +14,10 @@ package main;
 
 import definitions.is;
 import java.io.File;
+import static main.engine.warmUp;
 import script.log;
 import spdxlib.DocumentCreate2;
+import spdxlib.EvaluateLicensingQuality;
 
 /**
  *
@@ -53,6 +55,13 @@ public class cmdLine {
         
         // get the first argument
         final String cmdAction = args[0].toLowerCase();
+        
+         
+         // do we want to evaluate the license quality from a given SPDX?
+        if(cmdAction.equals("evaluate")){
+            commandEvaluateSPDX(args);
+            return true;
+        }
         
         // are we being asked to create an SPDX document?
         if(cmdAction.equals("spdx")){
@@ -142,7 +151,47 @@ public class cmdLine {
         spdx.create(sourceCodeFolderOrFile, spdxFile);
         System.out.println("Processed files: " + spdx.getFilesProcessed());
     }
+
+    /**
+     * Launch the code to evaluate the licensing quality of an SPDX document
+     * @param args  The arguments from command line
+     */
+    private static void commandEvaluateSPDX(final String[] args) {
+        // do the initial checks to ensure things are ok
+        if(args.length != 2){
+            log.write(is.ERROR, "Evaluate SPDX: Not enough parameters");
+            return;
+        }
+        
+        // transform the appointed string into a file on disk, check if real
+        final String fileName = args[1];
+        // do the file
+        final File file = new File(fileName);
+        // does our file really exist?
+        if(file.exists() == false || file.isDirectory()){
+            log.write(is.ERROR, "Evaluate SPDX: Invalid file");
+            return;
+        }
+        // create the object to handle the quality tests
+        EvaluateLicensingQuality qualityTest = new EvaluateLicensingQuality();
+        qualityTest.process(file);
+        System.exit(2);
+        
+    }
     
+    /**
+     * Call this method for the command line operations
+     * @param args The arguments from command line
+     */
+    public static void main(String[] args){
+        
+        // express that third-party projects need to initialize as libraries
+        System.setProperty(is.methodStartUp, is.library);
+        
+        //warmUp();
+        
+        isCommandLineUsed(args);
+    }
     
     
 }

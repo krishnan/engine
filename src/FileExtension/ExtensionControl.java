@@ -66,7 +66,8 @@ public final class ExtensionControl {
         listIndexes.clear();
         
              
-        File folder = engine.getExtensionsFolder();
+        final File folder = engine.getExtensionsFolder();
+        //log.write(is.INFO, "Adding extensions from %1", folder.getAbsolutePath());
         ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
         for(File file : files){   
             // ignore the extensions inside the "unknown" folder
@@ -74,12 +75,21 @@ public final class ExtensionControl {
                 continue;
             }
             
+            // avoid the empty template file that is found on this folder
             if(file.getName().equals("template.java")){
                 continue;
             }
             
             // get the extension interpreted
-            FileExtension temp = (FileExtension) utils.bytecode.getObject(file);
+            FileExtension temp = null;
+            try{
+                Object obj = utils.bytecode.getObject(file);
+                temp = (FileExtension) obj;
+            } catch(RuntimeException e){
+                log.write(is.ERROR, "EC88 - Failed to load extension: %1", 
+                        file.getAbsolutePath());
+            }
+            
             
             // no need for null values
             if(temp == null){
