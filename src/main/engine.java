@@ -32,6 +32,7 @@ public class engine {
 
     public static String version = "0.9.6";
     
+    // basic configuration. Non-volatile, stored as XML on disk
     public static
             Settings settings;
     
@@ -43,13 +44,13 @@ public class engine {
     public static File thisFile;
 
     public static ExtensionControl
-            extensions; // = new ExtensionControl();
+            extensions;
 
     public static TriggerControl
-            triggers; // = new TriggerControl();
+            triggers;
    
     public static ReportsControl
-            reports; // = new ReportsControl();
+            reports;
    
     public static 
             Script script = new Script();
@@ -106,6 +107,10 @@ public class engine {
         return workFolder;
     }
     
+    /**
+     * This method helps to switch between a development and deployment
+     * environment in regards to the work folder location.
+     */
     static void defineWorkFolder(){
            // we need to switch between base path in IDE mode and real-usage mode
         final File f = new File(engine.class.getProtectionDomain().getCodeSource().getLocation().getPath());

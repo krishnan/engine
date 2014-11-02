@@ -45,6 +45,7 @@ public class cmdLine {
         
         
         if(args[0].equalsIgnoreCase("downloadSPDX")){
+            // this feature was not added at this point
             System.exit(0);
             return true;
         }
@@ -63,9 +64,6 @@ public class cmdLine {
             
             
             log.write(is.INFO, "Processing an SPDX folder/file:");
-//            if(args.length == 3){
-//            }
-//            else
             // do we have a parameter for the package name?
             if(args.length == 4){
                 packageName = args[3];
