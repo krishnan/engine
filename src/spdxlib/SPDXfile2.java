@@ -47,7 +47,7 @@ public class SPDXfile2 implements Serializable{
     int fileCounter = 0;
     
     // what is the information within?
-    ArrayList<FileInfo2> files = new ArrayList();
+    private ArrayList<FileInfo2> files = new ArrayList();
     
     public SummaryControl summary = new SummaryControl(this);
 
