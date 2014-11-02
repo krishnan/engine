@@ -35,6 +35,7 @@ public enum FileLanguage{
     
     // mixed (can be compiled or interpreted)
     BASIC,
+    ABAP,
     
     // misc
     SQL,
@@ -67,6 +68,7 @@ public enum FileLanguage{
     
     // misc
         case SQL: return "SQL";
+        case ABAP: return "ABAP";
         case HTML: return "HTML";
         case BASIC: return "Basic";
         case UNSORTED: return "Unsorted";
