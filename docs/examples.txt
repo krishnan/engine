@@ -22,6 +22,8 @@ https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master
 https://github.com/torvalds/linux/blob/master/CREDITS
 https://github.com/torvalds/linux/blob/master/MAINTAINERS
 https://github.com/torvalds/linux/blob/master/REPORTING-BUGS
+https://sourceware.org/viewvc/src/binutils/NEWS?view=markup
+http://svn.apache.org/repos/asf/camel/trunk/KEYS
 
 Notes:
 - Filenames can be found in both upper or lower case. Optionally with the .md markup extension, or no extension at all.
