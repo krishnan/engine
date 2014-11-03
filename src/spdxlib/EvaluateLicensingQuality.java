@@ -22,6 +22,14 @@ import java.io.File;
 public class EvaluateLicensingQuality {
 
     private SPDXfile2 spdx;
+    
+    private final int
+            pointsForCopyright = 10,
+            pointsForLicensesDeclared = 5,
+            pointsForLicensesConcluded = 5,
+            pointsForMandatoryDocs = 20;
+    
+    
     private int 
             score = 0,
             copyrightDeclared = 0,      // declared by author(s)
@@ -33,16 +41,16 @@ public class EvaluateLicensingQuality {
             licensesConcluded = 0,      // auditor concluded a given license(s)
             licensesNotConcluded = 0,   // no information about auditor review
             
-            scoreStep1 = 0,            // overall point score from 0 to 20
+            scoreStep1 = 0,             // overall point score from 0 to 20
             scoreCopyright = 0,         // 0..10 points for copyright quality 
             scoreLicensesConcluded = 0, // up to 5 points for verifying licenses
             scoreLicensesDeclared = 0,  // up to 5 points for declaring licenses
     
         // documentation points
+            scoreStep2 = 0,             // overall points score from 0..20
             scoreMandatoryDocs = 0,     // are the mandatory docs included?
-            scoreOptionalDocs = 0,      // can optional docs help the scoring?
-            scoreStep2 = 0;
-    
+            scoreOptionalDocs = 0;      // can optional docs help the scoring?
+            
     
     
     // define the doc types that one might encounter
@@ -158,15 +166,15 @@ public class EvaluateLicensingQuality {
         
         // do the copyright scoring
         int sumCopyright = copyrightDeclared + copyrightNotDeclared;
-        scoreCopyright = (copyrightDeclared * 10) / sumCopyright;
+        scoreCopyright = (copyrightDeclared * pointsForCopyright) / sumCopyright;
         
         // calculate the license scoring, we split 5 to concluded licenses
         // and another 5 points to declared licenses
         int sumLicensesConcluded = licensesConcluded + licensesNotConcluded;
-        scoreLicensesConcluded = (licensesConcluded * 5) / sumLicensesConcluded;
+        scoreLicensesConcluded = (licensesConcluded * pointsForLicensesConcluded) / sumLicensesConcluded;
         
         int sumLicensesDeclared = licensesDeclared + licensesNotDeclared;
-        scoreLicensesDeclared = (licensesDeclared * 5) / sumLicensesDeclared;
+        scoreLicensesDeclared = (licensesDeclared * pointsForLicensesDeclared) / sumLicensesDeclared;
         
         System.out.println("- Copyright score: " + scoreCopyright);
         System.out.println("\tDeclared: " + copyrightDeclared);
@@ -215,9 +223,21 @@ public class EvaluateLicensingQuality {
             scoreOptionalDocs = isDocumentAvailable(item, scoreOptionalDocs);
         }
         
+        // get the initial scoring from documents found on the SPDX
         int sumMandatoryDocs = docsMandatory.length;
+        /**
+         * We need to evaluate other details such as:
+         * - URL to homepage of project or package
+         * - URL to package download (zip file, tar.gz, etc)
+         * - URL to source code repository (or just N/A when not available)
+         * - description of the package
+         * - version (when available)
+         * - license concluded (or declared as applicable) about package
+         */
+
+
         // 20 points available to score in regards to mandatory docs
-        scoreStep2 = (scoreMandatoryDocs * 20) / sumMandatoryDocs;
+        scoreStep2 = (scoreMandatoryDocs * pointsForMandatoryDocs) / sumMandatoryDocs;
         
         // do the final output for this evaluation
         System.out.println("- Documentation score: " + scoreStep2);
@@ -260,6 +280,7 @@ public class EvaluateLicensingQuality {
                 continue;
             }
                 
+            // transform the file name to lower case
             final String fileName = fileInfo.getName().toLowerCase();
             
             // first test, matching file names
