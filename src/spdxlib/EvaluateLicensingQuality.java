@@ -24,19 +24,24 @@ public class EvaluateLicensingQuality {
     private SPDXfile2 spdx;
     private int 
             score = 0,
-            copyrightDeclared = 0,
-            copyrightNotDeclared = 0,
+            copyrightDeclared = 0,      // declared by author(s)
+            copyrightNotDeclared = 0,   // no declaration was found
             
-            licensesDeclared = 0,
-            licensesNotDeclared = 0,
+            licensesDeclared = 0,       // licenses applicable to authored code
+            licensesNotDeclared = 0,    // no licenses evidence was found
             
-            licensesConcluded = 0,
-            licensesNotConcluded = 0,
+            licensesConcluded = 0,      // auditor concluded a given license(s)
+            licensesNotConcluded = 0,   // no information about auditor review
             
-            score_Step1 = 0,
-            scoreCopyright = 0,
-            scoreLicensesConcluded = 0,
-            scoreLicensesDeclared = 0;
+            scoreStep1 = 0,            // overall point score from 0 to 20
+            scoreCopyright = 0,         // 0..10 points for copyright quality 
+            scoreLicensesConcluded = 0, // up to 5 points for verifying licenses
+            scoreLicensesDeclared = 0,  // up to 5 points for declaring licenses
+    
+        // documentation points
+            scoreMandatoryDocs = 0,     // are the mandatory docs included?
+            scoreOptionalDocs = 0,      // can optional docs help the scoring?
+            scoreStep2 = 0;
     
     
     
@@ -49,16 +54,16 @@ public class EvaluateLicensingQuality {
             "maintainers",              // Developers maintaining the code
             "reporting-bugs",           // How can defects be reported?
             "thirdpartylicensereadme",  // Summary and list of applicable licenses
-            "copying",                  // Copyright holders of authored code
+            "copying",                  // Copyright holders for authored code
     };
 
     private final String[] docsOptional = new String[]{
-            "patents",
-            "changelog|changes",        // optional
-            "building",                 // optional
-            "status",                   // optional
-            "development",              // optional
-            "tasks"                     // optional
+            "patents",                  // declaration of patent status on software 
+            "changelog|changes",        // log the changes across each version
+            "building",                 // explain how to build the software
+            "status",                   // current status and on going work
+            "development",              // the procedure to become a developer
+            "tasks"                     // what needs to be be done/is desired
     };
     
     
@@ -80,6 +85,9 @@ public class EvaluateLicensingQuality {
          
         // proceed to evaluate the documentation status for this document
         step2_EvaluateDocumentation();
+        
+        // do final calculation
+        stepFinal();
     }
 
     
@@ -172,9 +180,9 @@ public class EvaluateLicensingQuality {
         System.out.println("\tNot-declared " + licensesNotDeclared);
         
         // sum up all the scores from this evaluation
-        score_Step1 = scoreCopyright + scoreLicensesConcluded + scoreLicensesDeclared;
+        scoreStep1 = scoreCopyright + scoreLicensesConcluded + scoreLicensesDeclared;
         
-        System.out.println("License and Copyright score: " + score_Step1);
+        System.out.println("License and Copyright score: " + scoreStep1);
     }
 
     /**
@@ -198,7 +206,92 @@ public class EvaluateLicensingQuality {
          * - COPYING (mentioning the list of contributors)
          */
         
+        // go through each mandatory item, it is available on the source code?
+        for(final String item : docsMandatory){
+            scoreMandatoryDocs = isDocumentAvailable(item, scoreMandatoryDocs);
+        }
+        // repeat the same procedure, this time for 
+        for(final String item : docsOptional){
+            scoreOptionalDocs = isDocumentAvailable(item, scoreOptionalDocs);
+        }
         
+        int sumMandatoryDocs = docsMandatory.length;
+        // 20 points available to score in regards to mandatory docs
+        scoreStep2 = (scoreMandatoryDocs * 20) / sumMandatoryDocs;
+        
+        // do the final output for this evaluation
+        System.out.println("- Documentation score: " + scoreStep2);
+        System.out.println("\tMandatory: " + scoreMandatoryDocs);
+        System.out.println("\tOptional: " + scoreOptionalDocs);
+    }
+
+    /**
+     * Looks inside the document to find possible matches with a specific
+     * documentation item.
+     * @param item  The item that we are looking for.
+     */
+    private int isDocumentAvailable(final String item, int counter) {
+        /**
+         * A mandatory document can assume the following forms when
+         * using a "readme" as example:
+         * - README (text file)
+         * - README (folder with documentation inside)
+         * - README.txt (text file with .txt extension)
+         * - README.md (with markup data, as seen on github)
+         * - readme* (all examples above, this time in lowercase)
+         */
+        
+        // how the file should look inside the document file path structure
+        final String itemPath = "./"+item;
+        
+        // iterate all the files reported inside our SPDX document
+        for(final FileInfo2 fileInfo : spdx.getFiles()){
+            // get the file path portion in lowercase to ease comparison
+            final String filePath = fileInfo.getFilePath().toLowerCase();
+            // if there is a folder with this name, it is a good sign
+            if(utils.text.equals(filePath, itemPath)){
+                System.out.println("Found a doc match: " +fileInfo.getName());
+                counter++;
+                continue;
+            }
+            // or else just continue if we have these files on the root folder
+            if(utils.text.equals(filePath, ".") == false){
+                // no point in proceeding, we just want root files for now
+                continue;
+            }
+                
+            final String fileName = fileInfo.getName().toLowerCase();
+            
+            // first test, matching file names
+            if(utils.text.equals(fileName, item)){
+                System.out.println("Found a doc match: " +fileInfo.getName());
+                counter++;
+                continue;
+            }
+            
+            if(utils.text.equals(fileName, item + ".md")){
+                System.out.println("Found a doc match: " +fileInfo.getName());
+                counter++;
+                continue;
+            }
+             
+            if(utils.text.equals(fileName, item + ".txt")){
+                System.out.println("Found a doc match: " +fileInfo.getName());
+                counter++;
+                //continue;
+            }
+            // if we reached this point, it means less one point
+        }
+        // give back the updated number of counts
+        return counter;
+    }
+
+    /**
+     * Sums up all the scores together
+     */
+    private void stepFinal() {
+        score = scoreStep1 + scoreStep2;
+        System.out.println("- Final score: " + score);
     }
     
 }

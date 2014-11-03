@@ -14,7 +14,6 @@ package main;
 
 import definitions.is;
 import java.io.File;
-import static main.engine.warmUp;
 import script.log;
 import spdxlib.DocumentCreate2;
 import spdxlib.EvaluateLicensingQuality;
@@ -25,7 +24,7 @@ import spdxlib.EvaluateLicensingQuality;
  */
 public class cmdLine {
     
-   
+    // version with SPDX evaluation
     
         
     /**
