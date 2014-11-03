@@ -23,25 +23,20 @@ public class EvaluateLicensingQuality {
 
     private SPDXfile2 spdx;
     
-    private final int
-            maxPointsForCopyright = 10,
-            maxPointsForLicensesDeclared = 5,
-            maxPointsForLicensesConcluded = 5,
-            maxPointsForAuthorshipAttribution = 10,
-            maxPointsForMandatoryDocs = 20;
-            // max possible score: 50 
-    
     private int 
             score = 0,
-            copyrightDeclared = 0,      // declared by author(s)
-            copyrightNotDeclared = 0,   // no declaration was found
+            countCopyrightDeclared = 0,      // declared by author(s)
+            countCopyrightNotDeclared = 0,   // no declaration was found
             
-            licensesDeclared = 0,       // licenses applicable to authored code
-            licensesNotDeclared = 0,    // no licenses evidence was found
+            countLicensesDeclared = 0,       // licenses applicable to authored code
+            countLicensesNotDeclared = 0,    // no licenses evidence was found
             
-            licensesConcluded = 0,      // auditor concluded a given license(s)
-            licensesNotConcluded = 0,   // no information about auditor review
-            unknownOriginFiles = 0,     // number of files without origin identified
+            countLicensesConcluded = 0,      // auditor concluded a given license(s)
+            countLicensesNotConcluded = 0,   // no information about auditor review
+            countUnknownOriginFiles = 0,     // number of files without origin identified
+            
+            count3rdPartyAssociated = 0,     // 3rd party files with a component
+            count3rdPartyNotAssociated = 0,  // 3rd party without a component
             
             scoreStep1 = 0,             // overall point score from 0 to 20
             scoreCopyright = 0,         // 0..10 points for copyright quality 
@@ -53,13 +48,25 @@ public class EvaluateLicensingQuality {
             scoreStep2 = 0,             // overall points score from 0..20
             scoreMandatoryDocs = 0,     // are the mandatory docs included?
             scoreOptionalDocs = 0,      // can optional docs help the scoring?
+            score3rdPartyAssociated = 0;// are 3rd party files with a component?
             
-            scoreMax = 
+    private final int
+            maxPointsForCopyright = 10,
+            maxPointsForLicensesDeclared = 5,
+            maxPointsForLicensesConcluded = 5,
+            maxPointsForAuthorshipAttribution = 10,
+            maxPointsForMandatoryDocs = 20,
+            maxPointsFor3rdPartyAssociation = 10;
+            // max possible score: 50 
+    
+    // the maximum score that is possible to achieve.
+    private final int scoreMax = 
                   maxPointsForCopyright
                 + maxPointsForLicensesDeclared
                 + maxPointsForLicensesConcluded
                 + maxPointsForAuthorshipAttribution
-                + maxPointsForMandatoryDocs;
+                + maxPointsForMandatoryDocs
+                + maxPointsFor3rdPartyAssociation;
     
     // define the doc types that one might encounter
     private final String[] docsMandatory = new String[]{
@@ -102,6 +109,9 @@ public class EvaluateLicensingQuality {
         // proceed to evaluate the documentation status for this document
         step2_EvaluateDocumentation();
         
+        // evaluate the third-party libraries, are they described?
+        step3_EvaluateThirdPartyComponentDescription();
+        
         // do final calculation
         stepFinal();
     }
@@ -138,15 +148,15 @@ public class EvaluateLicensingQuality {
         // counted as a good quality practice. This is done on the SPDX, not
         // the file itself. Therefore no excuse to fail this point.
         if(fileInfo.hasLicenseConcluded()){
-            licensesConcluded++;
+            countLicensesConcluded++;
         }else{
-            licensesNotConcluded++;
+            countLicensesNotConcluded++;
         }
         
         // count the number of files unknown
         if(fileInfo.getFileOrigin() == FileOrigin.UNKNOWN){
             // ideally, we'd have zero unknown files on a perfect document
-            unknownOriginFiles++;
+            countUnknownOriginFiles++;
         }
         
     }
@@ -171,15 +181,15 @@ public class EvaluateLicensingQuality {
         
         // account for the copyright declaration
         if(fileInfo.hasCopyrightDeclared()){
-            copyrightDeclared++;
+            countCopyrightDeclared++;
         }else{
-            copyrightNotDeclared++;
+            countCopyrightNotDeclared++;
         }
         // if it is a source code, we ask for license evidence inside
         if(fileInfo.hasLicenseInfoInFile()){
-            licensesDeclared++;
+            countLicensesDeclared++;
         }else{
-            licensesNotDeclared++;
+            countLicensesNotDeclared++;
         }
     }
     
@@ -193,40 +203,21 @@ public class EvaluateLicensingQuality {
         // - 10 for defining authorship of each file
         
         // do the copyright scoring
-        final int sumCopyright = copyrightDeclared + copyrightNotDeclared;
-        scoreCopyright = (copyrightDeclared * maxPointsForCopyright) / sumCopyright;
+        final int sumCopyright = countCopyrightDeclared + countCopyrightNotDeclared;
+        scoreCopyright = (countCopyrightDeclared * maxPointsForCopyright) / sumCopyright;
         
         // up to 5 points to concluded licenses by an auditor
-        final int sumLicensesConcluded = licensesConcluded + licensesNotConcluded;
-        scoreLicensesConcluded = (licensesConcluded * maxPointsForLicensesConcluded) / sumLicensesConcluded;
+        final int sumLicensesConcluded = countLicensesConcluded + countLicensesNotConcluded;
+        scoreLicensesConcluded = (countLicensesConcluded * maxPointsForLicensesConcluded) / sumLicensesConcluded;
         
         // add another 5 points when declaring licenses 
-        final int sumLicensesDeclared = licensesDeclared + licensesNotDeclared;
-        scoreLicensesDeclared = (licensesDeclared * maxPointsForLicensesDeclared) / sumLicensesDeclared;
+        final int sumLicensesDeclared = countLicensesDeclared + countLicensesNotDeclared;
+        scoreLicensesDeclared = (countLicensesDeclared * maxPointsForLicensesDeclared) / sumLicensesDeclared;
         
         // now calculate the authorship ratio
-        final int nonUnknown = spdx.getFiles().size() - unknownOriginFiles;
+        final int nonUnknown = spdx.getFiles().size() - countUnknownOriginFiles;
         scoreAuthorship = (nonUnknown * maxPointsForAuthorshipAttribution) / spdx.getFiles().size();
         
-        
-        
-        System.out.println("- Copyright score: " + scoreCopyright);
-        System.out.println("\tDeclared: " + copyrightDeclared);
-        System.out.println("\tNon-declared: " + copyrightNotDeclared);
-        
-        System.out.println("- License score = " + scoreLicensesConcluded 
-                + " + " + scoreLicensesDeclared 
-                + " / " + (maxPointsForLicensesDeclared 
-                        + maxPointsForLicensesConcluded));
-        System.out.println("\tConcluded: " + licensesConcluded);
-        System.out.println("\tNot-concluded: " + licensesNotConcluded);
-        System.out.println("\tDeclared: " + licensesDeclared);
-        System.out.println("\tNot-declared: " + licensesNotDeclared);
-        
-        System.out.println("- Authorship score: " + scoreAuthorship 
-                + "/" + maxPointsForAuthorshipAttribution);
-        System.out.println("\tUnknown files: " + unknownOriginFiles);
-        System.out.println("\tTotal files: " + spdx.getFiles().size());
         
         // sum up all the scores from this evaluation
         scoreStep1 = scoreCopyright 
@@ -282,11 +273,7 @@ public class EvaluateLicensingQuality {
 
         // 20 points available to score in regards to mandatory docs
         scoreStep2 = (scoreMandatoryDocs * maxPointsForMandatoryDocs) / sumMandatoryDocs;
-        
-        // do the final output for this evaluation
-        System.out.println("- Documentation score: " + scoreStep2);
-        System.out.println("\tMandatory: " + scoreMandatoryDocs);
-        System.out.println("\tOptional: " + scoreOptionalDocs);
+       
     }
 
     /**
@@ -355,8 +342,83 @@ public class EvaluateLicensingQuality {
      * Sums up all the scores together
      */
     private void stepFinal() {
-        score = scoreStep1 + scoreStep2;
+        
+        // output the results to the end-user screen
+        System.out.println("- Copyright score: " + scoreCopyright);
+        System.out.println("\tDeclared: " + countCopyrightDeclared);
+        System.out.println("\tNon-declared: " + countCopyrightNotDeclared);
+        
+        System.out.println("- License score = " + scoreLicensesConcluded 
+                + " + " + scoreLicensesDeclared 
+                + " / " + (maxPointsForLicensesDeclared 
+                        + maxPointsForLicensesConcluded));
+        System.out.println("\tConcluded: " + countLicensesConcluded);
+        System.out.println("\tNot-concluded: " + countLicensesNotConcluded);
+        System.out.println("\tDeclared: " + countLicensesDeclared);
+        System.out.println("\tNot-declared: " + countLicensesNotDeclared);
+        
+        System.out.println("- Authorship score: " + scoreAuthorship 
+                + "/" + maxPointsForAuthorshipAttribution);
+        System.out.println("\tUnknown files: " + countUnknownOriginFiles);
+        System.out.println("\tTotal files: " + spdx.getFiles().size());
+         
+        // output the third-party association status
+        System.out.println("- 3rd Party association score: " + score3rdPartyAssociated 
+                + "/" + maxPointsFor3rdPartyAssociation);
+        
+        // do the final output for this evaluation
+        System.out.println("- Documentation score: " + scoreStep2);
+        System.out.println("\tMandatory: " + scoreMandatoryDocs);
+        System.out.println("\tOptional: " + scoreOptionalDocs);
+        
+        
+        
+        score = scoreStep1 + scoreStep2 + score3rdPartyAssociated;
         System.out.println("- Final score: " + score + "/" + scoreMax);
+    }
+
+    /**
+     * How well are the non-authored files described in our document?
+     */
+    private void step3_EvaluateThirdPartyComponentDescription() {
+        /**
+         * This step only gets scored after the developer/maintainer has
+         * identified which files on the code are authored, and which files
+         * belong to third-party authors. With this information we can now
+         * identify which files were already associated to a component, and
+         * which files haven't.
+         */
+        
+        // iterate our list of files inside the document
+        for(final FileInfo2 fileInfo : spdx.getFiles()){
+            // we can only look on files that were marked as:
+            // - External (belonging to a third party)
+            // - Modified (belongs to a third-party, was modified by our side)
+            if(fileInfo.getFileOrigin() != FileOrigin.EXTERNAL 
+                    && fileInfo.getFileOrigin() != FileOrigin.MODIFIED){
+                // no point in proceeding further, jump to the next file
+                continue;
+            }
+            
+            // is this file already associated to a component of some kind?
+            if(fileInfo.getFileComponent()==null || fileInfo.getFileComponent().isEmpty()){
+                // not associated, mark this negatively
+                count3rdPartyNotAssociated++;
+                System.out.println("3rd party non-Assoc: " + fileInfo.getName());
+            }else{
+                // a good file, score positive points
+                count3rdPartyAssociated++;
+                System.out.println("3rd party assoc: " + fileInfo.getName());
+            }
+        }
+        
+        // do the math related to 3rd party reporting
+        final int sum3rdPartyAssociations = count3rdPartyAssociated
+                + count3rdPartyNotAssociated;
+        // calculate the scoring
+        score3rdPartyAssociated = (count3rdPartyAssociated 
+                * maxPointsFor3rdPartyAssociation)
+                / sum3rdPartyAssociations;
     }
     
 }
