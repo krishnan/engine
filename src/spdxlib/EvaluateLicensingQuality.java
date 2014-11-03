@@ -48,7 +48,8 @@ public class EvaluateLicensingQuality {
             scoreStep2 = 0,             // overall points score from 0..20
             scoreMandatoryDocs = 0,     // are the mandatory docs included?
             scoreOptionalDocs = 0,      // can optional docs help the scoring?
-            score3rdPartyAssociated = 0;// are 3rd party files with a component?
+            score3rdPartyAssociated = 0,// are 3rd party files with a component?
+            scoreOriginalityTest = 0;   // was the code verified as original?
             
     private final int
             maxPointsForCopyright = 10,
@@ -56,8 +57,9 @@ public class EvaluateLicensingQuality {
             maxPointsForLicensesConcluded = 5,
             maxPointsForAuthorshipAttribution = 10,
             maxPointsForMandatoryDocs = 20,
-            maxPointsFor3rdPartyAssociation = 10;
-            // max possible score: 50 
+            maxPointsFor3rdPartyAssociation = 10,
+            maxPointsForOriginalityTest = 20;
+            // max possible score: 80 
     
     // the maximum score that is possible to achieve.
     private final int scoreMax = 
@@ -66,7 +68,8 @@ public class EvaluateLicensingQuality {
                 + maxPointsForLicensesConcluded
                 + maxPointsForAuthorshipAttribution
                 + maxPointsForMandatoryDocs
-                + maxPointsFor3rdPartyAssociation;
+                + maxPointsFor3rdPartyAssociation
+                + maxPointsForOriginalityTest;
     
     // define the doc types that one might encounter
     private final String[] docsMandatory = new String[]{
@@ -111,6 +114,9 @@ public class EvaluateLicensingQuality {
         
         // evaluate the third-party libraries, are they described?
         step3_EvaluateThirdPartyComponentDescription();
+        
+        // is the code verified as original or non-original?
+        step4_EvaluateCodeOriginality();
         
         // do final calculation
         stepFinal();
@@ -158,7 +164,6 @@ public class EvaluateLicensingQuality {
             // ideally, we'd have zero unknown files on a perfect document
             countUnknownOriginFiles++;
         }
-        
     }
 
     /**
@@ -176,8 +181,6 @@ public class EvaluateLicensingQuality {
             // nothing else to do here
             return;
         }
-        
-        
         
         // account for the copyright declaration
         if(fileInfo.hasCopyrightDeclared()){
@@ -269,7 +272,6 @@ public class EvaluateLicensingQuality {
          * - version (when available)
          * - license concluded (or declared as applicable) about package
          */
-
 
         // 20 points available to score in regards to mandatory docs
         scoreStep2 = (scoreMandatoryDocs * maxPointsForMandatoryDocs) / sumMandatoryDocs;
@@ -371,6 +373,8 @@ public class EvaluateLicensingQuality {
         System.out.println("\tMandatory: " + scoreMandatoryDocs);
         System.out.println("\tOptional: " + scoreOptionalDocs);
         
+        System.out.println("- Originality score: " + scoreOriginalityTest 
+                + "/" + maxPointsForOriginalityTest);
         
         
         score = scoreStep1 + scoreStep2 + score3rdPartyAssociated;
@@ -419,6 +423,14 @@ public class EvaluateLicensingQuality {
         score3rdPartyAssociated = (count3rdPartyAssociated 
                 * maxPointsFor3rdPartyAssociation)
                 / sum3rdPartyAssociations;
+    }
+
+    /**
+     * Verify if the source code was scanned against a similarity
+     * knowledge base to prove its originality (or not).
+     */
+    private void step4_EvaluateCodeOriginality() {
+       scoreOriginalityTest = 0; 
     }
     
 }
