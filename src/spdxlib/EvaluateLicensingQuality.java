@@ -24,11 +24,12 @@ public class EvaluateLicensingQuality {
     private SPDXfile2 spdx;
     
     private final int
-            pointsForCopyright = 10,
-            pointsForLicensesDeclared = 5,
-            pointsForLicensesConcluded = 5,
-            pointsForMandatoryDocs = 20;
-    
+            maxPointsForCopyright = 10,
+            maxPointsForLicensesDeclared = 5,
+            maxPointsForLicensesConcluded = 5,
+            maxPointsForAuthorshipAttribution = 10,
+            maxPointsForMandatoryDocs = 20;
+            // max possible score: 50 
     
     private int 
             score = 0,
@@ -40,18 +41,25 @@ public class EvaluateLicensingQuality {
             
             licensesConcluded = 0,      // auditor concluded a given license(s)
             licensesNotConcluded = 0,   // no information about auditor review
+            unknownOriginFiles = 0,     // number of files without origin identified
             
             scoreStep1 = 0,             // overall point score from 0 to 20
             scoreCopyright = 0,         // 0..10 points for copyright quality 
             scoreLicensesConcluded = 0, // up to 5 points for verifying licenses
             scoreLicensesDeclared = 0,  // up to 5 points for declaring licenses
+            scoreAuthorship = 0,        // how many files were assigned an origin?
     
         // documentation points
             scoreStep2 = 0,             // overall points score from 0..20
             scoreMandatoryDocs = 0,     // are the mandatory docs included?
-            scoreOptionalDocs = 0;      // can optional docs help the scoring?
+            scoreOptionalDocs = 0,      // can optional docs help the scoring?
             
-    
+            scoreMax = 
+                  maxPointsForCopyright
+                + maxPointsForLicensesDeclared
+                + maxPointsForLicensesConcluded
+                + maxPointsForAuthorshipAttribution
+                + maxPointsForMandatoryDocs;
     
     // define the doc types that one might encounter
     private final String[] docsMandatory = new String[]{
@@ -135,6 +143,11 @@ public class EvaluateLicensingQuality {
             licensesNotConcluded++;
         }
         
+        // count the number of files unknown
+        if(fileInfo.getFileOrigin() == FileOrigin.UNKNOWN){
+            // ideally, we'd have zero unknown files on a perfect document
+            unknownOriginFiles++;
+        }
         
     }
 
@@ -174,33 +187,52 @@ public class EvaluateLicensingQuality {
      * Proceed withe the calculations for copyright and license assignment
      */
     private void step1_CopyrightAndLicenseQuality() {
-        // 20 points available, we split 10 for copyright and 10 for licenses
+        // 30 points available, we split these points as:
+        // - 10 for copyright in authored code
+        // - 10 for licenses in authored code
+        // - 10 for defining authorship of each file
         
         // do the copyright scoring
         final int sumCopyright = copyrightDeclared + copyrightNotDeclared;
-        scoreCopyright = (copyrightDeclared * pointsForCopyright) / sumCopyright;
+        scoreCopyright = (copyrightDeclared * maxPointsForCopyright) / sumCopyright;
         
-        // calculate the license scoring, we split 5 to concluded licenses
-        // and another 5 points to declared licenses
+        // up to 5 points to concluded licenses by an auditor
         final int sumLicensesConcluded = licensesConcluded + licensesNotConcluded;
-        scoreLicensesConcluded = (licensesConcluded * pointsForLicensesConcluded) / sumLicensesConcluded;
+        scoreLicensesConcluded = (licensesConcluded * maxPointsForLicensesConcluded) / sumLicensesConcluded;
         
+        // add another 5 points when declaring licenses 
         final int sumLicensesDeclared = licensesDeclared + licensesNotDeclared;
-        scoreLicensesDeclared = (licensesDeclared * pointsForLicensesDeclared) / sumLicensesDeclared;
+        scoreLicensesDeclared = (licensesDeclared * maxPointsForLicensesDeclared) / sumLicensesDeclared;
+        
+        // now calculate the authorship ratio
+        final int nonUnknown = spdx.getFiles().size() - unknownOriginFiles;
+        scoreAuthorship = (nonUnknown * maxPointsForAuthorshipAttribution) / spdx.getFiles().size();
+        
+        
         
         System.out.println("- Copyright score: " + scoreCopyright);
         System.out.println("\tDeclared: " + copyrightDeclared);
         System.out.println("\tNon-declared: " + copyrightNotDeclared);
         
         System.out.println("- License score = " + scoreLicensesConcluded 
-                + " + " + scoreLicensesDeclared);
-        System.out.println("\tConcluded " + licensesConcluded);
-        System.out.println("\tNot-concluded " + licensesNotConcluded);
-        System.out.println("\tDeclared " + licensesDeclared);
-        System.out.println("\tNot-declared " + licensesNotDeclared);
+                + " + " + scoreLicensesDeclared 
+                + " / " + (maxPointsForLicensesDeclared 
+                        + maxPointsForLicensesConcluded));
+        System.out.println("\tConcluded: " + licensesConcluded);
+        System.out.println("\tNot-concluded: " + licensesNotConcluded);
+        System.out.println("\tDeclared: " + licensesDeclared);
+        System.out.println("\tNot-declared: " + licensesNotDeclared);
+        
+        System.out.println("- Authorship score: " + scoreAuthorship 
+                + "/" + maxPointsForAuthorshipAttribution);
+        System.out.println("\tUnknown files: " + unknownOriginFiles);
+        System.out.println("\tTotal files: " + spdx.getFiles().size());
         
         // sum up all the scores from this evaluation
-        scoreStep1 = scoreCopyright + scoreLicensesConcluded + scoreLicensesDeclared;
+        scoreStep1 = scoreCopyright 
+                + scoreLicensesConcluded 
+                + scoreLicensesDeclared
+                + scoreAuthorship;
         
         System.out.println("License and Copyright score: " + scoreStep1);
     }
@@ -249,7 +281,7 @@ public class EvaluateLicensingQuality {
 
 
         // 20 points available to score in regards to mandatory docs
-        scoreStep2 = (scoreMandatoryDocs * pointsForMandatoryDocs) / sumMandatoryDocs;
+        scoreStep2 = (scoreMandatoryDocs * maxPointsForMandatoryDocs) / sumMandatoryDocs;
         
         // do the final output for this evaluation
         System.out.println("- Documentation score: " + scoreStep2);
@@ -324,7 +356,7 @@ public class EvaluateLicensingQuality {
      */
     private void stepFinal() {
         score = scoreStep1 + scoreStep2;
-        System.out.println("- Final score: " + score);
+        System.out.println("- Final score: " + score + "/" + scoreMax);
     }
     
 }
