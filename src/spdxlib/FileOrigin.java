@@ -22,7 +22,7 @@ public enum FileOrigin {
     AUTHORED,   // resource as developed by ourselves
     EXTERNAL,   // resource was made externally by a third-party provider
     AUTOMATED,  // resource is generated automatically, no changes by author
-    AUTOMIXED,      // resource generated automatically and then modified by author
+    AUTOMIXED,  // resource generated automatically and then modified by author
     MODIFIED,   // resource developed by a third-party and modified by author
     UNKNOWN;    // resource within unknown origin
     

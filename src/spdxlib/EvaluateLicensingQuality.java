@@ -144,6 +144,18 @@ public class EvaluateLicensingQuality {
      * @param fileInfo The file being processed
      */
     private void processSourceCodeFileCopyrightAndLicenseEvidence(final FileInfo2 fileInfo){
+        // at this point we only care about original or modified files
+        // anything else at this point doesn't count for our scoring
+        if(
+            (fileInfo.getFileOrigin()!= FileOrigin.AUTHORED )
+         && (fileInfo.getFileOrigin()!= FileOrigin.MODIFIED )
+                ){
+            // nothing else to do here
+            return;
+        }
+        
+        
+        
         // account for the copyright declaration
         if(fileInfo.hasCopyrightDeclared()){
             copyrightDeclared++;
@@ -165,15 +177,15 @@ public class EvaluateLicensingQuality {
         // 20 points available, we split 10 for copyright and 10 for licenses
         
         // do the copyright scoring
-        int sumCopyright = copyrightDeclared + copyrightNotDeclared;
+        final int sumCopyright = copyrightDeclared + copyrightNotDeclared;
         scoreCopyright = (copyrightDeclared * pointsForCopyright) / sumCopyright;
         
         // calculate the license scoring, we split 5 to concluded licenses
         // and another 5 points to declared licenses
-        int sumLicensesConcluded = licensesConcluded + licensesNotConcluded;
+        final int sumLicensesConcluded = licensesConcluded + licensesNotConcluded;
         scoreLicensesConcluded = (licensesConcluded * pointsForLicensesConcluded) / sumLicensesConcluded;
         
-        int sumLicensesDeclared = licensesDeclared + licensesNotDeclared;
+        final int sumLicensesDeclared = licensesDeclared + licensesNotDeclared;
         scoreLicensesDeclared = (licensesDeclared * pointsForLicensesDeclared) / sumLicensesDeclared;
         
         System.out.println("- Copyright score: " + scoreCopyright);
