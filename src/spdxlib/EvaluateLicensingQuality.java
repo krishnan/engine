@@ -328,9 +328,9 @@ public class EvaluateLicensingQuality {
     }
 
     /**
-     * Sums up all the scores together
+     * Sum up all the scores together
      */
-    private void stepFinal() {
+    private String stepFinal() {
         // sum up the scores for this analysis
         score =   scoreAuthorship
                 + scoreCopyright
@@ -339,40 +339,45 @@ public class EvaluateLicensingQuality {
                 + scoreMandatoryDocs 
                 + score3rdPartyAssociated;
 
-        // output the results to the end-user screen
-        System.out.println("\n- Copyright score: " + scoreCopyright 
-                + "/" + maxPointsForCopyright);
-        System.out.println("\t- Declared: " + countCopyrightDeclared);
-        System.out.println("\t- Non-declared: " + countCopyrightNotDeclared);
+        String result = 
+            // output the results to the end-user screen
+            "\n- Copyright score: " + scoreCopyright 
+            + "/" + maxPointsForCopyright
+            +"\n\t- Declared: " + countCopyrightDeclared
+            +"\n\t- Non-declared: " + countCopyrightNotDeclared
+
+            + "\n\n- License score = " 
+            + (scoreLicensesConcluded + scoreLicensesDeclared) 
+            + "/" + (maxPointsForLicensesDeclared 
+                    + maxPointsForLicensesConcluded)
+            + "\n\t- Concluded: " + countLicensesConcluded
+            + "\n\t- Not-concluded: " + countLicensesNotConcluded
+            + "\n\t- Declared: " + countLicensesDeclared
+            + "\t- Not-declared: " + countLicensesNotDeclared
         
-        System.out.println("\n- License score = " 
-                + (scoreLicensesConcluded + scoreLicensesDeclared) 
-                + "/" + (maxPointsForLicensesDeclared 
-                        + maxPointsForLicensesConcluded));
-        System.out.println("\t- Concluded: " + countLicensesConcluded);
-        System.out.println("\t- Not-concluded: " + countLicensesNotConcluded);
-        System.out.println("\t- Declared: " + countLicensesDeclared);
-        System.out.println("\t- Not-declared: " + countLicensesNotDeclared);
-        
-        System.out.println("\n- Authorship score: " + scoreAuthorship 
-                + "/" + maxPointsForAuthorshipAttribution);
-        System.out.println("\t- Unknown files: " + countUnknownOriginFiles);
-        System.out.println("\t- Total files: " + spdx.getFiles().size());
+            + "\n\n- Authorship score: " + scoreAuthorship 
+                + "/" + maxPointsForAuthorshipAttribution
+            + "\n\t- Unknown files: " + countUnknownOriginFiles
+            + "\n\t- Total files: " + spdx.getFiles().size()
          
         // output the third-party association status
-        System.out.println("\n- 3rd Party association score: " + score3rdPartyAssociated 
-                + "/" + maxPointsFor3rdPartyAssociation);
+            + "\n\n- 3rd Party association score: " + score3rdPartyAssociated 
+                + "/" + maxPointsFor3rdPartyAssociation
         
         // do the final output for this evaluation
-        System.out.println("\n- Documentation score: " + scoreMandatoryDocs 
-                + "/" + maxPointsForMandatoryDocs);
-        System.out.println("\t- Mandatory: " + countMandatoryDocs);
-        System.out.println("\t- Optional: " + countOptionalDocs);
+            + "\n\n- Documentation score: " + scoreMandatoryDocs 
+                + "/" + maxPointsForMandatoryDocs
+            + "\n\t- Mandatory: " + countMandatoryDocs
+            + "\n\t- Optional: " + countOptionalDocs
         
-        System.out.println("\n- Originality score: " + scoreOriginalityTest 
-                + "/" + maxPointsForOriginalityTest);
+            + "\n\n- Originality score: " + scoreOriginalityTest 
+            + "/" + maxPointsForOriginalityTest
         
-        System.out.println("\n- Final score: " + score + "/" + scoreMax);
+            + "\n\n- Final score: " + score + "/" + scoreMax
+                ;
+        // output to screen the result
+        System.out.println(result);
+        return result;
     }
 
     /**
