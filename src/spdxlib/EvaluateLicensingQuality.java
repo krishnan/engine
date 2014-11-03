@@ -36,8 +36,31 @@ public class EvaluateLicensingQuality {
             score_Step1 = 0,
             scoreCopyright = 0,
             scoreLicensesConcluded = 0,
-            scoreLicensesDeclared = 0,
-            scoreLicenses = 0;
+            scoreLicensesDeclared = 0;
+    
+    
+    
+    // define the doc types that one might encounter
+    private final String[] docsMandatory = new String[]{
+            "readme",                   // Introduction to the project
+            "license",                  // declared license for authored code
+            "contributing",             // How to contribute code improvements
+            "credits",                  // Whom influenced this project
+            "maintainers",              // Developers maintaining the code
+            "reporting-bugs",           // How can defects be reported?
+            "thirdpartylicensereadme",  // Summary and list of applicable licenses
+            "copying",                  // Copyright holders of authored code
+    };
+
+    private final String[] docsOptional = new String[]{
+            "patents",
+            "changelog|changes",        // optional
+            "building",                 // optional
+            "status",                   // optional
+            "development",              // optional
+            "tasks"                     // optional
+    };
+    
     
     /**
      * First step to evaluate the licensing quality of an SPDX document.
@@ -158,6 +181,24 @@ public class EvaluateLicensingQuality {
      * Check how well documented is this project.
      */
     private void step2_EvaluateDocumentation() {
+        /**
+         * There are things we like about documentation that should be simple:
+         * - a README or README.md text file on the root of the project
+         * - an INSTALL or some indication where this kind of file can be found
+         * - a README folder where misc documents can be found
+         * 
+         * Either one of the options will count as "checked".
+         * 
+         * The second part are the auxiliary documents to express the licensing
+         * side of the software. These would be:
+         * - CONTRIBUTING (explaining how to contribute)
+         * - LICENSE (the applicable or declared license terms for the authored software)
+         * - PATENTS (award a patent grant when applicable, optional)
+         * - CHANGELOG (to describe the changes across each relevant release, optional)
+         * - COPYING (mentioning the list of contributors)
+         */
+        
+        
     }
     
 }

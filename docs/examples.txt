@@ -1,0 +1,30 @@
+Repositories useful as example:
+
+https://github.com/facebook/osquery/blob/master/CONTRIBUTING.md
+https://github.com/facebook/osquery/blob/master/PATENTS
+https://github.com/Instagram/instagram-ruby-gem/blob/master/PATENTS.md
+https://github.com/sosedoff/pgweb/blob/master/CHANGELOG.md
+https://github.com/SFTtech/openage/blob/master/copying.md
+https://github.com/SFTtech/openage/blob/master/building.md
+https://github.com/SFTtech/openage/blob/master/milestones.md
+https://github.com/SFTtech/openage/blob/master/status.md
+https://github.com/SFTtech/openage/blob/master/README.md
+https://github.com/SFTtech/openage/blob/master/development.md
+https://github.com/SFTtech/openage/blob/master/status.md
+https://github.com/SFTtech/openage/blob/master/tasks.md
+
+Nice changes document:
+https://github.com/samizdatco/arbor/blob/master/CHANGES
+
+Others:
+https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/SUMMARY.md
+
+https://github.com/torvalds/linux/blob/master/CREDITS
+https://github.com/torvalds/linux/blob/master/MAINTAINERS
+https://github.com/torvalds/linux/blob/master/REPORTING-BUGS
+
+Notes:
+- Filenames can be found in both upper or lower case. Optionally with the .md markup extension, or no extension at all.
+- These filenames can adopt the .txt extension
+- Or be found inside the docs folder as seen on:
+https://github.com/ReturnInfinity/BareMetal-OS/tree/master/docs
