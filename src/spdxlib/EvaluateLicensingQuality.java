@@ -331,8 +331,14 @@ public class EvaluateLicensingQuality {
      * Sums up all the scores together
      */
     private void stepFinal() {
-                
-        
+        // sum up the scores for this analysis
+        score =   scoreAuthorship
+                + scoreCopyright
+                + scoreLicensesConcluded
+                + scoreLicensesDeclared
+                + scoreMandatoryDocs 
+                + score3rdPartyAssociated;
+
         // output the results to the end-user screen
         System.out.println("\n- Copyright score: " + scoreCopyright 
                 + "/" + maxPointsForCopyright);
@@ -365,14 +371,6 @@ public class EvaluateLicensingQuality {
         
         System.out.println("\n- Originality score: " + scoreOriginalityTest 
                 + "/" + maxPointsForOriginalityTest);
-        
-        // sum up the scores for this analysis
-        score =   scoreAuthorship
-                + scoreCopyright
-                + scoreLicensesConcluded
-                + scoreLicensesDeclared
-                + scoreMandatoryDocs 
-                + score3rdPartyAssociated;
         
         System.out.println("\n- Final score: " + score + "/" + scoreMax);
     }
@@ -426,5 +424,71 @@ public class EvaluateLicensingQuality {
     private void step4_EvaluateCodeOriginality() {
        scoreOriginalityTest = 0; 
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getScoreCopyright() {
+        return scoreCopyright;
+    }
+
+    public int getScoreLicensesConcluded() {
+        return scoreLicensesConcluded;
+    }
+
+    public int getScoreLicensesDeclared() {
+        return scoreLicensesDeclared;
+    }
+
+    public int getScoreAuthorship() {
+        return scoreAuthorship;
+    }
+
+    public int getScoreMandatoryDocs() {
+        return scoreMandatoryDocs;
+    }
+
+    public int getScore3rdPartyAssociated() {
+        return score3rdPartyAssociated;
+    }
+
+    public int getScoreOriginalityTest() {
+        return scoreOriginalityTest;
+    }
+
+    public int getMaxPointsForCopyright() {
+        return maxPointsForCopyright;
+    }
+
+    public int getMaxPointsForLicensesDeclared() {
+        return maxPointsForLicensesDeclared;
+    }
+
+    public int getMaxPointsForLicensesConcluded() {
+        return maxPointsForLicensesConcluded;
+    }
+
+    public int getMaxPointsForAuthorshipAttribution() {
+        return maxPointsForAuthorshipAttribution;
+    }
+
+    public int getMaxPointsForMandatoryDocs() {
+        return maxPointsForMandatoryDocs;
+    }
+
+    public int getMaxPointsFor3rdPartyAssociation() {
+        return maxPointsFor3rdPartyAssociation;
+    }
+
+    public int getMaxPointsForOriginalityTest() {
+        return maxPointsForOriginalityTest;
+    }
+
+    public int getScoreMax() {
+        return scoreMax;
+    }
+   
+    
     
 }
