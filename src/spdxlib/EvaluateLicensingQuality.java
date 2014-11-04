@@ -173,9 +173,11 @@ public class EvaluateLicensingQuality {
     private void processSourceCodeFileCopyrightAndLicenseEvidence(final FileInfo2 fileInfo){
         // at this point we only care about original or modified files
         // anything else at this point doesn't count for our scoring
+        // exceptionally, we can count unknown (not yet processed files)
         if(
             (fileInfo.getFileOrigin()!= FileOrigin.AUTHORED )
          && (fileInfo.getFileOrigin()!= FileOrigin.MODIFIED )
+         && (fileInfo.getFileOrigin()!= FileOrigin.UNKNOWN )
                 ){
             // nothing else to do here
             return;
