@@ -118,7 +118,7 @@ public class EvaluateLicensingQuality {
         step4_EvaluateCodeOriginality();
         
         // do final calculation
-        stepFinal();
+        getResult();
     }
 
     
@@ -206,19 +206,34 @@ public class EvaluateLicensingQuality {
         
         // do the copyright scoring
         final int sumCopyright = countCopyrightDeclared + countCopyrightNotDeclared;
-        scoreCopyright = (countCopyrightDeclared * maxPointsForCopyright) / sumCopyright;
+        if(sumCopyright == 0){
+            scoreCopyright = 0;
+        }else
+            scoreCopyright = (countCopyrightDeclared * maxPointsForCopyright) / sumCopyright;
         
         // up to 5 points to concluded licenses by an auditor
         final int sumLicensesConcluded = countLicensesConcluded + countLicensesNotConcluded;
-        scoreLicensesConcluded = (countLicensesConcluded * maxPointsForLicensesConcluded) / sumLicensesConcluded;
+        if(sumLicensesConcluded == 0){
+            scoreLicensesConcluded = 0;
+        }else
+            scoreLicensesConcluded = (countLicensesConcluded 
+                    * maxPointsForLicensesConcluded) / sumLicensesConcluded;
         
         // add another 5 points when declaring licenses 
         final int sumLicensesDeclared = countLicensesDeclared + countLicensesNotDeclared;
-        scoreLicensesDeclared = (countLicensesDeclared * maxPointsForLicensesDeclared) / sumLicensesDeclared;
+        if(sumLicensesDeclared == 0){
+            scoreLicensesDeclared = 0;
+        }else
+            scoreLicensesDeclared = (countLicensesDeclared 
+                    * maxPointsForLicensesDeclared) / sumLicensesDeclared;
         
         // now calculate the authorship ratio
         final int nonUnknown = spdx.getFiles().size() - countUnknownOriginFiles;
-        scoreAuthorship = (nonUnknown * maxPointsForAuthorshipAttribution) / spdx.getFiles().size();
+        if(nonUnknown == 0){
+            scoreAuthorship = 0;
+        }else
+            scoreAuthorship = (nonUnknown * maxPointsForAuthorshipAttribution) 
+                    / spdx.getFiles().size();
     }
 
     /**
@@ -263,8 +278,11 @@ public class EvaluateLicensingQuality {
          * - license concluded (or declared as applicable) about package
          */
 
-        // 20 points available to score in regards to mandatory docs
-        scoreMandatoryDocs = (countMandatoryDocs * maxPointsForMandatoryDocs) 
+        if(sumMandatoryDocs == 0){
+            scoreMandatoryDocs = 0;
+        }else
+            // 20 points available to score in regards to mandatory docs
+            scoreMandatoryDocs = (countMandatoryDocs * maxPointsForMandatoryDocs) 
                 / sumMandatoryDocs;
        
     }
@@ -329,8 +347,9 @@ public class EvaluateLicensingQuality {
 
     /**
      * Sum up all the scores together
+     * @return A console text with a summary of the calculated score
      */
-    private String stepFinal() {
+    public String getResult() {
         // sum up the scores for this analysis
         score =   scoreAuthorship
                 + scoreCopyright
@@ -416,6 +435,10 @@ public class EvaluateLicensingQuality {
         // do the math related to 3rd party reporting
         final int sum3rdPartyAssociations = count3rdPartyAssociated
                 + count3rdPartyNotAssociated;
+       
+        if(sum3rdPartyAssociations == 0){
+            score3rdPartyAssociated = 0;
+        }else
         // calculate the scoring
         score3rdPartyAssociated = (count3rdPartyAssociated 
                 * maxPointsFor3rdPartyAssociation)

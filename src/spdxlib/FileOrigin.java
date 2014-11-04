@@ -19,7 +19,7 @@ package spdxlib;
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
 public enum FileOrigin {
-    AUTHORED,   // resource as developed by ourselves
+    AUTHORED,   // resource was developed by ourselves
     EXTERNAL,   // resource was made externally by a third-party provider
     AUTOMATED,  // resource is generated automatically, no changes by author
     AUTOMIXED,  // resource generated automatically and then modified by author
