@@ -304,39 +304,44 @@ public class EvaluateLicensingQuality {
          */
         
         // how the file should look inside the document file path structure
-        final String itemPath = "./"+item;
+        final String itemPath = "/"+item;
         
         // iterate all the files reported inside our SPDX document
         for(final FileInfo2 fileInfo : spdx.getFiles()){
             // get the file path portion in lowercase to ease comparison
             final String filePath = fileInfo.getFilePath().toLowerCase();
             // if there is a folder with this name, it is a good sign
-            if(utils.text.equals(filePath, itemPath)){
+            if(filePath.endsWith(itemPath)){
                 //System.out.println("Found a doc match: " +fileInfo.getName());
                 counter++;
                 continue;
             }
             // or else just continue if we have these files on the root folder
-            if(utils.text.equals(filePath, ".") == false){
+            //System.out.println(filePath);
+            if(
+                 (utils.text.equals(filePath, ".") == false)
+              && 
+                 (utils.text.countMatches("/", filePath) != 1 )      
+                    ){
                 // no point in proceeding, we just want root files for now
                 continue;
             }
-                
+            
             // transform the file name to lower case
             final String fileName = fileInfo.getName().toLowerCase();
             
             // first test, matching file names
-            if(utils.text.equals(fileName, item)){
+            if(fileName.endsWith(item)){
                 counter++;
                 continue;
             }
             
-            if(utils.text.equals(fileName, item + ".md")){
+            if(fileName.endsWith(item + ".md")){
                 counter++;
                 continue;
             }
              
-            if(utils.text.equals(fileName, item + ".txt")){
+            if(fileName.endsWith(item + ".txt")){
                 counter++;
             }
             // if we reached this point, it means less one point
