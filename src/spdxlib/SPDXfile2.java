@@ -44,13 +44,13 @@ import utils.www.html;
 public class SPDXfile2 implements Serializable{
  
     // how many files have we indexed?
-    int fileCounter = 0;
+    private int fileCounter = 0;
     
     // what is the information within?
     private ArrayList<FileInfo2> files = new ArrayList();
     
     public SummaryControl summary = new SummaryControl(this);
-
+    
     // which file was used for reading this document?
     public File file;
     
@@ -88,7 +88,7 @@ public class SPDXfile2 implements Serializable{
     
     
     // default constructor, we need a file to proceed
-    public SPDXfile2(File canonicalFile) {
+    public SPDXfile2(final File canonicalFile) {
         this.file = canonicalFile;
         readSPDXfile(file);
     }
