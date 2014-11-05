@@ -14,6 +14,7 @@ package main;
 
 import definitions.is;
 import java.io.File;
+import static main.engine.warmUp;
 import script.log;
 import spdxlib.DocumentCreate2;
 import spdxlib.EvaluateLicensingQuality;
@@ -51,6 +52,7 @@ public class cmdLine {
             return true;
         }
         
+        warmUp();
         
         // get the first argument
         final String cmdAction = args[0].toLowerCase();

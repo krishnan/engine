@@ -67,8 +67,9 @@ public final class ExtensionControl {
         
              
         final File folder = engine.getExtensionsFolder();
-        //log.write(is.INFO, "Adding extensions from %1", folder.getAbsolutePath());
         ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
+        log.write(is.INFO, "Adding extensions from %1", folder.getAbsolutePath());
+        log.write(is.INFO, "Extensions to process: %1", files.size() + "");
         for(File file : files){   
             // ignore the extensions inside the "unknown" folder
             if(file.getParentFile().getName().contains("unknown")){
@@ -83,9 +84,9 @@ public final class ExtensionControl {
             // get the extension interpreted
             FileExtension temp = null;
             try{
-                Object obj = utils.bytecode.getObject(file);
+                final Object obj = utils.bytecode.getObject(file);
                 temp = (FileExtension) obj;
-            } catch(RuntimeException e){
+            } catch(Exception e){
                 log.write(is.ERROR, "EC88 - Failed to load extension: %1", 
                         file.getAbsolutePath());
             }

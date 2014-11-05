@@ -54,8 +54,8 @@ public class EvaluateLicensingQuality {
             maxPointsForCopyright = 20,
             maxPointsForLicensesDeclared = 15,
             maxPointsForLicensesConcluded = 15,
-            maxPointsForAuthorshipAttribution = 20,
-            maxPointsForMandatoryDocs = 20,
+            maxPointsForAuthorshipAttribution = 10,
+            maxPointsForMandatoryDocs = 30,
             maxPointsFor3rdPartyAssociation = 10,
             maxPointsForOriginalityTest = 00;       // later to be plugged
             // max possible score: 60 
@@ -74,15 +74,15 @@ public class EvaluateLicensingQuality {
     private final String[] docsMandatory = new String[]{
             "readme",                   // Introduction to the project
             "license",                  // declared license for authored code
-            "contributing",             // How to contribute code improvements
-            "credits",                  // Whom influenced this project
-            "maintainers",              // Developers maintaining the code
-            "reporting-bugs",           // How can defects be reported?
-            "thirdpartylicensereadme",  // Summary and list of applicable licenses
             "copying",                  // Copyright holders for authored code
     };
 
     private final String[] docsOptional = new String[]{
+            "contributing",             // How to contribute code improvements
+            "credits",                  // Whom influenced this project
+            "maintainers",              // Developers maintaining the code
+            "thirdpartylicensereadme",  // Summary and list of applicable licenses
+            "reporting-bugs",           // How can defects be reported?
             "patents",                  // declaration of patent status on software 
             "changelog|changes",        // log the changes across each version
             "building",                 // explain how to build the software
@@ -118,7 +118,7 @@ public class EvaluateLicensingQuality {
         step4_EvaluateCodeOriginality();
         
         // do final calculation
-        getResult();
+        computeResult();
     }
 
     
@@ -286,7 +286,6 @@ public class EvaluateLicensingQuality {
             // 20 points available to score in regards to mandatory docs
             scoreMandatoryDocs = (countMandatoryDocs * maxPointsForMandatoryDocs) 
                 / sumMandatoryDocs;
-       
     }
 
     /**
@@ -314,9 +313,8 @@ public class EvaluateLicensingQuality {
             final String filePath = fileInfo.getFilePath().toLowerCase();
             // if there is a folder with this name, it is a good sign
             if(filePath.endsWith(itemPath)){
-                //System.out.println("Found a doc match: " +fileInfo.getName());
                 counter++;
-                continue;
+                break;
             }
             // or else just continue if we have these files on the root folder
             //System.out.println(filePath);
@@ -335,16 +333,17 @@ public class EvaluateLicensingQuality {
             // first test, matching file names
             if(fileName.endsWith(item)){
                 counter++;
-                continue;
+                break;
             }
             
             if(fileName.endsWith(item + ".md")){
                 counter++;
-                continue;
+                break;
             }
              
             if(fileName.endsWith(item + ".txt")){
                 counter++;
+                break;
             }
             // if we reached this point, it means less one point
         }
@@ -356,7 +355,7 @@ public class EvaluateLicensingQuality {
      * Sum up all the scores together
      * @return A console text with a summary of the calculated score
      */
-    public String getResult() {
+    public void computeResult() {
         // sum up the scores for this analysis
         score =   scoreAuthorship
                 + scoreCopyright
@@ -364,8 +363,50 @@ public class EvaluateLicensingQuality {
                 + scoreLicensesDeclared
                 + scoreMandatoryDocs 
                 + score3rdPartyAssociated;
+    }
 
-        String result = 
+    
+    /**
+     * Provide an HTML output about the evaluation
+     * @return provides the evaluation result in HTML format
+     */
+    public String getResultHTML(){
+        return 
+            // output the results to the end-user screen
+            "Copyright score: " + scoreCopyright 
+            + "/" + maxPointsForCopyright
+
+            + "<br>License score: " 
+            + (scoreLicensesConcluded + scoreLicensesDeclared) 
+            + "/" + (maxPointsForLicensesDeclared 
+                    + maxPointsForLicensesConcluded)
+        
+            + "<br>Authorship score: " + scoreAuthorship
+                + "/" + maxPointsForAuthorshipAttribution
+         
+        // output the third-party association status
+            + "<br>3rd Party score: " + score3rdPartyAssociated 
+                + "/" + maxPointsFor3rdPartyAssociation
+        
+        // do the final output for this evaluation
+            + "<br>Documentation score: " + scoreMandatoryDocs 
+                + "/" + maxPointsForMandatoryDocs
+        
+                //TODO needs to be implemented
+//            + "<br>Originality score: " + scoreOriginalityTest 
+//            + "/" + maxPointsForOriginalityTest
+        
+            + "<br><b>Final score: " + score + "/" + scoreMax
+                + "<b>"
+                ;
+    }
+  
+    /**
+     * Get the evaluation result in text format
+     * @return A format ready for display in a text console
+     */
+       public String getResultText(){
+        return 
             // output the results to the end-user screen
             "\n- Copyright score: " + scoreCopyright 
             + "/" + maxPointsForCopyright
@@ -401,11 +442,8 @@ public class EvaluateLicensingQuality {
         
             + "\n\n- Final score: " + score + "/" + scoreMax
                 ;
-        // output to screen the result
-        System.out.println(result);
-        return result;
     }
-
+    
     /**
      * How well are the non-authored files described in our document?
      */
