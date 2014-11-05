@@ -58,10 +58,7 @@ public class LanguageBox implements Comparable<Integer>{
         list.add(newFile);
         count++;
     }
-    
-    
-
-
+ 
     @Override
     public int compareTo(Integer o) {
     if(this.count == o)
