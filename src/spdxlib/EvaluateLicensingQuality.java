@@ -374,7 +374,7 @@ public class EvaluateLicensingQuality {
         return 
             // output the results to the end-user screen
             "Copyright score: " + scoreCopyright 
-            + "/" + maxPointsForCopyright
+            + "/" + maxPointsForCopyright 
 
             + "<br>License score: " 
             + (scoreLicensesConcluded + scoreLicensesDeclared) 
@@ -384,7 +384,7 @@ public class EvaluateLicensingQuality {
             + "<br>Authorship score: " + scoreAuthorship
                 + "/" + maxPointsForAuthorshipAttribution
          
-        // output the third-party association status
+            // output the third-party association status
             + "<br>3rd Party score: " + score3rdPartyAssociated 
                 + "/" + maxPointsFor3rdPartyAssociation
         
