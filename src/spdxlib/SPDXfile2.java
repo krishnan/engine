@@ -63,6 +63,15 @@ public class SPDXfile2 implements Serializable{
             nodeComponents,
             nodeExport;
     
+    // define our authorship counters
+    private int 
+            filesAuthored = 0,
+            filesExternal = 0,
+            filesModified = 0,
+            filesAutomated = 0,
+            filesAutomixed = 0,
+            filesUnknown = 0;
+    
     // temporary values only used during the initial processing
     FileInfo2 tempInfo;
     int charPosition = 1;
@@ -130,45 +139,44 @@ public class SPDXfile2 implements Serializable{
      */
     public String computeAuthorship() {
         String result = html.h2("Authorship details");
-        // define our counters
-        int 
-                fileAuthored = 0,
-                fileExternal = 0,
-                fileModified = 0,
-                fileAutomated = 0,
-                fileAutomixed = 0,
-                fileUnknown = 0;
+        // reset our authorship counters back to zero
+        filesAuthored = 0;
+        filesExternal = 0;
+        filesModified = 0;
+        filesAutomated = 0;
+        filesAutomixed = 0;
+        filesUnknown = 0;
         
-        ArrayList<FileInfo2> listUnknown = new ArrayList();
+        final ArrayList<FileInfo2> listUnknown = new ArrayList();
         
         // now iterate all the file objects that we have listed
-        for(FileInfo2 fileInfo : files){
+        for(final FileInfo2 fileInfo : files){
             switch(fileInfo.getFileOrigin()){
-                case AUTHORED: fileAuthored++; break;
-                case EXTERNAL: fileExternal++; break;
-                case MODIFIED: fileModified++; break;
-                case AUTOMATED: fileAutomated++; break;
-                case AUTOMIXED: fileAutomixed++; break;
+                case AUTHORED: filesAuthored++; break;
+                case EXTERNAL: filesExternal++; break;
+                case MODIFIED: filesModified++; break;
+                case AUTOMATED: filesAutomated++; break;
+                case AUTOMIXED: filesAutomixed++; break;
                 case UNKNOWN: 
-                    fileUnknown++; 
+                    filesUnknown++; 
                     listUnknown.add(fileInfo);
                     break;
             }
         }
         
         // output the result
-        result += showAuthorshipDetail("Original files: ", fileAuthored)
-                + showAuthorshipDetail("Third-party files: ", fileExternal)
-                + showAuthorshipDetail("Modified third-party files: ", fileModified)
-                + showAuthorshipDetail("Automatically generated files: ", fileAutomated)
-                + showAuthorshipDetail("Automatically generated files that were modified: ", fileAutomixed)
-                + showAuthorshipDetail("Files with unknown authorship: ", fileUnknown)
+        result += showAuthorshipDetail("Original files: ", filesAuthored)
+                + showAuthorshipDetail("Third-party files: ", filesExternal)
+                + showAuthorshipDetail("Modified third-party files: ", filesModified)
+                + showAuthorshipDetail("Automatically generated files: ", filesAutomated)
+                + showAuthorshipDetail("Automatically generated files that were modified: ", filesAutomixed)
+                + showAuthorshipDetail("Files with unknown authorship: ", filesUnknown)
                 + html.br
                 ;
         
         
         // add a list of files that we should process
-        if(fileUnknown > 0 && fileUnknown < 1000){
+        if(filesUnknown > 0 && filesUnknown < 1000){
             result += html.h2("Files missing to process:");
             for(FileInfo2 fileInfo : listUnknown){
                 result += fileInfo.getFileName() + html.br;
@@ -1021,6 +1029,30 @@ public class SPDXfile2 implements Serializable{
         }catch(IOException e){
             System.err.println("SP562 - Exception occurred " + e.getMessage());
         }    
+    }
+
+    public int getFilesAuthored() {
+        return filesAuthored;
+    }
+
+    public int getFilesExternal() {
+        return filesExternal;
+    }
+
+    public int getFilesModified() {
+        return filesModified;
+    }
+
+    public int getFilesAutomated() {
+        return filesAutomated;
+    }
+
+    public int getFilesAutomixed() {
+        return filesAutomixed;
+    }
+
+    public int getFilesUnknown() {
+        return filesUnknown;
     }
     
     
