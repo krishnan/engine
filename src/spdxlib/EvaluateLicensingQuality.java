@@ -376,28 +376,28 @@ public class EvaluateLicensingQuality {
             "Copyright score: " + scoreCopyright 
             + "/" + maxPointsForCopyright 
 
-            + "<br>License score: " 
+            + "<br>License: " 
             + (scoreLicensesConcluded + scoreLicensesDeclared) 
             + "/" + (maxPointsForLicensesDeclared 
                     + maxPointsForLicensesConcluded)
         
-            + "<br>Authorship score: " + scoreAuthorship
+            + "<br>Authorship: " + scoreAuthorship
                 + "/" + maxPointsForAuthorshipAttribution
          
             // output the third-party association status
-            + "<br>3rd Party score: " + score3rdPartyAssociated 
+            + "<br>3rd Party: " + score3rdPartyAssociated 
                 + "/" + maxPointsFor3rdPartyAssociation
         
         // do the final output for this evaluation
-            + "<br>Documentation score: " + scoreMandatoryDocs 
+            + "<br>Documentation: " + scoreMandatoryDocs 
                 + "/" + maxPointsForMandatoryDocs
         
                 //TODO needs to be implemented
 //            + "<br>Originality score: " + scoreOriginalityTest 
 //            + "/" + maxPointsForOriginalityTest
         
-            + "<br><b>Final score: " + score + "/" + scoreMax
-                + "<b>"
+//            + "<br><b>Final: " + score + "/" + scoreMax
+//                + "<b>"
                 ;
     }
   

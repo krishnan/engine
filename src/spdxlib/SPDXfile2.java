@@ -529,7 +529,7 @@ public class SPDXfile2 implements Serializable{
     
     /**
      * Get the summary for the languages adopted across this project
-     * @return      An HTML string with the summay of adopted languages
+     * @return      An HTML string with the summary of adopted languages
      */
     public String getLanguageEvaluation() {
         if(languagesWereNotEvaluated){
@@ -558,9 +558,21 @@ public class SPDXfile2 implements Serializable{
                     + ")"
                     + html.br;
         }
+        return result;
+    }
+
+
+        /**
+     * Get the summary for the languages adopted across this project
+     * @return      An HTML string with the summary of adopted licenses
+     */
+    public String getLicenseEvaluation() {
+        if(languagesWereNotEvaluated){
+            evaluateLanguagesAndLicenses();
+        }
         
-        result += html.br;
-               
+        // where we will store the results
+        String result = "";
         
          // create a licensing list sorted according to biggest on top
         Map<LicenseType,Integer> mapLicenses = licenseCounter.sortedMap();
@@ -583,12 +595,8 @@ public class SPDXfile2 implements Serializable{
                     + ")"
                     + html.br;
         }
-        
-        
-        //System.err.println("Missing to implement Language evaluation");
         return result;
     }
-
     
     /**
      * Runs the code for evaluating the type of languages being used
