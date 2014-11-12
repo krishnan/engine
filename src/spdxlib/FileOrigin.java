@@ -54,12 +54,12 @@ public enum FileOrigin {
      */
     public String getFullText() {
         switch (this) {
-        case AUTHORED: return "Authored files";
-        case EXTERNAL: return "Files from a third-party author";
-        case AUTOMATED: return "Files generated automatically, no changes by author";
-        case AUTOMIXED: return "Files generated automatically and modified by author";
-        case MODIFIED: return "Files developed by a third-party and modified by author";
-        case UNKNOWN: return "Files with unknown origin";
+        case AUTHORED: return "Authored";
+        case EXTERNAL: return "Third-party author";
+        case AUTOMATED: return "Generated automatically";
+        case AUTOMIXED: return "Generated automatically, modified by author";
+        case MODIFIED: return "Modified third-party";
+        case UNKNOWN: return "Unknown";
         }
         return "";
     }
