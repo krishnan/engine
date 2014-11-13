@@ -208,8 +208,6 @@ public class DocumentCreate2 {
      // get the Lines of Code, licensing and copyright information
      final String tagCodeInsight = getCodeInsight(file);
      
-     //final String temp = (tagFileExtension != null ? "": "");
-     
      final String result = tagFileName + tagFileType + tagChecksum 
              + tagSize + tagCodeInsight + "\n";
      
@@ -363,7 +361,7 @@ public class DocumentCreate2 {
      * @param file  A file on disk
      * @return      A piece of text ready to be inserted inside the SPDX content
      */
-    private String getCodeInsight(File file) {        
+    private String getCodeInsight(final File file) {        
         // read this file from disk onto local memory
         final String contentNormalCase = utils.files.readAsString(file);
         final String contentLowerCase = contentNormalCase.toLowerCase();

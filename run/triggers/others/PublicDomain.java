@@ -46,10 +46,9 @@ public class PublicDomain implements Trigger {
      */
     @Override
     public Boolean isApplicable(final String text, final String textLowerCase){
-        String lowerCaseText = text.toLowerCase();
         // iterate all our ids
-        for(String id : list){
-            return verify(id, text, lowerCaseText);
+        for(final String id : list){
+            return verify(id, text, textLowerCase);
         }
         return false;
     }

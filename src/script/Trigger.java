@@ -38,6 +38,10 @@ public interface Trigger {
     // used only by License triggers
     final String LicenseInfoInFile = "LicenseInfoInFile: ";
     
+    // file authorship
+    final String FileOriginInFile = "FileOrigin: ";
+    
+    
     /**
      * Verifies if the provided text applies to the triggers that
      * included on this license.
