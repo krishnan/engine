@@ -186,10 +186,9 @@ public class EvaluateLicensingQuality {
         // at this point we only care about original or modified files
         // anything else at this point doesn't count for our scoring
         // exceptionally, we can count unknown (not yet processed files)
-        if(
-            (fileInfo.getFileOrigin()!= FileOrigin.AUTHORED )
-         && (fileInfo.getFileOrigin()!= FileOrigin.MODIFIED )
-         && (fileInfo.getFileOrigin()!= FileOrigin.UNKNOWN )
+        if( (fileInfo.getFileOrigin()== FileOrigin.EXTERNAL )
+         || (fileInfo.getFileOrigin()== FileOrigin.AUTOMATED )
+         // only external and automated files get excluded from authorship rights
                 ){
             // nothing else to do here
             return;
