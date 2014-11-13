@@ -91,6 +91,18 @@ public class EvaluateLicensingQuality {
             "tasks"                     // what needs to be be done/is desired
     };
     
+    // are we running a permissive or strict scoring mode?
+    private Boolean auditMode = false;
+    
+    
+    
+    /**
+     * Enables or disables the auditing mode when proceeding with a score
+     * @param mode Off for permissive scoring, On for strict score
+     */
+    public void setAuditMode(final Boolean mode){
+        auditMode = mode;
+    }
     
     /**
      * First step to evaluate the licensing quality of an SPDX document.
@@ -353,9 +365,16 @@ public class EvaluateLicensingQuality {
 
     /**
      * Sum up all the scores together
-     * @return A console text with a summary of the calculated score
      */
     public void computeResult() {
+
+        // when audit mode is disabled, some values get max score
+        if(auditMode == false){
+            scoreAuthorship = getMaxPointsForAuthorshipAttribution();
+            scoreLicensesConcluded = getMaxPointsForLicensesConcluded();
+            score3rdPartyAssociated = getMaxPointsFor3rdPartyAssociated();
+        }
+        
         // sum up the scores for this analysis
         score =   scoreAuthorship
                 + scoreCopyright
@@ -371,6 +390,22 @@ public class EvaluateLicensingQuality {
      * @return provides the evaluation result in HTML format
      */
     public String getResultHTML(){
+        
+        String evaluation = 
+             "<br>Authorship: " + scoreAuthorship
+                + "/" + maxPointsForAuthorshipAttribution
+         
+            // output the third-party association status
+            + "<br>3rd Party: " + score3rdPartyAssociated 
+                + "/" + maxPointsFor3rdPartyAssociation;
+         
+        if(auditMode == false){
+            evaluation = "";
+        }
+        
+        
+        
+        
         return 
             // output the results to the end-user screen
             "Copyright score: " + scoreCopyright 
@@ -381,14 +416,9 @@ public class EvaluateLicensingQuality {
             + "/" + (maxPointsForLicensesDeclared 
                     + maxPointsForLicensesConcluded)
         
-            + "<br>Authorship: " + scoreAuthorship
-                + "/" + maxPointsForAuthorshipAttribution
-         
-            // output the third-party association status
-            + "<br>3rd Party: " + score3rdPartyAssociated 
-                + "/" + maxPointsFor3rdPartyAssociation
         
-        // do the final output for this evaluation
+            + evaluation
+            // do the final output for this evaluation
             + "<br>Documentation: " + scoreMandatoryDocs 
                 + "/" + maxPointsForMandatoryDocs
         
@@ -550,7 +580,7 @@ public class EvaluateLicensingQuality {
         return maxPointsForMandatoryDocs;
     }
 
-    public int getMaxPointsFor3rdPartyAssociation() {
+    public int getMaxPointsFor3rdPartyAssociated() {
         return maxPointsFor3rdPartyAssociation;
     }
 
@@ -561,7 +591,5 @@ public class EvaluateLicensingQuality {
     public int getScoreMax() {
         return scoreMax;
     }
-   
-    
-    
+ 
 }

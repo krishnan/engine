@@ -31,7 +31,7 @@ public class PluginVanilla {
 
     // where we will store and retrieve the settings for this page
     private final String settingsFileName = "settings.xml";
-    private File settingsFile;
+    protected File settingsFile;
     protected Settings settings; 
    
     
