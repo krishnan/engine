@@ -67,7 +67,7 @@ public final class ExtensionControl {
         
              
         final File folder = engine.getExtensionsFolder();
-        ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
+        ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 5);
         log.write(is.INFO, "Adding extensions from %1", folder.getAbsolutePath());
         log.write(is.INFO, "Extensions to process: %1", files.size() + "");
         for(File file : files){   

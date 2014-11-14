@@ -1,4 +1,4 @@
-package source;
+package source.delphi;
 
 import java.io.File;
 import script.FileExtension;

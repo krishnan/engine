@@ -1,4 +1,4 @@
-package source;
+package source.delphi;
 
 import java.io.File;
 import script.FileExtension;
@@ -9,32 +9,28 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T13:57:13Z
+ * Created: 2014-02-19T17:12:14Z
  * LicenseName: CC-BY-4.0
- * FileName: cpp.java  
+ * FileName: pas.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type cpp. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
+ * FileCopyrightText: <text> Copyright © 2014, Nuno Brito </text>
+ * FileComment: <text> This class provides details about the files that make 
+ * use of the "pas" extension. When possible, the file provenance author
+ * includes details such as date when this extension first began to be used.
+ * There are cases where different data structures use the same file extension,
+ * when this happens then the author needs to accomodate code to accurately
+ * detect which type of file is being analysed.
  * </text> 
  */
 
 
 /**
  *
- * @author Nuno Brito
+ * @file provenance by Nuno Brito
  */
-public class cs extends FileExtension{
+public class pas extends FileExtension{
     /**
-     * How can we confirm that this file extension is applicable to this file?
+     * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
@@ -45,7 +41,7 @@ public class cs extends FileExtension{
     }
   
     /**
-     * How can we confirm that this file extension is applicable to this file?
+     * How can we confirm that this file extension is appliable to this file?
      * This method analyses the text of a file to get the answer. You can either
      * specify a file or the text. The advantage of using this method is that
      * you will not need to read the text from the file for each extension test.
@@ -61,20 +57,18 @@ public class cs extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
-     * @return 
      */
     @Override
     public String getDescription() {
-        return "C Sharp source code file"; // file type description
+        return null; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
-     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.C_SHARP; // to which language is the file more related?
+        return FileLanguage.DELPHI; // to which language is the file more related?
     }
 
     /**
@@ -84,9 +78,9 @@ public class cs extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "cs";
+        return "pas";
     }
-
+    
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -95,7 +89,7 @@ public class cs extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        return ContentType.TEXT; // is it a binary or text file?
     }
 
     /**
@@ -105,10 +99,7 @@ public class cs extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.SOURCE; // does it group under a category?
     }
-
-
-    
     
 }

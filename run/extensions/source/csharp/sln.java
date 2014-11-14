@@ -1,4 +1,4 @@
-package temp;
+package source.csharp;
 
 import java.io.File;
 import script.FileExtension;
@@ -9,28 +9,23 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-02-19T17:12:14Z
+ * Created: 2014-11-14T12:14:11Z
  * LicenseName: CC-BY-4.0
- * FileName: tilpas.java  
+ * FileName: sln.java  
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright © 2014, Nuno Brito </text>
- * FileComment: <text> This class provides details about the files that make 
- * use of the "pas" extension. When possible, the file provenance author
- * includes details such as date when this extension first began to be used.
- * There are cases where different data structures use the same file extension,
- * when this happens then the author needs to accomodate code to accurately
- * detect which type of file is being analysed.
+ * FileComment: <text> Identify a specific type of file.
  * </text> 
  */
 
 
 /**
  *
- * @file provenance by Nuno Brito
+ * @author Nuno Brito
  */
-public class tilpas extends FileExtension{
+public class sln extends FileExtension{
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
@@ -41,7 +36,7 @@ public class tilpas extends FileExtension{
     }
   
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the text of a file to get the answer. You can either
      * specify a file or the text. The advantage of using this method is that
      * you will not need to read the text from the file for each extension test.
@@ -57,18 +52,20 @@ public class tilpas extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return "Backup of Delphi source file"; // file type description
+        return "Microsoft Visual Studio Solution File"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.DELPHI; // to which language is the file more related?
+        return FileLanguage.C_SHARP; // to which language is the file more related?
     }
 
     /**
@@ -78,9 +75,9 @@ public class tilpas extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "~pas";
+        return "sln";
     }
-    
+
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -89,7 +86,7 @@ public class tilpas extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.TEXT;
     }
 
     /**
@@ -99,7 +96,10 @@ public class tilpas extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.TEMP; // does it group under a category?
+        return FileCategory.CONFIG;
     }
+
+
+    
     
 }
