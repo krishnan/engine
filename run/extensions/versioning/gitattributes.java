@@ -9,9 +9,9 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T23:00:42Z
+ * Created: 2014-11-14T18:49:11Z
  * LicenseName: CC-BY-4.0
- * FileName: gitignore.java  
+ * FileName: gitattributes.java  
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
  * FileComment: <text> This class provides details about the files that make 
@@ -28,9 +28,9 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class gitignore extends FileExtension{
+public class gitattributes extends FileExtension{
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
@@ -78,7 +78,7 @@ public class gitignore extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "gitignore";
+        return "gitattributes";
     }
     
     /**

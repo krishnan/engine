@@ -680,9 +680,8 @@ public class SPDXfile2 implements Serializable{
      * @return 
      */
     public String summaryConcludedLicenses() {
+         
         // compute the number of licenses declared if not done before
-        //computeStats();
-        
         String result = ""
                 + countFilesWithCopyright
                 + " files with copyright declared" 

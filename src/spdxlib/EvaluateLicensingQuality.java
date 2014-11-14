@@ -73,11 +73,11 @@ public class EvaluateLicensingQuality {
     // define the doc types that one might encounter
     private final String[] docsMandatory = new String[]{
             "readme",                   // Introduction to the project
-            "license",                  // declared license for authored code
-            "copying",                  // Copyright holders for authored code
+            "license"                  // declared license for authored code
     };
 
     private final String[] docsOptional = new String[]{
+            "copying",                  // List the copyright holders for authored code
             "contributing",             // How to contribute code improvements
             "credits",                  // Whom influenced this project
             "maintainers",              // Developers maintaining the code
@@ -407,7 +407,7 @@ public class EvaluateLicensingQuality {
         
         return 
             // output the results to the end-user screen
-            "Copyright score: " + scoreCopyright 
+            "Copyright: " + scoreCopyright 
             + "/" + maxPointsForCopyright 
 
             + "<br>License: " 
