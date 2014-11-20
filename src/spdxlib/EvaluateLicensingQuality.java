@@ -95,6 +95,17 @@ public class EvaluateLicensingQuality {
     // are we running a permissive or strict scoring mode?
     private Boolean auditMode = false;
     
+    // the internal string where we hold the fix suggestion results
+    private String 
+            fixSuggestionLicense = "",
+            fixSuggestionCopyright = "",
+            fixSuggestionDocumentation
+            ;
+    
+    private int 
+            countFixSuggestionDocumentation = 0
+            ;
+    
     
     
     /**
@@ -200,12 +211,18 @@ public class EvaluateLicensingQuality {
             countCopyrightDeclared++;
         }else{
             countCopyrightNotDeclared++;
+            fixSuggestionCopyright = fixSuggestionCopyright.concat(""
+                    + fileInfo.getFileName()
+                    + "\n");
         }
         // if it is a source code, we ask for license evidence inside
         if(fileInfo.hasLicenseInfoInFile()){
             countLicensesDeclared++;
         }else{
             countLicensesNotDeclared++;
+            fixSuggestionLicense = fixSuggestionLicense.concat(""
+                    + fileInfo.getFileName()
+                    + "\n");
         }
     }
     
@@ -522,62 +539,66 @@ public class EvaluateLicensingQuality {
 
     
     /**
-     * Returns an HTML output with a list of suggestions of what can be fixed
-     * @return A list of possible actions in HTML format
+     * Computes an HTML output with a list of suggestions of what can be fixed
+     * @return A list of what can be fixed in HTML format
      */
     public String getFixSuggestionCopyright(){
-        // where we store the results
-        String result = "";
-        int counter = 0;
         // do we really need an evaluation for this topic?
         if(getMaxPointsForCopyright() == getScoreCopyright()){
-            result = "No action needed for this topic, looking good.";
-            return result;
+            fixSuggestionCopyright = "No action needed for this topic, looking good.";
+            return fixSuggestionCopyright;
         }
-        
-        // it seems that we do have some work to be done here
-        for(final FileInfo2 file : spdx.getFiles()){
-            // we only want to process source code files
-            if(file.getExtensionObject().getCategory() != FileCategory.SOURCE){
-                continue;
-            }
-            // ignore the files that already have the copyright declared
-            if(file.hasCopyrightDeclared()){
-                continue;
-            }
-            
-            // if the file was automatically generated, then don't care about it
-            if(file.getFileOrigin() == FileOrigin.AUTOMATED){
-                continue;
-            }
-            
-            // list the ones that we still need to modify
-            result = result.concat(""
-                    + file.getFileName()
-                    + html.br
-            );
-            // increase the counter
-            counter++;
-        }
-        
+       
         // adapt accordingly to a single result or  multiple results
-        if(counter == 1){
-            result = "No copyright attribution was found for "
-                    + result;
+        if(countCopyrightNotDeclared == 1){
+            fixSuggestionCopyright = "No <b>copyright</b> attribution was found for "
+                    + fixSuggestionCopyright;
         }else{
             // show the list of results
-        result = "No copyright attribution was found for the "
+        fixSuggestionCopyright = "No <b>copyright</b> attribution was found for the "
                 + "<b>"
-                + utils.text.convertToHumanNumbers(counter)
+                + utils.text.convertToHumanNumbers(countCopyrightNotDeclared)
                 + "</b>"
                 + " files listed below."
                 + html.br
                 + html.br
-                + result;
+                + fixSuggestionCopyright.replaceAll("\n", html.br);
         }
         // all done
-        return result;
+        return fixSuggestionCopyright;
     }
+    
+    /**
+     * Computes an HTML output with a list of suggestions of what can be fixed
+     * @return A list of what can be fixed in HTML format
+     */
+    public String getFixSuggestionLicense(){
+        // do we really need an evaluation for this topic?
+        if(getMaxPointsForLicensesDeclared() == getScoreLicensesDeclared()){
+            fixSuggestionLicense = "No action needed for this topic, looking good.";
+            return fixSuggestionLicense;
+        }
+       
+        // adapt accordingly to a single result or  multiple results
+        if(countLicensesNotDeclared == 1){
+            fixSuggestionLicense = "No <b>license</b> attribution was found for "
+                    + fixSuggestionLicense;
+        }else{
+            // show the list of results
+        fixSuggestionLicense = "No <b>license</b> attribution was found for the "
+                + "<b>"
+                + utils.text.convertToHumanNumbers(countLicensesNotDeclared)
+                + "</b>"
+                + " files listed below."
+                + html.br
+                + html.br
+                + fixSuggestionLicense.replaceAll("\n", html.br);
+        }
+        // all done
+        return fixSuggestionLicense;
+    }
+    
+    
     
     /**
      * Verify if the source code was scanned against a similarity
