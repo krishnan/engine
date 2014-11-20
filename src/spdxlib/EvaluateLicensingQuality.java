@@ -22,7 +22,7 @@ import utils.www.html;
  */
 public class EvaluateLicensingQuality {
 
-    private SPDXfile2 spdx;
+    private SPDXfile spdx;
     
     private int 
             score = 0,
@@ -116,9 +116,9 @@ public class EvaluateLicensingQuality {
      */
     public void process(final File file) {
         // the first step is interpreting the SPDX document
-        spdx = new SPDXfile2(file);
+        spdx = new SPDXfile(file);
         // iterate through each item on a single loop (for performance reasons)
-        for(final FileInfo2 fileInfo : spdx.getFiles()){
+        for(final FileInfo fileInfo : spdx.getFiles()){
             // start the evaluation steps with the licensing and copyright ratio
              countFileCopyrightAndLicense(fileInfo);
         }
@@ -147,7 +147,7 @@ public class EvaluateLicensingQuality {
      * - license(s) concluded
      * - applicable copyright assigned
      */
-    private void  countFileCopyrightAndLicense(final FileInfo2 fileInfo){
+    private void  countFileCopyrightAndLicense(final FileInfo fileInfo){
         /**
          * The maximum score that a source code file can have is 3. This means
          * scoring on a declared copyright, declared license and concluded
@@ -188,7 +188,7 @@ public class EvaluateLicensingQuality {
      * a concluded license and (at minimum) a copyright declaration.
      * @param fileInfo The file being processed
      */
-    private void processSourceCodeFileCopyrightAndLicenseEvidence(final FileInfo2 fileInfo){
+    private void processSourceCodeFileCopyrightAndLicenseEvidence(final FileInfo fileInfo){
         // at this point we only care about original or modified files
         // anything else at this point doesn't count for our scoring
         // exceptionally, we can count unknown (not yet processed files)
@@ -340,7 +340,7 @@ public class EvaluateLicensingQuality {
         final String itemPath = "/"+item;
         
         // iterate all the files reported inside our SPDX document
-        for(final FileInfo2 fileInfo : spdx.getFiles()){
+        for(final FileInfo fileInfo : spdx.getFiles()){
             // get the file path portion in lowercase to ease comparison
             final String filePath = fileInfo.getFilePath().toLowerCase();
             // if there is a folder with this name, it is a good sign
@@ -506,7 +506,7 @@ public class EvaluateLicensingQuality {
          */
         
         // iterate our list of files inside the document
-        for(final FileInfo2 fileInfo : spdx.getFiles()){
+        for(final FileInfo fileInfo : spdx.getFiles()){
             // we can only look on files that were marked as:
             // - External (belonging to a third party)
             // - Modified (belongs to a third-party, was modified by our side)

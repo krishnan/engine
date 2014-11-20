@@ -13,7 +13,7 @@
 package structure;
 
 import definitions.is;
-import spdxlib.SPDXfile2;
+import spdxlib.SPDXfile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import script.log;
  */
 public final class ReportsControl {
 
-    private final ArrayList<SPDXfile2> list = new ArrayList<SPDXfile2>();
+    private final ArrayList<SPDXfile> list = new ArrayList<SPDXfile>();
     
     //private final MapDB_SPDX list = new utils.db.MapDB_SPDX(false);
     
@@ -88,7 +88,7 @@ public final class ReportsControl {
      */
     public boolean refresh(String path) {
         int index = 0;
-        for(SPDXfile2 spdx : list){
+        for(SPDXfile spdx : list){
             if(spdx.file.getAbsolutePath().equals(path)){
                 spdx.refresh();
                 // update the spdx on the database
@@ -116,7 +116,7 @@ public final class ReportsControl {
             return false;
         }
         // get the SPDX object
-        SPDXfile2 spdx = get(file);
+        SPDXfile spdx = get(file);
         // if it exists, remove from our list
         if(spdx != null){
             list.remove(spdx);
@@ -135,8 +135,8 @@ public final class ReportsControl {
      * @param file  the SPDX report on disk
      * @param spdxFile  An SPDX object to be added on our list
      */
-    public void add(File file, SPDXfile2 spdxFile) {
-        SPDXfile2 temp = get(file);
+    public void add(File file, SPDXfile spdxFile) {
+        SPDXfile temp = get(file);
         // this file didn't existed before, add it up
         if(temp == null){
             list.add(spdxFile);
@@ -145,7 +145,7 @@ public final class ReportsControl {
         // this spdx already exists, update
         int index = 0;
         // go through all listed spdx reports
-        for(SPDXfile2 spdx : list){
+        for(SPDXfile spdx : list){
             // do we have a match for the directory?
             if(spdx.file.getAbsolutePath().equals(file.getAbsolutePath())){
                 // yes we do, update with a new value
@@ -162,7 +162,7 @@ public final class ReportsControl {
      * Gets the list of SPDX documents that we have indexed
      * @return 
      */
-    public ArrayList<SPDXfile2> getList() {
+    public ArrayList<SPDXfile> getList() {
         return list;
     }
 
@@ -173,7 +173,7 @@ public final class ReportsControl {
     private void readSPDXfile(File file) {
         try {
             // read the SPDX file
-            SPDXfile2 spdxFile = new SPDXfile2(file.getCanonicalFile());
+            SPDXfile spdxFile = new SPDXfile(file.getCanonicalFile());
             // place the file on our list
             add(file, spdxFile);
         } catch (IOException ex) {
@@ -189,7 +189,7 @@ public final class ReportsControl {
      */
     private boolean has(File file) {
         // go through all the files
-        for(SPDXfile2 spdx : list){
+        for(SPDXfile spdx : list){
             // if we have a match
             if(file.getAbsolutePath().equals(spdx.file.getAbsolutePath())){
                 return true;
@@ -204,9 +204,9 @@ public final class ReportsControl {
      * @param file      An SPDX file on disk
      * @return          An SPDX object when or null when not found
      */
-    public SPDXfile2 get(File file){
+    public SPDXfile get(File file){
         // go through all the files
-        for(SPDXfile2 spdx : list){
+        for(SPDXfile spdx : list){
             // if we have a match
             if(file.getAbsolutePath().equals(spdx.file.getAbsolutePath())){
                 return spdx;

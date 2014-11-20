@@ -13,7 +13,7 @@
 
 package spdxlib.summary;
 
-import spdxlib.SPDXfile2;
+import spdxlib.SPDXfile;
 
 
 /**
@@ -23,11 +23,11 @@ import spdxlib.SPDXfile2;
  */
 public class SummaryControl {
         
-    private SPDXfile2 spdx;
+    private SPDXfile spdx;
     private CompSummary components;
 
     
-    public SummaryControl(SPDXfile2 spdx){
+    public SummaryControl(SPDXfile spdx){
         this.spdx = spdx;
         components = new CompSummary(spdx);
     }

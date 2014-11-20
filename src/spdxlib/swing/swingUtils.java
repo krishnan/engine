@@ -20,8 +20,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import main.engine;
 import script.log;
-import spdxlib.FileInfo2;
-import spdxlib.SPDXfile2;
+import spdxlib.FileInfo;
+import spdxlib.SPDXfile;
 import utils.www.html;
 
 
@@ -191,7 +191,7 @@ public class swingUtils {
     /**
      * Adds the details of the creation info
      */
-    static void doNodeCreationInfo(TreeNodeSPDX root, SPDXfile2 spdx){
+    static void doNodeCreationInfo(TreeNodeSPDX root, SPDXfile spdx){
         
         TreeNodeSPDX node = swingUtils.createNodeChild("",root);
         node.nodeType = NodeType.sectionCreator;
@@ -207,7 +207,7 @@ public class swingUtils {
     /**
      * Add the node of files if there are any available
      */
-    static void doNodeFileInfo(TreeNodeSPDX root, SPDXfile2 spdx){
+    static void doNodeFileInfo(TreeNodeSPDX root, SPDXfile spdx){
         
         int fileCount = spdx.getFiles().size();
         String counter = (fileCount > 0) ? " (" + fileCount + ")" : "";        
@@ -216,7 +216,7 @@ public class swingUtils {
         node.nodeType = NodeType.sectionFile;
         node.id = "Files";
         
-        for(FileInfo2 file : spdx.getFiles()){
+        for(FileInfo file : spdx.getFiles()){
             TreeNodeSPDX fileNode 
                     = swingUtils.createNodeChild(
                     "" // name is inherited from toString() of the file object
@@ -233,7 +233,7 @@ public class swingUtils {
 //    /**
 //     * Add nodes with the dependencies required for the SPDX package
 //     */
-//    static void doNodeDependencies(TreeNodeSPDX root, SPDXfile2 spdx){
+//    static void doNodeDependencies(TreeNodeSPDX root, SPDXfile spdx){
 //        TreeNodeSPDX node = swingUtils.createNodeChild(
 //                "Dependencies ("
 //                + spdx.packageSection.dependencies.size()
@@ -336,7 +336,7 @@ public class swingUtils {
      * @param file The FileInfo object that contains SSDEEP information
      * @return 
      */
-    public static String addSSDEEP(String title, FileInfo2 file) {
+    public static String addSSDEEP(String title, FileInfo file) {
         // get the contents of this tag
         String text = file.getTagFileChecksumSSDEEP();
         return swingUtils.addIfNotEmpty(title, text);

@@ -4,7 +4,7 @@
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-05-12T09:29:20Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: SPDXfile2.java  
+ * FileName: SPDXfile.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> This class aims to provide a more compact and faster
@@ -41,13 +41,13 @@ import utils.www.html;
  * @author Nuno Brito, 10th of April 2014 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class SPDXfile2 implements Serializable{
+public class SPDXfile implements Serializable{
  
     // how many files have we indexed?
     private int fileCounter = 0;
     
     // what is the information within?
-    private ArrayList<FileInfo2> files = new ArrayList();
+    private ArrayList<FileInfo> files = new ArrayList();
     
     public SummaryControl summary = new SummaryControl(this);
     
@@ -73,7 +73,7 @@ public class SPDXfile2 implements Serializable{
             filesUnknown = 0;
     
     // temporary values only used during the initial processing
-    FileInfo2 tempInfo;
+    FileInfo tempInfo;
     int charPosition = 1;
     private boolean hasComputedStats = false; // were stats calculated already?
         
@@ -90,14 +90,14 @@ public class SPDXfile2 implements Serializable{
     //final private EnumMap<FileLanguage, Integer> countMainLanguages = new EnumMap<FileLanguage, Integer>(FileLanguage.class);
     final private LanguageCounter languageCounter = new LanguageCounter();
     // this list keeps files where multiple languages apply
-    final private ArrayList<FileInfo2> secondList = new ArrayList();
+    final private ArrayList<FileInfo> secondList = new ArrayList();
 
     // variables for handling the licenses inside this document
     final private LicenseCounter licenseCounter = new LicenseCounter();
     
     
     // default constructor, we need a file to proceed
-    public SPDXfile2(final File canonicalFile) {
+    public SPDXfile(final File canonicalFile) {
         this.file = canonicalFile;
         readSPDXfile(file);
     }
@@ -118,7 +118,7 @@ public class SPDXfile2 implements Serializable{
      * A constructor without arguments. This method is not public to permit
      * only the other classes on this package to access.
      */
-    SPDXfile2() {
+    SPDXfile() {
     }
 
     /**
@@ -147,10 +147,10 @@ public class SPDXfile2 implements Serializable{
         filesAutomixed = 0;
         filesUnknown = 0;
         
-        final ArrayList<FileInfo2> listUnknown = new ArrayList();
+        final ArrayList<FileInfo> listUnknown = new ArrayList();
         
         // now iterate all the file objects that we have listed
-        for(final FileInfo2 fileInfo : files){
+        for(final FileInfo fileInfo : files){
             switch(fileInfo.getFileOrigin()){
                 case AUTHORED: filesAuthored++; break;
                 case EXTERNAL: filesExternal++; break;
@@ -178,7 +178,7 @@ public class SPDXfile2 implements Serializable{
         // add a list of files that we should process
         if(filesUnknown > 0 && filesUnknown < 1000){
             result += html.h2("Files missing to process:");
-            for(FileInfo2 fileInfo : listUnknown){
+            for(FileInfo fileInfo : listUnknown){
                 result += fileInfo.getFileName() + html.br;
             }
         }
@@ -319,7 +319,7 @@ public class SPDXfile2 implements Serializable{
         if(tagStartsWith(is.tagFileName, line)){
             final String fileName = tagGetValue(is.tagFileName, line);
             // create the new file object
-            FileInfo2 fileInfo = new FileInfo2(this);
+            FileInfo fileInfo = new FileInfo(this);
             // add the respective file name
             fileInfo.setFileName(fileName);
             // set the file line position
@@ -458,7 +458,7 @@ public class SPDXfile2 implements Serializable{
         int counter = 0;
         int counterLOC = 0;
         long counterSize = 0;
-        for(FileInfo2 fileInfo : files){
+        for(FileInfo fileInfo : files){
             if(fileInfo.getFileType() == FileType.SOURCE){
                 counter++;
                 counterLOC += fileInfo.getFileLOC();
@@ -474,7 +474,7 @@ public class SPDXfile2 implements Serializable{
      * Gets the list of files that were indexed
      * @return  An array with all the related FileInfo objects
      */
-    public ArrayList<FileInfo2> getFiles() {
+    public ArrayList<FileInfo> getFiles() {
         return files;
     }
 
@@ -536,7 +536,7 @@ public class SPDXfile2 implements Serializable{
      */
     public int getLicensesDeclaredCount() {
         int counter = 0;
-        for(FileInfo2 fileInfo : files){
+        for(FileInfo fileInfo : files){
             //counter += //fileInfo.getLicenseInfoInFileCounter();
             if(fileInfo.hasLicenseConcluded() || fileInfo.hasLicenseInfoInFile()){
                 counter++;
@@ -622,7 +622,7 @@ public class SPDXfile2 implements Serializable{
      */
     private void evaluateLanguagesAndLicenses(){
         // the main loop
-        for(FileInfo2 fileInfo : files){
+        for(FileInfo fileInfo : files){
             computeLanguages(fileInfo);
             // also compute the licenses
             licenseCounter.increment(fileInfo.getLicenseInfoInFile());
@@ -646,7 +646,7 @@ public class SPDXfile2 implements Serializable{
         // applicable to multiple languages belong
         
         // iterate through all these files
-        for(FileInfo2 fileInfo : secondList){
+        for(FileInfo fileInfo : secondList){
            // get the respective extension
 //            FileExtension extension = fileInfo.getExtensionObject();
            // let's do some ranking
@@ -718,7 +718,7 @@ public class SPDXfile2 implements Serializable{
         }
         
         // the main loop
-        for(FileInfo2 fileInfo : files){
+        for(FileInfo fileInfo : files){
             computeLicenses(fileInfo);
 //            computeLanguages(fileInfo);
         }
@@ -733,7 +733,7 @@ public class SPDXfile2 implements Serializable{
      * Calculate the language related statistics.
      * @param fileInfo      the file object being calculated    
      */
-    private void computeLanguages(FileInfo2 fileInfo){
+    private void computeLanguages(FileInfo fileInfo){
         // get the language object or just "unknown" if not indexed before
         FileLanguage thisLanguage = //core.extensions.getUnknownExtension().getLanguage();
                 fileInfo.getExtensionObject().getLanguage();
@@ -754,7 +754,7 @@ public class SPDXfile2 implements Serializable{
      * During the compute loop, calculate the value for the licenses
      * @param fileInfo  A fileInfo object
      */
-    private void computeLicenses(FileInfo2 fileInfo){
+    private void computeLicenses(FileInfo fileInfo){
         // get the lines of code and size of file
         countLOC += fileInfo.getFileLOC();
         countSize += fileInfo.getFileSize();
@@ -898,22 +898,22 @@ public class SPDXfile2 implements Serializable{
      * @param overwrite     If true, writes on existing value. Otherwise, 
      * adds another key/value
      */
-    public void writeLines(ArrayList<FileInfo2> fileInfoList,
+    public void writeLines(ArrayList<FileInfo> fileInfoList,
             final String tagId, final String tagValue, Boolean overwrite){
         System.out.println("SP434 - Writing in " + file.getName());
         // first we need to sort theses values according to line position    
-        Map<FileInfo2, Integer> originalList = new HashMap();
-        for(FileInfo2 fileInfo : fileInfoList){
+        Map<FileInfo, Integer> originalList = new HashMap();
+        for(FileInfo fileInfo : fileInfoList){
             // we place the items on the array with the line position value
             originalList.put(fileInfo, fileInfo.getLinePosition());
         }
         // With a map we can now we sort them accordingly
-        Map<FileInfo2, Integer> sortedList = utils.thirdparty.MiscMethods.
+        Map<FileInfo, Integer> sortedList = utils.thirdparty.MiscMethods.
                 sortByComparatorSmallerFirst(originalList);
        
         // now we end up sorting them again to plain ArrayList
-        ArrayList<FileInfo2> list = new ArrayList();
-        for(FileInfo2 fileInfo : sortedList.keySet()){
+        ArrayList<FileInfo> list = new ArrayList();
+        for(FileInfo fileInfo : sortedList.keySet()){
             list.add(fileInfo);
         }
         // now do our magic

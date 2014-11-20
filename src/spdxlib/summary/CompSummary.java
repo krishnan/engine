@@ -17,9 +17,9 @@ import comp.Component;
 import java.util.HashMap;
 import java.util.Map;
 import main.engine;
-import spdxlib.FileInfo2;
+import spdxlib.FileInfo;
 import spdxlib.FileOrigin;
-import spdxlib.SPDXfile2;
+import spdxlib.SPDXfile;
 import utils.www.html;
 
 
@@ -30,10 +30,10 @@ import utils.www.html;
  */
 public class CompSummary {
 
-    private SPDXfile2 spdx;
+    private SPDXfile spdx;
     private final int max = 10;
     
-    public CompSummary(SPDXfile2 input){
+    public CompSummary(SPDXfile input){
         spdx = input;
     }
     
@@ -47,7 +47,7 @@ public class CompSummary {
         HashMap<String, Integer> components = new HashMap();
         int counterNull = 0;
         // iterate all files
-        for(FileInfo2 fileInfo : spdx.getFiles()){
+        for(FileInfo fileInfo : spdx.getFiles()){
             // get the component name
             String component = fileInfo.getFileComponent();
             // avoid the files without a component specified
@@ -107,7 +107,7 @@ public class CompSummary {
             int thisCounter = 0;
             
             // iterate through all files in our spdx
-            for(FileInfo2 fileInfo : spdx.getFiles()){
+            for(FileInfo fileInfo : spdx.getFiles()){
                 // if it belongs to our component
                 if(utils.text.equals(fileInfo.getFileComponent(), componentID)){
                     thisCounter++;
@@ -191,7 +191,7 @@ public class CompSummary {
         String fileList = "";
             
         // iterate all files to find the ones without a component assigned
-        for(FileInfo2 fileInfo : spdx.getFiles()){
+        for(FileInfo fileInfo : spdx.getFiles()){
             // get the component name
             String component = fileInfo.getFileComponent();
             // avoid the files without a component specified

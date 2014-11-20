@@ -4,7 +4,7 @@
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-05-12T10:13:05Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: FileInfo2.java  
+ * FileName: FileInfo.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Stores the relevant informations about files contained
@@ -26,7 +26,7 @@ import spdxlib.swing.TreeviewUtils;
  * @author Nuno Brito, 10th of April 2014 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class FileInfo2 {
+public class FileInfo {
     // file name declared
     private String fileName;
     private String filePath;    // the path portion without the file name
@@ -71,7 +71,7 @@ public class FileInfo2 {
     private boolean hasCopyrightDeclared = false;
     
     // to which SPDX object is this file related?
-    private final SPDXfile2 spdx;
+    private final SPDXfile spdx;
     
     
     // the node that will be displayed on the treeview
@@ -80,7 +80,7 @@ public class FileInfo2 {
     
     
     
-    public FileInfo2(final SPDXfile2 spdx){
+    public FileInfo(final SPDXfile spdx){
         this.spdx = spdx;
     }
     
@@ -304,7 +304,7 @@ public class FileInfo2 {
      * @param spdx  The SPDX object where the file was indexed
      * @return      The pointer to a file on disk if found or null if not found.
      */
-    public File getFile(SPDXfile2 spdx){
+    public File getFile(SPDXfile spdx){
         // get our target file
         File targetFile = new File(spdx.getSourceFolder(), fileName);
         // doesn't exist? No need to continue
@@ -324,7 +324,7 @@ public class FileInfo2 {
         return fileExtensionObject;
     }
    
-    public SPDXfile2 getSPDX() {
+    public SPDXfile getSPDX() {
         return spdx;
    }
 

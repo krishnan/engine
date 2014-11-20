@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import main.engine;
-import spdxlib.FileInfo2;
+import spdxlib.FileInfo;
 
 
 public class TreeRenderer extends DefaultTreeCellRenderer {
@@ -125,7 +125,7 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
      */
     private void doNodeFile(TreeNodeSPDX node){
         // get the data from this node
-        FileInfo2 fileInfo = (FileInfo2) node.getUserObject();
+        FileInfo fileInfo = (FileInfo) node.getUserObject();
 
         if(fileInfo.getExtensionObject()!= null){
             //node.icon = fileInfo.getFileCategory().toIcon();

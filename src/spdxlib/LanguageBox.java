@@ -27,7 +27,7 @@ public class LanguageBox implements Comparable<Integer>{
     // how many files of this kind have we found so far?
     private int count = 0;
     // which files were found?
-    private ArrayList<FileInfo2> list = new ArrayList();
+    private ArrayList<FileInfo> list = new ArrayList();
     
     
     public LanguageBox(FileLanguage target){
@@ -54,7 +54,7 @@ public class LanguageBox implements Comparable<Integer>{
      * Add up a new file to our list, increase the counter
      * @param newFile   A fileInfo object
      */
-    public void add(FileInfo2 newFile){
+    public void add(FileInfo newFile){
         list.add(newFile);
         count++;
     }

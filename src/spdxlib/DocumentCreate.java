@@ -4,7 +4,7 @@
  * DocumentCreate: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-05-14T11:02:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: DocumentCreate2.java  
+ * FileName: DocumentCreate.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Creates an SPDX document from a given source </text> 
@@ -15,9 +15,7 @@ package spdxlib;
 
 import FileExtension.ExtensionCreate;
 import definitions.is;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,20 +24,21 @@ import script.FileExtension;
 import script.Trigger;
 import script.log;
 import ssdeep.ssdeep;
+import utils.Buffer;
 
 /**
  *
  * @author Nuno Brito, 1st of November 2013 in Darmstadt, Germany.
  * nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class DocumentCreate2 {
+public class DocumentCreate {
     
     // in which folder are our files located?
     File folderSource;
     int folderSourceLength;
     
     // the object for the new SPDX document
-    SPDXfile2 spdx = new SPDXfile2();
+    SPDXfile spdx = new SPDXfile();
     
     // are we processing a new document right now?
     private boolean processing = false;
@@ -61,8 +60,8 @@ public class DocumentCreate2 {
     // misc variables
     
     // the generic file writer (where we store the results on disk)
-    BufferedWriter out;
-    FileInfo2 tempInfo;
+    Buffer buffer;
+    FileInfo tempInfo;
    
     
     public boolean isProcessing() {
@@ -107,7 +106,7 @@ public class DocumentCreate2 {
             // setup the real path
             folderSource = new File(canonicalPath);
         } catch (IOException ex) {
-            Logger.getLogger(DocumentCreate2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
             // something failed, no problem. We can recover
             folderSource = folderToAnalyze;
         }
@@ -116,19 +115,25 @@ public class DocumentCreate2 {
         processing = true;
         // open our file for writing the new information
         try {
-            out = new BufferedWriter(new FileWriter(resultFile));
+            buffer = new Buffer(resultFile);
             // do the header
             createHeader(folderSource);
             // get down to business
             processFiles(folderSource, 25);
-            out.close();
-        } catch (IOException e){
+            
+            while(buffer.isHoldInMemory()){
+                utils.time.wait(1);
+            }
+            
+            
+        } catch (Exception e){
                 System.err.println("Error: " + e.getMessage());
                 processing = false;
                 return false;
             }
         // all done
         processing = false;
+        buffer.close();
         // we are expected to return the pointer to the new report on disk
         return true;
     }
@@ -192,7 +197,7 @@ public class DocumentCreate2 {
              .substring(folderSourceLength).replace("\\", "/");
      
      // create the fileInfo pointer
-     tempInfo = new FileInfo2(spdx);
+     tempInfo = new FileInfo(spdx);
      
      // write the file name
      tempInfo.setFileName(fileName);
@@ -212,14 +217,12 @@ public class DocumentCreate2 {
      final String result = tagFileName + tagFileType + tagChecksum 
              + tagSize + tagCodeInsight + "\n";
      
-//     System.out.println(tagFileName + tagFileType + tagChecksum 
-//             + tagSize + tagCodeInsight);
-     out.write(result);
+     buffer.write(result);
      // increase the counter
      filesProcessed++;
  }
 
-    public SPDXfile2 getSpdx() {
+    public SPDXfile getSpdx() {
         return spdx;
     }
     
@@ -452,8 +455,23 @@ public class DocumentCreate2 {
      * Writes the header for this SPDX document
      * @param folderSource  The folder from where we get information
      */
-    private void createHeader(File folderSourceCode) {
-        
+    private void createHeader(final File folderSourceCode) {
+            Thread thread = new Thread(){
+            @Override
+            public void run(){
+                launchCreateHeaderThread(folderSourceCode);
+           }
+       };
+        thread.start();
+    }
+
+    /**
+     * The thread that creates the header and license inference
+     * @param folderSourceCode 
+     */
+    private void launchCreateHeaderThread(final File folderSourceCode) {
+        // let's hold everything in memory until the buffer is written
+        buffer.setHoldInMemory(true);
         // define the package name if still empty at this stage
         if(packageName.isEmpty()){
             packageName = folderSourceCode.getName();
@@ -475,9 +493,7 @@ public class DocumentCreate2 {
             // record the license that was found
             packageLicenseDeclared = infer.getLicense().getId();
         }
-        log.write(is.INFO, "Finished detecting declared license for this project");
-        
-        
+        // prepare the header
         final String header =  
                   addParagraph("SPDX Document Information")
                 + addText("SPDXVersion: ", "SPDX-1.2")
@@ -498,12 +514,11 @@ public class DocumentCreate2 {
                 + "\n"
                 + addParagraph("File Information")
                 ;
-        try {
-            // now write the header
-            out.write(header);
-        } catch (IOException ex) {
-            Logger.getLogger(DocumentCreate2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+         // write the header
+        buffer.setHeaderText(header);
+        buffer.setHoldInMemory(false);
+        log.write(is.INFO, "Finished detecting declared license for this project");
     }
     
      /**

@@ -16,7 +16,7 @@ import definitions.is;
 import java.io.File;
 import static main.engine.warmUp;
 import script.log;
-import spdxlib.DocumentCreate2;
+import spdxlib.DocumentCreate;
 import spdxlib.EvaluateLicensingQuality;
 
 /**
@@ -112,7 +112,7 @@ public class cmdLine {
             final String documentCreator) {
         
         // the SPDX document that we are about to create    
-        DocumentCreate2 spdx = new DocumentCreate2();
+        DocumentCreate spdx = new DocumentCreate();
         
         // if this is a directory, we can't proceed
         if(spdxFile.isDirectory()){
