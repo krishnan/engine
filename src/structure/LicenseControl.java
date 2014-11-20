@@ -118,7 +118,11 @@ public final class LicenseControl {
     }
     
         
-    
+    /**
+     * Looks on the titles and tries to find an exact match
+     * @param licenseTitle
+     * @return 
+     */
     public License getAsTitle(final String licenseTitle) {
         for(License license : list){
             if(utils.text.equals(licenseTitle, license.getTitle())){

@@ -95,6 +95,12 @@ public class SPDXfile implements Serializable{
     // variables for handling the licenses inside this document
     final private LicenseCounter licenseCounter = new LicenseCounter();
     
+    // was a license declared for this package?
+    private License packageLicenseDeclared;
+    private String packageLicenseDeclaredText;
+    
+    // global variables only used during a read of the document
+    String line;
     
     // default constructor, we need a file to proceed
     public SPDXfile(final File canonicalFile) {
@@ -212,6 +218,33 @@ public class SPDXfile implements Serializable{
         return nodeExport;
     }
 
+    /**
+     * Read the information from the header
+     * @param reader 
+     */
+    private void processHeader(BufferedReader reader) {
+        try {
+            while ((line = reader.readLine()) != null) {
+                // increase the char counting
+                charPosition+= line.length() + 1;
+                
+                // PackageLicenseDeclared:
+                if(tagStartsWith(is.tagPackageLicenseDeclared, line)){
+                    packageLicenseDeclaredText = tagGetValue(is.tagPackageLicenseDeclared, line);
+                }
+                
+                // have we read enough?
+                if(line.startsWith("FileName:")){
+                    // no more header information available
+                    break;
+                }
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(SPDXfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // used for tags with multiple lines, such as:
     // FileCopyrightText -> COPYRIGHT
     enum mTypes {COPYRIGHT};
@@ -243,8 +276,11 @@ public class SPDXfile implements Serializable{
         int lineCounter = 0;
       try {
           BufferedReader reader = new BufferedReader(new FileReader(file));
-          String line;
-            while ((line = reader.readLine()) != null) {
+          // get information from the header data (when available)
+          processHeader(reader);
+          
+          // process the file information
+          while (line != null) {
                try {
                     // increase the line counter
                     lineCounter++;
@@ -261,6 +297,8 @@ public class SPDXfile implements Serializable{
                 }
                 // increase the char counting
                 charPosition+= line.length() + 1;
+                // move to the next line
+                line = reader.readLine();
             }
             reader.close();
             // small tidybits that were left to fix up
@@ -1063,6 +1101,36 @@ public class SPDXfile implements Serializable{
 
     public int getFilesUnknown() {
         return filesUnknown;
+    }
+
+    private void getLicensesIndexed(){
+        engine.licenses.find();
+    }
+    
+    public License getPackageLicenseDeclared() {
+        if(packageLicenseDeclaredText == null){
+            return null;
+        } 
+        // have we already defined a license?
+        if(packageLicenseDeclared != null){
+            return packageLicenseDeclared;
+        }
+        // get it in lowercase
+        final String text = packageLicenseDeclaredText.toLowerCase();
+        // avoid no assertion statements, count as null
+        if(text.isEmpty()){
+            return null;
+        }else
+        if(text.equals("noassertion")){
+            return null;
+        }
+        
+        // ok, let's start by indexing our license db (if not done already)
+        engine.licenses.find();
+        // then try to find a match using this identification
+        packageLicenseDeclared = engine.licenses.get(packageLicenseDeclaredText);
+        // will return a license if one was found, otherwise the result is null
+        return packageLicenseDeclared;
     }
     
     

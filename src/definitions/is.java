@@ -47,6 +47,7 @@ public class is {
             tagLicenseConcluded = "FileLicenseConcluded:",
             tagFileOrigin = "FileOrigin:",
             tagFileComponent = "ArtifactOfProjectName:",
+            tagPackageLicenseDeclared = "PackageLicenseDeclared:",
 
             valueSource =  "SOURCE",
             valueBinary =  "BINARY",
@@ -129,6 +130,7 @@ public class is {
         
         
         public static String doubleClick = "doubleclick";
+    
         
    
             
