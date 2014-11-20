@@ -99,14 +99,8 @@ public class EvaluateLicensingQuality {
     private String 
             fixSuggestionLicense = "",
             fixSuggestionCopyright = "",
-            fixSuggestionDocumentation
+            fixSuggestionDocumentation = "";
             ;
-    
-    private int 
-            countFixSuggestionDocumentation = 0
-            ;
-    
-    
     
     /**
      * Enables or disables the auditing mode when proceeding with a score
@@ -290,7 +284,16 @@ public class EvaluateLicensingQuality {
         
         // go through each mandatory item, it is available on the source code?
         for(final String item : docsMandatory){
+            final int oldValue = countMandatoryDocs;
             countMandatoryDocs = isDocumentAvailable(item, countMandatoryDocs);
+            // did we found the mandatory document?
+            if(countMandatoryDocs == oldValue){
+                // no changes? then mark this document as missing
+                fixSuggestionDocumentation = fixSuggestionDocumentation.concat(""
+                        + "./"
+                        + item.toUpperCase()
+                        + "\n");
+            }
         }
         // repeat the same procedure, this time for 
         for(final String item : docsOptional){
@@ -374,7 +377,6 @@ public class EvaluateLicensingQuality {
                 counter++;
                 break;
             }
-            // if we reached this point, it means less one point
         }
         // give back the updated number of counts
         return counter;
@@ -542,7 +544,7 @@ public class EvaluateLicensingQuality {
      * Computes an HTML output with a list of suggestions of what can be fixed
      * @return A list of what can be fixed in HTML format
      */
-    public String getFixSuggestionCopyright(){
+    public String getSuggestionFixCopyright(){
         // do we really need an evaluation for this topic?
         if(getMaxPointsForCopyright() == getScoreCopyright()){
             fixSuggestionCopyright = "No action needed for this topic, looking good.";
@@ -572,7 +574,7 @@ public class EvaluateLicensingQuality {
      * Computes an HTML output with a list of suggestions of what can be fixed
      * @return A list of what can be fixed in HTML format
      */
-    public String getFixSuggestionLicense(){
+    public String getSuggestionFixLicense(){
         // do we really need an evaluation for this topic?
         if(getMaxPointsForLicensesDeclared() == getScoreLicensesDeclared()){
             fixSuggestionLicense = "No action needed for this topic, looking good.";
@@ -597,7 +599,37 @@ public class EvaluateLicensingQuality {
         // all done
         return fixSuggestionLicense;
     }
+   
     
+    /**
+     * Computes an HTML output with a list of suggestions of what can be fixed
+     * @return A list of what can be fixed in HTML format
+     */
+    public String getSuggestionFixDocumentation(){
+        // do we really need an evaluation for this topic?
+        if(countMandatoryDocs == docsMandatory.length){
+            fixSuggestionDocumentation = "No action needed for docs, looking good.";
+            return fixSuggestionDocumentation;
+        }
+       
+        // adapt accordingly to a single result or  multiple results
+        if(countMandatoryDocs == 1){
+            fixSuggestionDocumentation = "Please create a file named "
+                    + fixSuggestionDocumentation;
+        }else{
+            // show the list of results
+        fixSuggestionDocumentation = "Please create the "
+                + "<b>"
+                + utils.text.convertToHumanNumbers(docsMandatory.length - countMandatoryDocs)
+                + "</b>"
+                + " files listed below."
+                + html.br
+                + html.br
+                + fixSuggestionDocumentation.replaceAll("\n", html.br);
+        }
+        // all done
+        return fixSuggestionDocumentation;
+    }
     
     
     /**
@@ -671,5 +703,13 @@ public class EvaluateLicensingQuality {
     public int getScoreMax() {
         return scoreMax;
     }
- 
+
+    public int getCountCopyrightNotDeclared() {
+        return countCopyrightNotDeclared;
+    }
+
+    public int getCountLicensesNotDeclared() {
+        return countLicensesNotDeclared;
+    }
+    
 }
