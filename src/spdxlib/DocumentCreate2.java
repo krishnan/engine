@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import main.engine;
 import script.FileExtension;
 import script.Trigger;
+import script.log;
 import ssdeep.ssdeep;
 
 /**
@@ -467,12 +468,15 @@ public class DocumentCreate2 {
         // perhaps this source code folder has some license(s) declared?
         String packageLicenseDeclared = "NOASSERTION";
         // try to infer the license for this source code folder
+        log.write(is.INFO, "Detecting declared license for this project");
         LicenseInfer infer = new LicenseInfer(folderSource);
         // positive results?
         if(infer.isValid()){
             // record the license that was found
             packageLicenseDeclared = infer.getLicense().getId();
         }
+        log.write(is.INFO, "Finished detecting declared license for this project");
+        
         
         final String header =  
                   addParagraph("SPDX Document Information")

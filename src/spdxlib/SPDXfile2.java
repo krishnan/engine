@@ -477,7 +477,17 @@ public class SPDXfile2 implements Serializable{
     public ArrayList<FileInfo2> getFiles() {
         return files;
     }
+
+    /**
+     * Get the pointer to the SPDX document on disk (if one exists)
+     * @return The pointer to a file on disk
+     */
+    public File getFile() {
+        return file;
+    }
   
+    
+    
     /**
      * When available, gives back the location where we can find the source code
      * files that were used when creating this document.
