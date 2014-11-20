@@ -14,6 +14,7 @@
 package spdxlib;
 
 import java.io.File;
+import utils.www.html;
 
 /**
  *
@@ -519,6 +520,65 @@ public class EvaluateLicensingQuality {
                 / sum3rdPartyAssociations;
     }
 
+    
+    /**
+     * Returns an HTML output with a list of suggestions of what can be fixed
+     * @return A list of possible actions in HTML format
+     */
+    public String getFixSuggestionCopyright(){
+        // where we store the results
+        String result = "";
+        int counter = 0;
+        // do we really need an evaluation for this topic?
+        if(getMaxPointsForCopyright() == getScoreCopyright()){
+            result = "No action needed for this topic, looking good.";
+            return result;
+        }
+        
+        // it seems that we do have some work to be done here
+        for(final FileInfo2 file : spdx.getFiles()){
+            // we only want to process source code files
+            if(file.getExtensionObject().getCategory() != FileCategory.SOURCE){
+                continue;
+            }
+            // ignore the files that already have the copyright declared
+            if(file.hasCopyrightDeclared()){
+                continue;
+            }
+            
+            // if the file was automatically generated, then don't care about it
+            if(file.getFileOrigin() == FileOrigin.AUTOMATED){
+                continue;
+            }
+            
+            // list the ones that we still need to modify
+            result = result.concat(""
+                    + file.getFileName()
+                    + html.br
+            );
+            // increase the counter
+            counter++;
+        }
+        
+        // adapt accordingly to a single result or  multiple results
+        if(counter == 1){
+            result = "No copyright attribution was found for "
+                    + result;
+        }else{
+            // show the list of results
+        result = "No copyright attribution was found for the "
+                + "<b>"
+                + utils.text.convertToHumanNumbers(counter)
+                + "</b>"
+                + " files listed below."
+                + html.br
+                + html.br
+                + result;
+        }
+        // all done
+        return result;
+    }
+    
     /**
      * Verify if the source code was scanned against a similarity
      * knowledge base to prove its originality (or not).

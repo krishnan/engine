@@ -621,7 +621,6 @@ public class SPDXfile2 implements Serializable{
         // now process the languages on the second list
         computeLanguageSecondList();
         
-        
         // set the marker that we have evaluated the languages
         languagesWereNotEvaluated = false;
     }
@@ -785,6 +784,10 @@ public class SPDXfile2 implements Serializable{
         return countSize;
     }
     
+    /**
+     * This method is deprecated. Marked for removal in the future
+     * @return 
+     */
     public String getCopyrightEvaluation() {
         System.err.println("Missing to implement Copyright evaluation");
         return "";
