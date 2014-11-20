@@ -464,22 +464,33 @@ public class DocumentCreate2 {
             documentCreator = System.getProperty("user.name");
         }
 
+        // perhaps this source code folder has some license(s) declared?
+        String packageLicenseDeclared = "NOASSERTION";
+        // try to infer the license for this source code folder
+        LicenseInfer infer = new LicenseInfer(folderSource);
+        // positive results?
+        if(infer.isValid()){
+            // record the license that was found
+            packageLicenseDeclared = infer.getLicense().getId();
+        }
         
         final String header =  
                   addParagraph("SPDX Document Information")
-                + addText("SPDXVersion: SPDX-1.2")
-                + addText("DataLicense: CC-BY-4.0")
+                + addText("SPDXVersion: ", "SPDX-1.2")
+                + addText("DataLicense: ", "CC-BY-4.0")
                 + "\n"
                 
                 + addParagraph("Creation Information")
-                + addText("Creator: " + documentCreator)
-                + addText("Creator: Tool: TripleCheck " + engine.version)
-                + addText("Created: " + utils.time.getDateSPDX())
+                + addText("Creator: ", documentCreator)
+                + addText("Creator: Tool: ", "TripleCheck " + engine.version)
+                + addText("Created: ", utils.time.getDateSPDX())
                 + "\n"
                 
                 + addParagraph("Package Information")
-                + addText("PackageName: " +  packageName)
-                + addText("PackageDownloadLocation: " +  packageURL)
+                + addText("PackageName: ",  packageName)
+                + addText("PackageLicenseDeclared: ",  packageLicenseDeclared)
+                + addText("PackageDownloadLocation: ", packageURL)
+                
                 + "\n"
                 + addParagraph("File Information")
                 ;
@@ -508,11 +519,11 @@ public class DocumentCreate2 {
      * @param text the text to be included
      * @return a formatted string ready to be written at an ASCII file
      */
-    private String addText(String text){
+    private String addText(final String key, final String text){
         if(text.isEmpty()){
             return "";
         }
-        return text + "\n";
+        return key + text + "\n";
     }
 
     

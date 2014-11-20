@@ -23,6 +23,7 @@ import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import script.Script;
+import structure.LicenseControl;
 import structure.ReportsControl;
 import structure.TriggerControl;
 import utils.Settings;
@@ -51,6 +52,10 @@ public class engine {
    
     public static ReportsControl
             reports;
+    
+    // find the licenses available on disk
+    public static LicenseControl
+            licenses; // = new LicenseControl();
    
     public static 
             Script script = new Script();
