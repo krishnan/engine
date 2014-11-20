@@ -845,10 +845,8 @@ public class SPDXfile2 implements Serializable{
         nodeComponents = createNode("Components", "/components/summary.java",
                 NodeType.sectionComponents);
         // node for exporting the compliance data
-        nodeExport = createNode("Export", "/components/export.java",
+        nodeExport = createNode("Compile", "/components/compile.java",
                 NodeType.sectionExport);
-        
-        
         
         // get the stats done
         computeStats();
