@@ -11,7 +11,7 @@
  * to generate an enum that is optimized for performance </text>
  */
 
-package spdxlib.generators;
+package generators;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -14,7 +14,7 @@
  * https://gist.github.com/luislobo/6127027
  */
 
-package script;
+package FileExtension;
 
 import java.io.File;
 import java.util.ArrayList;

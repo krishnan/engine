@@ -11,7 +11,7 @@
  * to generate a new set of templates. </text>
  */
 
-package spdxlib.generators;
+package generators;
 
 import java.io.File;
 import main.engine;

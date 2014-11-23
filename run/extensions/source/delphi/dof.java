@@ -1,7 +1,7 @@
 package source.delphi;
 
 import java.io.File;
-import script.FileExtension;
+import FileExtension.FileExtension;
 import spdxlib.ContentType;
 import spdxlib.FileCategory;
 import spdxlib.FileLanguage;

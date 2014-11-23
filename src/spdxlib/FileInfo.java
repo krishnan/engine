@@ -17,7 +17,7 @@ import spdxlib.swing.TreeNodeSPDX;
 import java.io.File;
 import java.util.ArrayList;
 import main.engine;
-import script.FileExtension;
+import FileExtension.FileExtension;
 import spdxlib.swing.TreeviewUtils;
 
 

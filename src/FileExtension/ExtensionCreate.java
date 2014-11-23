@@ -16,10 +16,8 @@ package FileExtension;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import main.engine;
-import script.FileExtension;
 
 
 /**
