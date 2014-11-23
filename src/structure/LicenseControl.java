@@ -13,12 +13,10 @@
 package structure;
 
 import definitions.is;
-import java.io.File;
 import java.util.ArrayList;
-import main.engine;
-import script.exec;
 import script.log;
 import spdxlib.License;
+import spdxlib.LicenseList;
 import utils.www.html;
 
 
@@ -33,7 +31,8 @@ public final class LicenseControl {
      * Public constructor
      */
     public LicenseControl(){
-        launchThreadedStart();
+        //launchThreadedStart();
+        find();
     }
     
         
@@ -52,7 +51,7 @@ public final class LicenseControl {
      */
     public ArrayList<License> getList() {
         // only provide back a list after the licensing processing was made
-        if(list.isEmpty() && hasNotProcessed){
+        if(list.isEmpty() || hasNotProcessed){
             find();
         }
         return list;
@@ -83,18 +82,23 @@ public final class LicenseControl {
         if(hasNotProcessed == false){
             return;
         }
-        // clear up the list to avoid duplicates
-        File folder = engine.getLicensesFolder();
-        ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
-        log.write(is.INSTALLING, "Processing %1 licenses", "" + files.size());
-        for(File file : files){
-            //core.script.runJava(file, null, is.license);
-            License license = (License) exec.runJava(file, is.license);
-                //utils.bytecode.getObject(file);
-            if(license != null && license.getId().isEmpty() == false){
-                list.add(license);
-            }
-        }
+        
+        LicenseList licenseList = new LicenseList();
+        
+        list.addAll(licenseList.getList());
+        
+//        // clear up the list to avoid duplicates
+//        File folder = engine.getLicensesFolder();
+//        ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 2);
+//        log.write(is.INSTALLING, "Processing %1 licenses", "" + files.size());
+//        for(File file : files){
+//            //core.script.runJava(file, null, is.license);
+//            License license = (License) exec.runJava(file, is.license);
+//                //utils.bytecode.getObject(file);
+//            if(license != null && license.getId().isEmpty() == false){
+//                list.add(license);
+//            }
+//        }
         // output some statistics about the number of extensions registered
         log.write(is.COMPLETED, "Licenses recognized: %1", "" + list.size());
         //System.err.println("LC85 - Found licenses: " + files.size() + "");

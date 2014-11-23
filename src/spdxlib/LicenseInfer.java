@@ -15,8 +15,9 @@ import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
 import main.engine;
-import script.log;
 import script.exec;
+import script.log;
+import structure.LicenseControl;
 
 
 /**
@@ -101,38 +102,14 @@ public class LicenseInfer {
      * @param file A file on disk with the possible License information
      */
     private void processLicense(final File file) {
-        // do we have a license cache enabled?
-        if(engine.licenses != null){
-            processLicenseWithCache(file);
-        }else{
-            // otherwise read all files from disk
-            processLicenseNoCache(file);
+        
+        if(engine.licenses == null){
+            engine.licenses = new LicenseControl();
         }
+
+        processLicenseWithCache(file);
     }
     
-    /**
-     * Compare two licenses without using a pre-cached version of the licenses
-     * that would be available in memory. This method adds up a few seconds
-     * to the processing
-     * @param file The file with the content we want to discover the license
-     */
-    private void processLicenseNoCache(final File file) {
-        // start by reading the content of this LICENSE file
-        final String content = utils.files.readAsString(file).toLowerCase();
-        // get the folder where we have our list of licenses to compare against
-        final File licensesFolder = engine.getLicensesFolder();
-        ArrayList<File> files = utils.files.findFilesFiltered(licensesFolder, ".java", 4);
-        // do the comparison against all licenses
-        for(final File fileLicense : files){
-            License thisLicense = (License) exec.runJava(fileLicense, is.license);
-                //utils.bytecode.getObject(file);
-            if(thisLicense == null || thisLicense.getId().isEmpty()){
-                continue;
-            }
-            // compare the content against this specific license
-            licenseCompare(content, thisLicense);
-        }
-    }    
     
 
     /**
