@@ -14,9 +14,11 @@
 package comp;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +72,7 @@ public class ComponentControl {
      * one component with the same Id, only the first one that is found will
      * be provided.
      * @param id    The unique identification for the component
+     * @return 
      */
     public Component get(final String id) {
         // try to find a custom component first
@@ -249,7 +252,6 @@ public class ComponentControl {
     }
     /**
      * Shows an HTML list of all the components that we have available on disk
-     * @param title  The title show on the HTML link for further details
      * @param link  The initial part of the link used on the view details
      * @return      An HTML page ready for display to end-users
      */
@@ -331,7 +333,8 @@ public class ComponentControl {
                     + utils.time.timeNumberToHumanReadable(result);
            // System.err.println("CC235 - " + output);
             
-        }catch (Exception e){}
+        }catch (IOException e){} catch (JsonSyntaxException e) {
+        }
         return output;
     }
       
@@ -369,7 +372,9 @@ public class ComponentControl {
                 }
             }
            
-        }catch (Exception e){
+        }catch (IOException e){
+            System.err.println("CC314 - Exception occurred");
+        } catch (JsonSyntaxException e) {
             System.err.println("CC314 - Exception occurred");
         }
         return null;
@@ -379,7 +384,6 @@ public class ComponentControl {
   /**
    * 
    * @param searchTerm  What we want to find
-   * @param title     The title of the link
    * @param link        The link location
    * @return 
    */
