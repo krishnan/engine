@@ -24,7 +24,7 @@ import FileExtension.FileExtension;
 import script.Trigger;
 import script.log;
 import ssdeep.ssdeep;
-import utils.Buffer;
+import utils.model.FileWriteLinesWithBuffer;
 
 /**
  *
@@ -60,7 +60,7 @@ public class DocumentCreate {
     // misc variables
     
     // the generic file writer (where we store the results on disk)
-    Buffer buffer;
+    FileWriteLinesWithBuffer buffer;
     FileInfo tempInfo;
    
     
@@ -115,7 +115,7 @@ public class DocumentCreate {
         processing = true;
         // open our file for writing the new information
         try {
-            buffer = new Buffer(resultFile);
+            buffer = new FileWriteLinesWithBuffer(resultFile);
             // do the header
             createHeader(folderSource);
             // get down to business
