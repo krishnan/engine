@@ -29,6 +29,7 @@ public enum FileLanguage{
     RUBY,
     PYTHON,
     PERL,
+    LISP,
     SCRIPT_LINUX,
     SCRIPT_WINDOWS,
     COFFEE,
