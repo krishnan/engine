@@ -37,6 +37,7 @@ public enum FileLanguage{
     // mixed (can be compiled or interpreted)
     BASIC,
     ABAP,
+    ERLANG,
     
     // misc
     SQL,
