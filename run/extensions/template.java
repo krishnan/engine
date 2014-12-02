@@ -10,15 +10,8 @@ import spdxlib.FileLanguage;
  * Created: #DATE#
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: #EXT#.java  
- * FileCategory: SOURCE
  * FileCopyrightText: <text> #COPYRIGHT# </text>
- * FileComment: <text> This class provides details about the files that make 
- * use of the "#EXT#" extension. When possible, the file provenance author
- * includes details such as date when this extension first began to be used.
- * There are cases where different data structures use the same file extension,
- * when this happens then the author needs to accomodate code to accurately
- * detect which type of file is being analysed.
- * </text> 
+ * FileComment: <text> #EXT#" file type. </text> 
  */
 
 
@@ -63,12 +56,13 @@ public class template extends FileExtension{
     }
     
     /**
-     * To which kind of language does this file relates the most?
-     * @return 
+     * We can typically group data structures inside files to a few categories.
+     * Albeit not perfect, it does help to sort out files into groups.
+     * @return the category generally associated with this file type
      */
     @Override
-    public FileLanguage getLanguage(){
-        return FileLanguage.UNSORTED; // to which language is the file more related?
+    public FileCategory getCategory() {
+        return FileCategory.UNKNOWN; // does it group under a category?
     }
 
     /**
@@ -82,6 +76,15 @@ public class template extends FileExtension{
     }
     
     /**
+     * To which kind of language does this file relates the most?
+     * @return 
+     */
+    @Override
+    public FileLanguage getLanguage(){
+        return FileLanguage.UNSORTED; // to which language is the file more related?
+    }
+
+    /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
      * processing of each file
@@ -90,16 +93,6 @@ public class template extends FileExtension{
     @Override
     public ContentType getContentType() {
         return ContentType.TEXT; // is it a binary or text file?
-    }
-
-    /**
-     * We can typically group data structures inside files to a few categories.
-     * Albeit not perfect, it does help to sort out files into groups.
-     * @return the category generally associated with this file type
-     */
-    @Override
-    public FileCategory getCategory() {
-        return FileCategory.UNKNOWN; // does it group under a category?
     }
     
 }
