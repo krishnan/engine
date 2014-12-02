@@ -1,4 +1,4 @@
-package source;
+package image;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,22 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:43:36Z
+ * Created: 2014-12-02T14:49:00Z
  * LicenseName: CC-BY-4.0
- * FileName: c.java  
- * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type c. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
- * </text> 
+ * FileName: glif.java  
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
+ * FileComment: <text> TIFF images.</text> 
  */
 
 
@@ -32,9 +21,9 @@ import spdxlib.FileLanguage;
  *
  * @author Nuno Brito
  */
-public class c extends FileExtension{
+public class tiff extends FileExtension{
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
@@ -61,18 +50,20 @@ public class c extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "Tagged Image Format File"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.C; // to which language is the file more related?
+        return FileLanguage.UNSORTED; // to which language is the file more related?
     }
 
     /**
@@ -82,7 +73,7 @@ public class c extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "c";
+        return "tiff";
     }
     
     /**
@@ -93,7 +84,7 @@ public class c extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        return ContentType.BINARY;
     }
 
     /**
@@ -103,7 +94,7 @@ public class c extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.IMAGE;
     }
     
 }

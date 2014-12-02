@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-02T00:39:42Z
+ * Created: 2014-12-02T11:11:37Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -57,6 +57,7 @@ public final class ExtensionList {
 	list.add(new config.mak());
 	list.add(new config.mk());
 	list.add(new config.npmignore());
+	list.add(new config.plist());
 	list.add(new config.prefs());
 	list.add(new config.properties());
 	list.add(new config.rc());
@@ -72,6 +73,8 @@ public final class ExtensionList {
 	list.add(new document.spdx());
 	list.add(new document.tex());
 	list.add(new executable.exe());
+	list.add(new font.fea());
+	list.add(new font.glif());
 	list.add(new font.ttf());
 	list.add(new font.woff());
 	list.add(new image.ai());
@@ -85,6 +88,7 @@ public final class ExtensionList {
 	list.add(new image.ps());
 	list.add(new image.psd());
 	list.add(new image.svg());
+	list.add(new image.tiff());
 	list.add(new image.xcf());
 	list.add(new image.xpm());
 	list.add(new internet.css());
@@ -130,6 +134,7 @@ public final class ExtensionList {
 	list.add(new script.emacs.el());
 	list.add(new script.emacs.elc());
 	list.add(new script.erl());
+	list.add(new script.es());
 	list.add(new script.js());
 	list.add(new script.jsm());
 	list.add(new script.pl());
@@ -137,10 +142,9 @@ public final class ExtensionList {
 	list.add(new script.vbs());
 	list.add(new source.abap());
 	list.add(new source.asm());
-	list.add(new source.c());
 	list.add(new source.coffee());
-	list.add(new source.cpp.cc());
-	list.add(new source.cpp.cppExt());
+	list.add(new source.cpp_lang.cc());
+	list.add(new source.cpp_lang.cpp());
 	list.add(new source.csharp.cd());
 	list.add(new source.csharp.config());
 	list.add(new source.csharp.cs());
@@ -148,12 +152,14 @@ public final class ExtensionList {
 	list.add(new source.csharp.resx());
 	list.add(new source.csharp.ruleset());
 	list.add(new source.csharp.sln());
+	list.add(new source.c_lang.c());
+	list.add(new source.c_lang.h());
 	list.add(new source.delphi.dof());
 	list.add(new source.delphi.dpr());
 	list.add(new source.delphi.form());
 	list.add(new source.delphi.pas());
 	list.add(new source.delphi.tilpas());
-	list.add(new source.h());
+	list.add(new source.hx());
 	list.add(new source.java());
 	list.add(new source.jsp());
 	list.add(new source.php());

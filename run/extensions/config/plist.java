@@ -1,4 +1,4 @@
-package source.cpp;
+package config;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,30 +9,28 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T13:57:13Z
+ * Created: 2014-12-02T19:03:30Z
  * LicenseName: CC-BY-4.0
- * FileName: cpp.java  
- * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type cpp. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
- * </text> 
+ * FileName: plist.java  
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
+ * FileComment: <text> The PLIST file type is primarily associated with 
+    'Property List XML File'. A PLIST file is an XML file using Apple’s 
+    plist DTD. PLIST stands for Property List, and refers to the fact that 
+    PLIST files typically hold lists of properties. PLIST files are a standard 
+    part of Apple's OS X Core Foundation. You can edit plist files using a 
+    text editor or Apple’s PropertyListEditor, found on the Developer CD or 
+    on Apple’s web site.  
+
+    Description retrieved from http://filext.com/file-extension/PLIST
+</text> 
  */
 
 
 /**
  *
- * @author Nuno Brito
+ * @file provenance by Nuno Brito
  */
-public class cppExt extends FileExtension{
+public class plist extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -61,18 +59,20 @@ public class cppExt extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "Property List XML File"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.C_PLUS_PLUS; // to which language is the file more related?
+        return FileLanguage.UNSORTED; // to which language is the file more related?
     }
 
     /**
@@ -82,9 +82,9 @@ public class cppExt extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "cpp";
+        return "plist";
     }
-
+    
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -93,7 +93,7 @@ public class cppExt extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        return ContentType.TEXT; // is it a binary or text file?
     }
 
     /**
@@ -103,10 +103,7 @@ public class cppExt extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.CONFIG; // does it group under a category?
     }
-
-
-    
     
 }

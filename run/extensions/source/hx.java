@@ -9,43 +9,37 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:43:36Z
+ * Created: 2014-12-02T11:43:55Z
  * LicenseName: CC-BY-4.0
- * FileName: h.java  
- * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type h. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
- * </text> 
+ * FileName: hx.java  
+ * FileCopyrightText: <text> Copyright (c) 2014, nuno </text>
+ * FileComment: <text> Haxe is an open-source high-level multiplatform 
+    programming language and compiler that can produce applications and 
+    source code for many different platforms from a single code-base.
+
+Description: http://en.wikipedia.org/wiki/Haxe
+</text> 
  */
 
 
 /**
  *
- * @author Nuno Brito
+ * @file provenance by Nuno Brito
  */
-public class h extends FileExtension{
+public class hx extends FileExtension{
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
      */
     @Override
     public Boolean isApplicable(File binaryFile) {
-        return true;
+        return false;
     }
   
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the text of a file to get the answer. You can either
      * specify a file or the text. The advantage of using this method is that
      * you will not need to read the text from the file for each extension test.
@@ -61,26 +55,20 @@ public class h extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "haXe source code file"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        /**
-         * .h files are headers for the C programming language, they apply
-         * both for C++ and C. For this kind of situation, we define the
-         * applicable language as "multiple" and then define the possible
-         * language options
-         */
-        languages.add(FileLanguage.C_PLUS_PLUS);
-        languages.add(FileLanguage.C);
-        return FileLanguage.MULTIPLE; // to which language is the file more related?
+        return FileLanguage.HAXE; // to which language is the file more related?
     }
 
     /**
@@ -90,7 +78,7 @@ public class h extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "h";
+        return "hx";
     }
     
     /**
@@ -101,7 +89,7 @@ public class h extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        return ContentType.TEXT; // is it a binary or text file?
     }
 
     /**
@@ -111,7 +99,7 @@ public class h extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.SOURCE; // does it group under a category?
     }
     
 }

@@ -22,6 +22,7 @@ public enum FileLanguage{
     C_SHARP,
     OBJECTIVE_C,
     ASSEMBLER,
+    HAXE,
     
     // scripted
     PHP,

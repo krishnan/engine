@@ -1,4 +1,4 @@
-package source.cpp;
+package font;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,22 +9,20 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-11-30T15:15:13Z
+ * Created: 2014-12-02T14:49:00Z
  * LicenseName: CC-BY-4.0
- * FileName: cc.java  
- * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type cc. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
- * </text> 
+ * FileName: glif.java  
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
+ * FileComment: <text> OpenType features are tedious to define using a GUI.
+    Consequently, Adobe standardized[19] a text specification format for 
+    feature files, which typically have a name ending in a .fea extension. 
+    These files can be compiled into the binary font container (.ttf or .otf) 
+    using Adobe FDK (AFDKO), FontLab or FontForge. The latter program 
+    implements a few features that are documented in the Adobe standard 
+    but are not implemented by AFDKO.
+
+    Description from http://en.wikipedia.org/wiki/OpenType
+</text> 
  */
 
 
@@ -32,7 +30,7 @@ import spdxlib.FileLanguage;
  *
  * @author Nuno Brito
  */
-public class cc extends FileExtension{
+public class fea extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -45,11 +43,11 @@ public class cc extends FileExtension{
     }
   
     /**
-     * How can we confirm that this file extension is appliable to this file?
+     * How can we confirm that this file extension is applicable to this file?
      * This method analyses the text of a file to get the answer. You can either
      * specify a file or the text. The advantage of using this method is that
      * you will not need to read the text from the file for each extension test.
-     * This brings significant performance improvements when analyzing
+     * This brings significant performance improvements when analysing
      * thousands of files.
      * @param textFile The content of a text file
      * @return True if file matches the data structure reported by the extension
@@ -61,18 +59,20 @@ public class cc extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "OpenType Feature File"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.C_PLUS_PLUS; // to which language is the file more related?
+        return FileLanguage.UNSORTED; // to which language is the file more related?
     }
 
     /**
@@ -82,9 +82,9 @@ public class cc extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "cc";
+        return "fea";
     }
-
+    
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -103,10 +103,7 @@ public class cc extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.FONT;
     }
-
-
-    
     
 }
