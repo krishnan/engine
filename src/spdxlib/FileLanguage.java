@@ -23,6 +23,8 @@ public enum FileLanguage{
     OBJECTIVE_C,
     ASSEMBLER,
     HAXE,
+    GO,
+    MATLAB,
     
     // scripted
     PHP,
@@ -34,11 +36,15 @@ public enum FileLanguage{
     SCRIPT_LINUX,
     SCRIPT_WINDOWS,
     COFFEE,
+    LUA,
+    GROOVY,
     
     // mixed (can be compiled or interpreted)
     BASIC,
     ABAP,
     ERLANG,
+    R,
+    D,
     
     // misc
     SQL,

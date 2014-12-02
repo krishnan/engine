@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-02T11:11:37Z
+ * Created: 2014-12-02T17:23:08Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -142,6 +142,7 @@ public final class ExtensionList {
 	list.add(new script.vbs());
 	list.add(new source.abap());
 	list.add(new source.asm());
+	list.add(new source.bas());
 	list.add(new source.coffee());
 	list.add(new source.cpp_lang.cc());
 	list.add(new source.cpp_lang.cpp());
@@ -154,16 +155,24 @@ public final class ExtensionList {
 	list.add(new source.csharp.sln());
 	list.add(new source.c_lang.c());
 	list.add(new source.c_lang.h());
+	list.add(new source.c_lang.ino());
+	list.add(new source.d());
 	list.add(new source.delphi.dof());
 	list.add(new source.delphi.dpr());
 	list.add(new source.delphi.form());
 	list.add(new source.delphi.pas());
 	list.add(new source.delphi.tilpas());
+	list.add(new source.go());
+	list.add(new source.groovy());
 	list.add(new source.hx());
 	list.add(new source.java());
 	list.add(new source.jsp());
+	list.add(new source.lua());
+	list.add(new source.matlab.m());
+	list.add(new source.matlab.mat());
 	list.add(new source.php());
 	list.add(new source.py());
+	list.add(new source.r());
 	list.add(new source.rb());
 	list.add(new text.log());
 	list.add(new text.md());
