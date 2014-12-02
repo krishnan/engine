@@ -35,6 +35,7 @@ public class ExtensionCreate {
             descriptionCopyright = "FileSuffix.com (c)" 
                 + utils.time.getCurrentYear();
     
+    
     /**
      * An automated way of getting information for new file names.
      * It is not an easy task to catalog file names, some web sites
@@ -73,6 +74,7 @@ public class ExtensionCreate {
         if(template.exists() == false){
             System.err.println("FI005 - Cannot find template.java to cre"
                     + "ate a new file extension");
+            System.exit(-1);
             return;
         }
         // all done, let's create a new template
@@ -103,7 +105,64 @@ public class ExtensionCreate {
         System.out.println("EC134 - Added extension: " + safeExt);
     }
 
+
     
+    /**
+     * Creates a new template for file extension on a given location
+     * @param extension
+     * @param template
+     * @param folderLocation 
+     */
+    public void autogenerate(final String extension, final File template,
+            final File folderLocation) {
+        
+        // preserve information about the traces 
+        String safeExt = extension.replace("-", "_");
+        safeExt = safeExt.replace(" ", "_");
+        safeExt = safeExt.replace(".", "_");
+        // do a reg ex to further clean
+        safeExt = "ext_" 
+                   + utils.text.findRegEx(safeExt, "[a-zA-Z0-9_]+$", 0);
+        
+        final File newExtension = new File(folderLocation, 
+                safeExt + ".java");
+        
+        // we can't proceed without a template
+        if(template.exists() == false){
+            System.err.println("FI005 - Cannot find template.java to cre"
+                    + "ate a new file extension");
+            return;
+        }
+        // all done, let's create a new template
+        String text = utils.files.readAsString(template);
+        
+        // edit that are necessary
+        text = "package unknown;\n\n" + text;
+        text = text.replace("class template", "class " + safeExt);
+        text = text.replace("#EXT#", extension);
+        // add the person name
+        String person = "Nuno Brito";
+                //System.getProperty("user.name");
+        text = text.replace("#PERSON#", person);
+        text = text.replace("LicenseName: NOASSERTION", 
+                "LicenseName: CC-BY-4.0");
+        text = text.replace("#DATE#", utils.time.getDateSPDX());
+        // get the year value for the copyright value
+        Date date = new Date();
+        SimpleDateFormat simpleDateformat=new SimpleDateFormat("yyyy");
+        String year = simpleDateformat.format(date);
+        text = text.replace("#COPYRIGHT#", "Copyright (c) "
+                + year
+                + ", "
+                + person);
+        
+        // now save it automatically new file
+        utils.files.SaveStringToFile(newExtension, text);
+   
+        System.out.println("EC155 - Added extension: " + safeExt);
+        
+    }
+
     
     /**
      * Get information automatically from the web in regards to this file

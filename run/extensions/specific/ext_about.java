@@ -1,3 +1,5 @@
+package specific;
+
 import java.io.File;
 import FileExtension.FileExtension;
 import spdxlib.ContentType;
@@ -6,20 +8,30 @@ import spdxlib.FileLanguage;
 
 /*
  * SPDXVersion: SPDX-1.1
- * Creator: Person: #PERSON#
- * Created: #DATE#
+ * Creator: Person: Nuno Brito
+ * Created: 2014-12-02T23:40:52Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: #EXT#.java  
- * FileCopyrightText: <text> #COPYRIGHT# </text>
- * FileComment: <text> #EXT# file type. </text> 
+ * FileName: about.java  
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
+ * FileComment: <text> "about" file type. </text> 
  */
 
 
 /**
  *
- * @file provenance by #PERSON#
+ * @file provenance by Nuno Brito
  */
-public class template extends FileExtension{
+public class ext_about extends FileExtension{
+    
+    final String 
+        rubyDescription = "A shell script used by Ruby",
+        textDescription = "A document with details about a software package";    
+    
+    // which version to use by default?
+    String defaultDescription = textDescription;
+    // default category?
+    FileCategory defaultCategory = FileCategory.DOCUMENT;
+    
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -43,6 +55,14 @@ public class template extends FileExtension{
      */
     @Override
     public Boolean isApplicable(String textFile) {
+        
+        // is this one of ruby build files as seen in the past?
+        if(textFile.contains("#!/usr/bin/env ruby")){
+            // change to ruby mode
+            defaultDescription = rubyDescription;
+            defaultCategory = FileCategory.SCRIPT;
+        }
+        
         return true;
     }
 
@@ -52,7 +72,7 @@ public class template extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return defaultDescription; // file type description
     }
     
     /**
@@ -62,7 +82,7 @@ public class template extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN; // does it group under a category?
+        return defaultCategory; // does it group under a category?
     }
 
     /**
@@ -72,7 +92,7 @@ public class template extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "#EXT#";
+        return "about";
     }
     
     /**
