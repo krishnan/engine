@@ -25,6 +25,7 @@ public enum FileLanguage{
     HAXE,
     GO,
     MATLAB,
+    SCALA,
     
     // scripted
     PHP,

@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-02T17:23:08Z
+ * Created: 2014-12-03T00:59:33Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -67,8 +67,10 @@ public final class ExtensionList {
 	list.add(new database.json());
 	list.add(new database.sql());
 	list.add(new document.doc());
+	list.add(new document.markdown());
 	list.add(new document.odt());
 	list.add(new document.pdf());
+	list.add(new document.rdoc());
 	list.add(new document.rtf());
 	list.add(new document.spdx());
 	list.add(new document.tex());
@@ -153,6 +155,7 @@ public final class ExtensionList {
 	list.add(new source.csharp.resx());
 	list.add(new source.csharp.ruleset());
 	list.add(new source.csharp.sln());
+	list.add(new source.csharp.userprefs());
 	list.add(new source.c_lang.c());
 	list.add(new source.c_lang.h());
 	list.add(new source.c_lang.ino());
@@ -173,11 +176,27 @@ public final class ExtensionList {
 	list.add(new source.php());
 	list.add(new source.py());
 	list.add(new source.r());
-	list.add(new source.rb());
+	list.add(new source.ruby.ext_gemfile());
+	list.add(new source.ruby.ext_gemspec());
+	list.add(new source.ruby.ext_rake());
+	list.add(new source.ruby.ext_rakefile());
+	list.add(new source.ruby.rb());
+	list.add(new source.scale());
+	list.add(new specific.ext_about());
+	list.add(new specific.ext_changelog());
+	list.add(new specific.ext_changes());
+	list.add(new specific.ext_copying());
+	list.add(new specific.ext_copyright());
+	list.add(new specific.ext_credits());
+	list.add(new specific.ext_htaccess());
+	list.add(new specific.ext_license());
+	list.add(new specific.ext_readme());
+	list.add(new specific.ext_todo());
 	list.add(new text.log());
 	list.add(new text.md());
 	list.add(new text.txt());
 	list.add(new versioning.cvsignore());
+	list.add(new versioning.ext_lock());
 	list.add(new versioning.git());
 	list.add(new versioning.gitattributes());
 	list.add(new versioning.gitignore());
