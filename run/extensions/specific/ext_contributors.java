@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-07T00:30:51Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: contributors.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> contributors file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class ext_contributors extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "Document detailing the contributors to a project"; // file type description
     }
     
     /**
@@ -74,7 +74,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "contributors";
     }
     
     /**

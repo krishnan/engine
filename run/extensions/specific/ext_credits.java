@@ -64,7 +64,7 @@ public class ext_credits extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.DOCUMENT; // does it group under a category?
+        return FileCategory.LEGAL; // does it group under a category?
     }
 
     /**

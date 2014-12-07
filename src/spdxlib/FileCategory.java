@@ -34,7 +34,8 @@ public enum FileCategory{
     MUSIC,
     OTHER,
     TEMP,
-    UNKNOWN;
+    UNKNOWN, 
+    LEGAL;
     
     
     /**
@@ -50,6 +51,7 @@ public enum FileCategory{
             case SCRIPT: return engine.iconSCRIPT;
             case SCHEMA: return engine.iconSCHEMA;
             case CONFIG: return engine.iconCONFIG;
+            case LEGAL: return engine.iconCONFIG;
             case VERSIONING: return engine.iconVERSIONING;
             case EXECUTABLE: return engine.iconEXECUTABLE;
             case FONT: return engine.iconFONT;

@@ -1,4 +1,4 @@
-package specific;
+package document;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,24 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-06T18:17:33Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: epub.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> 
+    The EPUB file type is primarily associated with 'Open Publication Structure'
+    by International Digital Publishing Forum (IDPF). .EPUB is the file 
+    extension which refers to two open standards, the Open Publication Structure
+    (OPS) and Open Container Format (OCF), produced by the IDPF. .EPUB allows 
+    publishers to produce and send a single file through distribution and offers
+    consumers interoperability between software/hardware for unencrypted 
+    reflowable digital books. OEB, originally produced in 1999, is the precursor
+    to OPS. .EPUB files are a ZIP file with XML/HTML eBook content along with 
+    a XML file describing the contents. You can use the Adobe Digital Editions
+    program to read these files.  
+
+    Retrieved from http://filext.com/file-extension/epub
+</text> 
  */
 
 
@@ -21,7 +34,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class epub extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +67,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "Open Publication document file"; // file type description
     }
     
     /**
@@ -64,7 +77,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
 
     /**
@@ -74,7 +87,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "epub";
     }
     
     /**
@@ -94,7 +107,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }

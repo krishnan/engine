@@ -1,4 +1,4 @@
-package specific;
+package executable;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,16 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-06T23:30:37Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: ocx.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> The OCX file type is primarily associated with 
+    'Object Linking and Embedding (OLE) Control Extension' by Microsoft 
+    Corporation. ActiveX. 
+    
+    Retrieved from http://filext.com/file-extension/ocx
+</text> 
  */
 
 
@@ -21,7 +26,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class ocx extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +59,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "Object Control Extension file"; // file type description
     }
     
     /**
@@ -64,7 +69,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.EXECUTABLE; // does it group under a category?
     }
 
     /**
@@ -74,7 +79,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "ocx";
     }
     
     /**
@@ -94,7 +99,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }

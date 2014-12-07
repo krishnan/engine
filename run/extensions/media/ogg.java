@@ -1,4 +1,4 @@
-package specific;
+package media;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,21 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-06T22:07:14Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: ogg.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> The OGG file type is primarily associated with 
+    'Ogg Vorbis' by Xiph.Org Foundation. Ogg is an open and standardized 
+    bitstream container format designed for streaming and manipulation. It was
+    developed by the Xiph.Org Foundation. The file format can multiplex a number
+    of separate independent open source CODECs for audio, video and text 
+    (e.g., subtitles). Ogg's various CODECs have been incorporated into a number
+    of different free and commercial media players as well as portable media 
+    players from different manufacturers.  
+
+    Retrieved from http://filext.com/file-extension/ogg
+</text> 
  */
 
 
@@ -21,7 +31,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class ogg extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +64,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "Ogg Vorbis music file"; // file type description
     }
     
     /**
@@ -64,7 +74,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.MUSIC; // does it group under a category?
     }
 
     /**
@@ -74,7 +84,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "ogg";
     }
     
     /**
@@ -94,7 +104,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }

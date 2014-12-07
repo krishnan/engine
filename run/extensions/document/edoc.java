@@ -1,4 +1,4 @@
-package specific;
+package document;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-06T19:55:29Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: edoc.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> edoc file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class edoc extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "Erlang document file"; // file type description
     }
     
     /**
@@ -64,7 +64,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
 
     /**
@@ -74,7 +74,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "edoc";
     }
     
     /**
@@ -83,7 +83,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.UNSORTED; // to which language is the file more related?
+        return FileLanguage.ERLANG; // to which language is the file more related?
     }
 
     /**

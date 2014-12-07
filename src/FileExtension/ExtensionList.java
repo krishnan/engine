@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-06T17:55:42Z
+ * Created: 2014-12-07T09:33:13Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -29,16 +29,16 @@ public final class ExtensionList {
     public ExtensionList(){
 	list.add(new archive.bz2());
 	list.add(new archive.cab());
+	list.add(new archive.deb());
+	list.add(new archive.dmg());
 	list.add(new archive.gz());
 	list.add(new archive.jar());
+	list.add(new archive.rar());
 	list.add(new archive.tar());
+	list.add(new archive.zargo());
 	list.add(new archive.zip());
 	list.add(new binary.a());
 	list.add(new binary.bin());
-	list.add(new binary.chm());
-	list.add(new binary.dcr());
-	list.add(new binary.dcu());
-	list.add(new binary.dll());
 	list.add(new binary.obj());
 	list.add(new binary.patch());
 	list.add(new binary.res());
@@ -66,7 +66,10 @@ public final class ExtensionList {
 	list.add(new database.csv());
 	list.add(new database.json());
 	list.add(new database.sql());
+	list.add(new document.chm());
 	list.add(new document.doc());
+	list.add(new document.edoc());
+	list.add(new document.epub());
 	list.add(new document.markdown());
 	list.add(new document.odt());
 	list.add(new document.pdf());
@@ -74,7 +77,10 @@ public final class ExtensionList {
 	list.add(new document.rtf());
 	list.add(new document.spdx());
 	list.add(new document.tex());
+	list.add(new executable.dll());
 	list.add(new executable.exe());
+	list.add(new executable.ocx());
+	list.add(new executable.sys());
 	list.add(new font.fea());
 	list.add(new font.glif());
 	list.add(new font.ttf());
@@ -83,6 +89,7 @@ public final class ExtensionList {
 	list.add(new image.bmp());
 	list.add(new image.cur());
 	list.add(new image.gif());
+	list.add(new image.icns());
 	list.add(new image.ico());
 	list.add(new image.jpeg());
 	list.add(new image.jpg());
@@ -98,6 +105,7 @@ public final class ExtensionList {
 	list.add(new internet.html());
 	list.add(new media.avi());
 	list.add(new media.mid());
+	list.add(new media.ogg());
 	list.add(new media.swf());
 	list.add(new media.wav());
 	list.add(new other.apt());
@@ -139,6 +147,7 @@ public final class ExtensionList {
 	list.add(new script.es());
 	list.add(new script.js());
 	list.add(new script.jsm());
+	list.add(new script.less());
 	list.add(new script.pl());
 	list.add(new script.sh());
 	list.add(new script.vbs());
@@ -148,6 +157,7 @@ public final class ExtensionList {
 	list.add(new source.coffee());
 	list.add(new source.cpp_lang.cc());
 	list.add(new source.cpp_lang.cpp());
+	list.add(new source.cpp_lang.ext_pch());
 	list.add(new source.csharp.cd());
 	list.add(new source.csharp.config());
 	list.add(new source.csharp.cs());
@@ -159,7 +169,10 @@ public final class ExtensionList {
 	list.add(new source.c_lang.c());
 	list.add(new source.c_lang.h());
 	list.add(new source.c_lang.ino());
+	list.add(new source.c_lang.makefile());
 	list.add(new source.d());
+	list.add(new source.delphi.dcr());
+	list.add(new source.delphi.dcu());
 	list.add(new source.delphi.dof());
 	list.add(new source.delphi.dpr());
 	list.add(new source.delphi.form());
@@ -177,6 +190,7 @@ public final class ExtensionList {
 	list.add(new source.py());
 	list.add(new source.r());
 	list.add(new source.ruby.ext_erb());
+	list.add(new source.ruby.ext_gem());
 	list.add(new source.ruby.ext_gemfile());
 	list.add(new source.ruby.ext_gemspec());
 	list.add(new source.ruby.ext_rake());
@@ -184,13 +198,18 @@ public final class ExtensionList {
 	list.add(new source.ruby.rb());
 	list.add(new source.scale());
 	list.add(new specific.ext_about());
+	list.add(new specific.ext_author());
+	list.add(new specific.ext_authors());
 	list.add(new specific.ext_changelog());
 	list.add(new specific.ext_changes());
+	list.add(new specific.ext_contributors());
 	list.add(new specific.ext_copying());
 	list.add(new specific.ext_copyright());
 	list.add(new specific.ext_credits());
 	list.add(new specific.ext_htaccess());
 	list.add(new specific.ext_license());
+	list.add(new specific.ext_mit_license());
+	list.add(new specific.ext_notice());
 	list.add(new specific.ext_readme());
 	list.add(new specific.ext_todo());
 	list.add(new text.log());

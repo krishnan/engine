@@ -1,4 +1,4 @@
-package specific;
+package archive;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,22 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:42:13Z
+ * Created: 2014-12-06T21:51:37Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: license.java  
+ * FileName: dmg.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> license file type. </text> 
+ * FileComment: <text> 
+    Mountable disk image created in Mac OS X; contains raw block data typically
+    compressed and sometimes encrypted; commonly used for Mac OS software 
+    installers that are downloaded from the Internet; mounts a virtual disk on
+    the desktop when opened.
+
+    The DMG format replaces the older .IMG file format used in Mac OS Classic.
+    DMG disk images can be opened using the Apple Disk Utility that is bundled
+    with Mac OS X on Apple computers.
+
+    Retrieved from http://www.fileinfo.com/extension/dmg
+</text> 
  */
 
 
@@ -21,7 +32,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_license extends FileExtension{
+public class dmg extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +65,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing a set of licenses"; // file type description
+        return "MacOSX archive file"; // file type description
     }
     
     /**
@@ -64,7 +75,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.ARCHIVE; // does it group under a category?
     }
 
     /**
@@ -74,7 +85,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "license";
+        return "dmg";
     }
     
     /**
@@ -94,7 +105,7 @@ public class ext_license extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }
