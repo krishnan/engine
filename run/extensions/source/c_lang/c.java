@@ -64,7 +64,7 @@ public class c extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "C language source code file"; // file type description
     }
     
     /**

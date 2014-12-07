@@ -57,14 +57,16 @@ public class csv extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "Comma Separated Value file"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
@@ -99,7 +101,7 @@ public class csv extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN; // does it group under a category?
+        return FileCategory.DATABASE; // does it group under a category?
     }
     
 }

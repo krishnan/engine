@@ -57,6 +57,7 @@ public class json extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
@@ -65,6 +66,7 @@ public class json extends FileExtension{
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
