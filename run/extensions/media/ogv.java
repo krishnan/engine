@@ -1,4 +1,4 @@
-package specific;
+package media;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-07T00:30:51Z
+ * Created: 2014-12-06T23:10:42Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: contributors.java  
+ * FileName: ogv.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> contributors file type. </text> 
+ * FileComment: <text> ogv file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_contributors extends FileExtension{
+public class ogv extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_contributors extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document detailing the contributors to a project"; // file type description
+        return "Movie file"; // file type description
     }
     
     /**
@@ -64,7 +64,7 @@ public class ext_contributors extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.VIDEO; // does it group under a category?
     }
 
     /**
@@ -74,7 +74,7 @@ public class ext_contributors extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "contributors";
+        return "ogv";
     }
     
     /**
@@ -94,7 +94,7 @@ public class ext_contributors extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }

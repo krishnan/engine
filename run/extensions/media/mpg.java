@@ -1,4 +1,4 @@
-package specific;
+package media;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T23:40:02Z
+ * Created: 2014-12-06T18:40:16Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: copying.java  
+ * FileName: mpg.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> copying file type. </text> 
+ * FileComment: <text> mpg file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_copying extends FileExtension{
+public class mpg extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_copying extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document with details about the applicable copyright/license"; // file type description
+        return "Movie file"; // file type description
     }
     
     /**
@@ -64,7 +64,7 @@ public class ext_copying extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.VIDEO; // does it group under a category?
     }
 
     /**
@@ -74,7 +74,7 @@ public class ext_copying extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "copying";
+        return "mpg";
     }
     
     /**
@@ -94,7 +94,7 @@ public class ext_copying extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT; // is it a binary or text file?
+        return ContentType.BINARY; // is it a binary or text file?
     }
     
 }

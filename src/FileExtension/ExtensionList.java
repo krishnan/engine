@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-07T09:33:13Z
+ * Created: 2014-12-07T12:28:58Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -32,9 +32,10 @@ public final class ExtensionList {
 	list.add(new archive.deb());
 	list.add(new archive.dmg());
 	list.add(new archive.gz());
-	list.add(new archive.jar());
 	list.add(new archive.rar());
 	list.add(new archive.tar());
+	list.add(new archive.tgz());
+	list.add(new archive.xpi());
 	list.add(new archive.zargo());
 	list.add(new archive.zip());
 	list.add(new binary.a());
@@ -77,6 +78,7 @@ public final class ExtensionList {
 	list.add(new document.rtf());
 	list.add(new document.spdx());
 	list.add(new document.tex());
+	list.add(new document.vsd());
 	list.add(new executable.dll());
 	list.add(new executable.exe());
 	list.add(new executable.ocx());
@@ -103,9 +105,25 @@ public final class ExtensionList {
 	list.add(new internet.css());
 	list.add(new internet.htm());
 	list.add(new internet.html());
+	list.add(new legal.ext_author());
+	list.add(new legal.ext_authors());
+	list.add(new legal.ext_contributors());
+	list.add(new legal.ext_copying());
+	list.add(new legal.ext_copyright());
+	list.add(new legal.ext_licence());
+	list.add(new legal.ext_license());
+	list.add(new legal.ext_mit_license());
+	list.add(new legal.ext_notice());
 	list.add(new media.avi());
+	list.add(new media.divx());
 	list.add(new media.mid());
+	list.add(new media.mov());
+	list.add(new media.mp3());
+	list.add(new media.mp4());
+	list.add(new media.mpeg());
+	list.add(new media.mpg());
 	list.add(new media.ogg());
+	list.add(new media.ogv());
 	list.add(new media.swf());
 	list.add(new media.wav());
 	list.add(new other.apt());
@@ -130,10 +148,11 @@ public final class ExtensionList {
 	list.add(new other.pfx());
 	list.add(new other.wxs());
 	list.add(new other.xmp());
-	list.add(new schema.classpath());
 	list.add(new schema.dtd());
 	list.add(new schema.project());
 	list.add(new schema.rdf());
+	list.add(new schema.rng());
+	list.add(new schema.wsdl());
 	list.add(new schema.xml());
 	list.add(new schema.xsd());
 	list.add(new schema.xsl());
@@ -181,8 +200,10 @@ public final class ExtensionList {
 	list.add(new source.go());
 	list.add(new source.groovy());
 	list.add(new source.hx());
-	list.add(new source.java());
-	list.add(new source.jsp());
+	list.add(new source.java.classpath());
+	list.add(new source.java.jar());
+	list.add(new source.java.java());
+	list.add(new source.java.jsp());
 	list.add(new source.lua());
 	list.add(new source.matlab.m());
 	list.add(new source.matlab.mat());
@@ -198,20 +219,23 @@ public final class ExtensionList {
 	list.add(new source.ruby.rb());
 	list.add(new source.scale());
 	list.add(new specific.ext_about());
-	list.add(new specific.ext_author());
-	list.add(new specific.ext_authors());
+	list.add(new specific.ext_announce());
 	list.add(new specific.ext_changelog());
 	list.add(new specific.ext_changes());
-	list.add(new specific.ext_contributors());
-	list.add(new specific.ext_copying());
-	list.add(new specific.ext_copyright());
 	list.add(new specific.ext_credits());
+	list.add(new specific.ext_ds_store());
+	list.add(new specific.ext_hacking());
 	list.add(new specific.ext_htaccess());
-	list.add(new specific.ext_license());
-	list.add(new specific.ext_mit_license());
-	list.add(new specific.ext_notice());
+	list.add(new specific.ext_lisezmoi());
+	list.add(new specific.ext_news());
 	list.add(new specific.ext_readme());
+	list.add(new specific.ext_release());
+	list.add(new specific.ext_release_changes());
+	list.add(new specific.ext_release_notes());
+	list.add(new specific.ext_release_process());
+	list.add(new specific.ext_releasing());
 	list.add(new specific.ext_todo());
+	list.add(new specific.ext_usage());
 	list.add(new text.log());
 	list.add(new text.md());
 	list.add(new text.txt());

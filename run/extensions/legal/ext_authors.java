@@ -1,4 +1,4 @@
-package specific;
+package legal;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-03T00:43:04Z
+ * Created: 2014-12-07T00:29:49Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: copyright.java  
+ * FileName: authors.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> copyright file type. </text> 
+ * FileComment: <text> authors file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_copyright extends FileExtension{
+public class ext_authors extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_copyright extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Document specifying the copyright of a given project"; // file type description
+        return "Document file detailing the applicable authors"; // file type description
     }
     
     /**
@@ -64,7 +64,7 @@ public class ext_copyright extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.DOCUMENT; // does it group under a category?
+        return FileCategory.LEGAL; // does it group under a category?
     }
 
     /**
@@ -74,7 +74,7 @@ public class ext_copyright extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "copyright";
+        return "authors";
     }
     
     /**

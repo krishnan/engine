@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-07T00:26:00Z
+ * Created: 2014-12-07T00:14:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: notice.java  
+ * FileName: hacking.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> notice file type. </text> 
+ * FileComment: <text> hacking file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class ext_notice extends FileExtension{
+public class ext_hacking extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class ext_notice extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Notice document file, reports the applicable copyright"; // file type description
+        return "Document explaining how to modify a project"; // file type description
     }
     
     /**
@@ -64,7 +64,7 @@ public class ext_notice extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.LEGAL; // does it group under a category?
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
 
     /**
@@ -74,7 +74,7 @@ public class ext_notice extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "notice";
+        return "hacking";
     }
     
     /**

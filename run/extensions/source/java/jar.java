@@ -1,4 +1,4 @@
-package source;
+package source.java;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,13 +9,13 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:48:46Z
+ * Created: 2013-11-16T13:52:35Z
  * LicenseName: CC-BY-4.0
- * FileName: java.java  
+ * FileName: jar.java  
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
  * FileComment: <text> This class provides details about files that have
- * the extension of type java. Extensions tend to represent a specific type
+ * the extension of type jar. Extensions tend to represent a specific type
  * of file structure from where we can extract information. In some cases, the
  * same type of file is used for representing different types of data from 
  * different types of applications. We make no specific arrangement to handle
@@ -32,7 +32,7 @@ import spdxlib.FileLanguage;
  *
  * @author Nuno Brito
  */
-public class java extends FileExtension{
+public class jar extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -64,7 +64,7 @@ public class java extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Java source code file"; // file type description
+        return "Java Archive"; // file type description
     }
     
     /**
@@ -82,9 +82,9 @@ public class java extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "java";
+        return "jar";
     }
-    
+
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -93,7 +93,7 @@ public class java extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        return ContentType.BINARY;
     }
 
     /**
@@ -103,7 +103,10 @@ public class java extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE;
+        return FileCategory.ARCHIVE;
     }
+
+
+    
     
 }
