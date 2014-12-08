@@ -61,14 +61,16 @@ public class der extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "DER Encoded X509 Certificate"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
@@ -93,7 +95,7 @@ public class der extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.UNKNOWN;
+        return ContentType.BINARY;
     }
 
     /**
@@ -103,7 +105,7 @@ public class der extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN;
+        return FileCategory.OTHER;
     }
     
 }

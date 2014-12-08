@@ -1,4 +1,4 @@
-package other;
+package source.delphi;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,30 +9,26 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:49:05Z
+ * Created: 2014-02-19T17:12:38Z
  * LicenseName: CC-BY-4.0
- * FileName: jj.java  
+ * FileName: dfm.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type jj. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
+ * FileCopyrightText: <text> Copyright © 2014, Nuno Brito </text>
+ * FileComment: <text> This class provides details about the files that make 
+ * use of the "dfm" extension. When possible, the file provenance author
+ * includes details such as date when this extension first began to be used.
+ * There are cases where different data structures use the same file extension,
+ * when this happens then the author needs to accomodate code to accurately
+ * detect which type of file is being analysed.
  * </text> 
  */
 
 
 /**
  *
- * @author Nuno Brito
+ * @file provenance by Nuno Brito
  */
-public class jj extends FileExtension{
+public class dfm extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -64,7 +60,7 @@ public class jj extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "Backup of Delphi form"; // file type description
     }
     
     /**
@@ -72,7 +68,7 @@ public class jj extends FileExtension{
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.UNSORTED; // to which language is the file more related?
+        return FileLanguage.DELPHI; // to which language is the file more related?
     }
 
     /**
@@ -82,7 +78,7 @@ public class jj extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "jj";
+        return "dfm";
     }
     
     /**
@@ -93,7 +89,7 @@ public class jj extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.UNKNOWN;
+        return ContentType.TEXT; // is it a binary or text file?
     }
 
     /**
@@ -103,7 +99,7 @@ public class jj extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN;
+        return FileCategory.OTHER; // does it group under a category?
     }
     
 }

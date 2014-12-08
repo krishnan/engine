@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-08T17:23:20Z
+ * Created: 2014-12-08T18:21:15Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -32,6 +32,7 @@ public final class ExtensionList {
 	list.add(new archive.deb());
 	list.add(new archive.dmg());
 	list.add(new archive.gz());
+	list.add(new archive.nsi());
 	list.add(new archive.rar());
 	list.add(new archive.tar());
 	list.add(new archive.tgz());
@@ -73,15 +74,6 @@ public final class ExtensionList {
 	list.add(new document.edoc());
 	list.add(new document.epub());
 	list.add(new document.markdown());
-	list.add(new document.microsoft.chm());
-	list.add(new document.microsoft.doc());
-	list.add(new document.microsoft.docx());
-	list.add(new document.microsoft.pot());
-	list.add(new document.microsoft.ppt());
-	list.add(new document.microsoft.pptx());
-	list.add(new document.microsoft.vsd());
-	list.add(new document.microsoft.xls());
-	list.add(new document.microsoft.xlsx());
 	list.add(new document.odt());
 	list.add(new document.pdf());
 	list.add(new document.rdoc());
@@ -93,6 +85,7 @@ public final class ExtensionList {
 	list.add(new executable.ocx());
 	list.add(new executable.sys());
 	list.add(new font.fea());
+	list.add(new font.font());
 	list.add(new font.glif());
 	list.add(new font.ttf());
 	list.add(new font.woff());
@@ -136,28 +129,21 @@ public final class ExtensionList {
 	list.add(new media.ogv());
 	list.add(new media.swf());
 	list.add(new media.wav());
-	list.add(new other.apt());
-	list.add(new other.bpk());
-	list.add(new other.def());
+	list.add(new microsoft.chm());
+	list.add(new microsoft.doc());
+	list.add(new microsoft.docx());
+	list.add(new microsoft.hhc());
+	list.add(new microsoft.hhk());
+	list.add(new microsoft.hhp());
+	list.add(new microsoft.pot());
+	list.add(new microsoft.ppt());
+	list.add(new microsoft.pptx());
+	list.add(new microsoft.vsd());
+	list.add(new microsoft.xls());
+	list.add(new microsoft.xlsx());
 	list.add(new other.der());
-	list.add(new other.dfm());
-	list.add(new other.dpk());
-	list.add(new other.font());
-	list.add(new other.hhc());
-	list.add(new other.hhk());
-	list.add(new other.hhp());
-	list.add(new other.jj());
-	list.add(new other.lfm());
-	list.add(new other.lpi());
-	list.add(new other.lpk());
-	list.add(new other.lpr());
-	list.add(new other.lrs());
 	list.add(new other.manifest());
 	list.add(new other.mf());
-	list.add(new other.nsi());
-	list.add(new other.pfx());
-	list.add(new other.wxs());
-	list.add(new other.xmp());
 	list.add(new schema.dtd());
 	list.add(new schema.project());
 	list.add(new schema.rdf());
@@ -197,15 +183,24 @@ public final class ExtensionList {
 	list.add(new source.csharp.sln());
 	list.add(new source.csharp.userprefs());
 	list.add(new source.c_lang.c());
+	list.add(new source.c_lang.def());
 	list.add(new source.c_lang.h());
 	list.add(new source.c_lang.ino());
 	list.add(new source.c_lang.makefile());
 	list.add(new source.d());
+	list.add(new source.delphi.bpk());
 	list.add(new source.delphi.dcr());
 	list.add(new source.delphi.dcu());
+	list.add(new source.delphi.dfm());
 	list.add(new source.delphi.dof());
+	list.add(new source.delphi.dpk());
 	list.add(new source.delphi.dpr());
 	list.add(new source.delphi.form());
+	list.add(new source.delphi.lfm());
+	list.add(new source.delphi.lpi());
+	list.add(new source.delphi.lpk());
+	list.add(new source.delphi.lpr());
+	list.add(new source.delphi.lrs());
 	list.add(new source.delphi.pas());
 	list.add(new source.delphi.tilpas());
 	list.add(new source.go());

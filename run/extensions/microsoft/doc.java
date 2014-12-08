@@ -1,4 +1,4 @@
-package other;
+package microsoft;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,13 +9,13 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-02-19T17:12:38Z
+ * Created: 2014-01-20T16:38:22Z
  * LicenseName: CC-BY-4.0
- * FileName: dfm.java  
+ * FileName: doc.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2014, Nuno Brito </text>
+ * FileCopyrightText: <text> Copyright © 2014, nuno </text>
  * FileComment: <text> This class provides details about the files that make 
- * use of the "dfm" extension. When possible, the file provenance author
+ * use of the "doc" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.
  * There are cases where different data structures use the same file extension,
  * when this happens then the author needs to accomodate code to accurately
@@ -28,7 +28,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class dfm extends FileExtension{
+public class doc extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -57,18 +57,20 @@ public class dfm extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return "Backup of Delphi form"; // file type description
+        return "Microsoft Word document"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.DELPHI; // to which language is the file more related?
+        return FileLanguage.UNSORTED; // to which language is the file more related?
     }
 
     /**
@@ -78,7 +80,7 @@ public class dfm extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "dfm";
+        return "doc";
     }
     
     /**
@@ -99,7 +101,7 @@ public class dfm extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.OTHER; // does it group under a category?
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
     
 }

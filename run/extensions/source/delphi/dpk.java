@@ -1,4 +1,4 @@
-package other;
+package source.delphi;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,13 +9,13 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-04-09T21:46:15Z
+ * Created: 2014-04-09T21:46:30Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: lfm.java  
+ * FileName: dpk.java  
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
  * FileComment: <text> This class provides details about the files that make 
- * use of the "lfm" extension. When possible, the file provenance author
+ * use of the "dpk" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.
  * There are cases where different data structures use the same file extension,
  * when this happens then the author needs to accomodate code to accurately
@@ -28,7 +28,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class lfm extends FileExtension{
+public class dpk extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -60,7 +60,7 @@ public class lfm extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Lazarus Form Designer file"; // file type description
+        return "Delphi Package file"; // file type description
     }
     
     /**
@@ -78,7 +78,7 @@ public class lfm extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "lfm";
+        return "dpk";
     }
     
     /**

@@ -1,4 +1,4 @@
-package other;
+package font;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,13 +9,13 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:49:08Z
+ * Created: 2013-11-16T14:49:05Z
  * LicenseName: CC-BY-4.0
- * FileName: xmp.java  
+ * FileName: font.java  
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
  * FileComment: <text> This class provides details about files that have
- * the extension of type xmp. Extensions tend to represent a specific type
+ * the extension of type font. Extensions tend to represent a specific type
  * of file structure from where we can extract information. In some cases, the
  * same type of file is used for representing different types of data from 
  * different types of applications. We make no specific arrangement to handle
@@ -32,7 +32,7 @@ import spdxlib.FileLanguage;
  *
  * @author Nuno Brito
  */
-public class xmp extends FileExtension{
+public class font extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -61,14 +61,16 @@ public class xmp extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "UNIX Font Data file"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
@@ -82,7 +84,7 @@ public class xmp extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "xmp";
+        return "font";
     }
     
     /**
@@ -93,7 +95,7 @@ public class xmp extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.UNKNOWN;
+        return ContentType.BINARY;
     }
 
     /**
@@ -103,7 +105,7 @@ public class xmp extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN;
+        return FileCategory.FONT;
     }
     
 }

@@ -1,4 +1,4 @@
-package document.microsoft;
+package microsoft;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,18 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-08T14:01:49Z
- * LicenseName: EUPL-1.1-without-appendix
- * FileName: pptx.java  
- * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> xls file type. </text> 
+ * Created: 2014-01-25T15:22:33Z
+ * LicenseName: CC-BY-4.0
+ * FileName: chm.java  
+ * FileCategory: SOURCE
+ * FileCopyrightText: <text> Copyright © 2014, nuno </text>
+ * FileComment: <text> This class provides details about the files that make 
+ * use of the "chm" extension. When possible, the file provenance author
+ * includes details such as date when this extension first began to be used.
+ * There are cases where different data structures use the same file extension,
+ * when this happens then the author needs to accomodate code to accurately
+ * detect which type of file is being analysed.
+ * </text> 
  */
 
 
@@ -21,9 +28,9 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class xls extends FileExtension{
+public class chm extends FileExtension{
     /**
-     * How can we confirm that this file extension is applicable to this file?
+     * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
      * @param binaryFile the pointer to a file on disk
      * @return True if file matches the data structure reported by the extension
@@ -34,7 +41,7 @@ public class xls extends FileExtension{
     }
   
     /**
-     * How can we confirm that this file extension is applicable to this file?
+     * How can we confirm that this file extension is appliable to this file?
      * This method analyses the text of a file to get the answer. You can either
      * specify a file or the text. The advantage of using this method is that
      * you will not need to read the text from the file for each extension test.
@@ -54,27 +61,7 @@ public class xls extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Microsoft Excel spreadsheet document"; // file type description
-    }
-    
-    /**
-     * We can typically group data structures inside files to a few categories.
-     * Albeit not perfect, it does help to sort out files into groups.
-     * @return the category generally associated with this file type
-     */
-    @Override
-    public FileCategory getCategory() {
-        return FileCategory.DOCUMENT; // does it group under a category?
-    }
-
-    /**
-     * Typically, this is the three letter identifier of the file extension.
-     * We use everything in lower case to speed the processing performance.
-     * @return the unique identifier for this file type
-     */
-    @Override
-    public String getIdentifierShort() {
-        return "xls";
+        return "Windows Help file"; // file type description
     }
     
     /**
@@ -87,6 +74,16 @@ public class xls extends FileExtension{
     }
 
     /**
+     * Typically, this is the three letter identifier of the file extension.
+     * We use everything in lower case to speed the processing performance.
+     * @return the unique identifier for this file type
+     */
+    @Override
+    public String getIdentifierShort() {
+        return "chm";
+    }
+    
+    /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
      * processing of each file
@@ -95,6 +92,16 @@ public class xls extends FileExtension{
     @Override
     public ContentType getContentType() {
         return ContentType.BINARY; // is it a binary or text file?
+    }
+
+    /**
+     * We can typically group data structures inside files to a few categories.
+     * Albeit not perfect, it does help to sort out files into groups.
+     * @return the category generally associated with this file type
+     */
+    @Override
+    public FileCategory getCategory() {
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
     
 }

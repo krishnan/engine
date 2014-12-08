@@ -1,4 +1,4 @@
-package other;
+package microsoft;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,30 +9,26 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T13:57:20Z
- * LicenseName: CC-BY-4.0
- * FileName: wxs.java  
+ * Created: 2014-04-09T21:46:28Z
+ * LicenseName: EUPL-1.1-without-appendix
+ * FileName: hhk.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
- * FileComment: <text> This class provides details about files that have
- * the extension of type wxs. Extensions tend to represent a specific type
- * of file structure from where we can extract information. In some cases, the
- * same type of file is used for representing different types of data from 
- * different types of applications. We make no specific arrangement to handle
- * these cases, albeit this class should be able of distinguishing each one of
- * them and then provide a suited answer. For example, NFO files are both used
- * as text files with information or used as binay files by a different tool.
- * 
- * The extension handler should be able of distinguishing these cases.
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
+ * FileComment: <text> This class provides details about the files that make 
+ * use of the "hhk" extension. When possible, the file provenance author
+ * includes details such as date when this extension first began to be used.
+ * There are cases where different data structures use the same file extension,
+ * when this happens then the author needs to accomodate code to accurately
+ * detect which type of file is being analysed.
  * </text> 
  */
 
 
 /**
  *
- * @author Nuno Brito
+ * @file provenance by Nuno Brito
  */
-public class wxs extends FileExtension{
+public class hhk extends FileExtension{
     /**
      * How can we confirm that this file extension is appliable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -61,18 +57,20 @@ public class wxs extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "Microsoft HTML Help index file"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.UNSORTED; // to which language is the file more related?
+        return FileLanguage.HTML; // to which language is the file more related?
     }
 
     /**
@@ -82,9 +80,9 @@ public class wxs extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "wxs";
+        return "hhk";
     }
-
+    
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -93,7 +91,7 @@ public class wxs extends FileExtension{
      */
     @Override
     public ContentType getContentType() {
-        return ContentType.UNKNOWN;
+        return ContentType.BINARY; // is it a binary or text file?
     }
 
     /**
@@ -103,10 +101,7 @@ public class wxs extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.UNKNOWN;
+        return FileCategory.OTHER; // does it group under a category?
     }
-
-
-    
     
 }
