@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-07T12:28:58Z
+ * Created: 2014-12-08T14:12:11Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -66,14 +66,19 @@ public final class ExtensionList {
 	list.add(new config.yml());
 	list.add(new database.csv());
 	list.add(new database.json());
+	list.add(new database.mdb());
 	list.add(new database.sql());
+	list.add(new database.tsv());
 	list.add(new document.chm());
+	list.add(new document.dia());
 	list.add(new document.doc());
 	list.add(new document.edoc());
 	list.add(new document.epub());
 	list.add(new document.markdown());
 	list.add(new document.odt());
 	list.add(new document.pdf());
+	list.add(new document.pot());
+	list.add(new document.ppt());
 	list.add(new document.rdoc());
 	list.add(new document.rtf());
 	list.add(new document.spdx());
@@ -110,6 +115,7 @@ public final class ExtensionList {
 	list.add(new legal.ext_contributors());
 	list.add(new legal.ext_copying());
 	list.add(new legal.ext_copyright());
+	list.add(new legal.ext_legal());
 	list.add(new legal.ext_licence());
 	list.add(new legal.ext_license());
 	list.add(new legal.ext_mit_license());
@@ -172,7 +178,8 @@ public final class ExtensionList {
 	list.add(new script.vbs());
 	list.add(new source.abap());
 	list.add(new source.asm());
-	list.add(new source.bas());
+	list.add(new source.basic.bas());
+	list.add(new source.basic.vb());
 	list.add(new source.coffee());
 	list.add(new source.cpp_lang.cc());
 	list.add(new source.cpp_lang.cpp());
@@ -224,8 +231,10 @@ public final class ExtensionList {
 	list.add(new specific.ext_changes());
 	list.add(new specific.ext_credits());
 	list.add(new specific.ext_ds_store());
+	list.add(new specific.ext_faq());
 	list.add(new specific.ext_hacking());
 	list.add(new specific.ext_htaccess());
+	list.add(new specific.ext_latest());
 	list.add(new specific.ext_lisezmoi());
 	list.add(new specific.ext_news());
 	list.add(new specific.ext_readme());
@@ -249,6 +258,7 @@ public final class ExtensionList {
 	list.add(new versioning.hgsubstate());
 	list.add(new versioning.hgtags());
 	list.add(new versioning.svnignore());
+	list.add(new versioning.svn_base());
 
     }
     

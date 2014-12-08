@@ -1,4 +1,4 @@
-package source;
+package specific;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-02T17:00:55Z
- * LicenseName: CC-BY-4.0
- * FileName: bas.java  
+ * Created: 2014-12-08T01:01:20Z
+ * LicenseName: EUPL-1.1-without-appendix
+ * FileName: faq.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> The Basic programming language. </text> 
+ * FileComment: <text> faq file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class bas extends FileExtension{
+public class ext_faq extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -30,7 +30,7 @@ public class bas extends FileExtension{
      */
     @Override
     public Boolean isApplicable(File binaryFile) {
-        return false;
+        return true;
     }
   
     /**
@@ -54,16 +54,17 @@ public class bas extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Basic source code file"; // file type description
+        return "A text document with Frequently Asked Questions"; // file type description
     }
     
     /**
-     * To which kind of language does this file relates the most?
-     * @return 
+     * We can typically group data structures inside files to a few categories.
+     * Albeit not perfect, it does help to sort out files into groups.
+     * @return the category generally associated with this file type
      */
     @Override
-    public FileLanguage getLanguage(){
-        return FileLanguage.BASIC; // to which language is the file more related?
+    public FileCategory getCategory() {
+        return FileCategory.DOCUMENT; // does it group under a category?
     }
 
     /**
@@ -73,9 +74,18 @@ public class bas extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "bas";
+        return "faq";
     }
     
+    /**
+     * To which kind of language does this file relates the most?
+     * @return 
+     */
+    @Override
+    public FileLanguage getLanguage(){
+        return FileLanguage.UNSORTED; // to which language is the file more related?
+    }
+
     /**
      * Returns information is this file has a binary or text based structure.
      * This is later used by the "isApplicable()" methods to speed up the
@@ -85,16 +95,6 @@ public class bas extends FileExtension{
     @Override
     public ContentType getContentType() {
         return ContentType.TEXT; // is it a binary or text file?
-    }
-
-    /**
-     * We can typically group data structures inside files to a few categories.
-     * Albeit not perfect, it does help to sort out files into groups.
-     * @return the category generally associated with this file type
-     */
-    @Override
-    public FileCategory getCategory() {
-        return FileCategory.SOURCE; // does it group under a category?
     }
     
 }
