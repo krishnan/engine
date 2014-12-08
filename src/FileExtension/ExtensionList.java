@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-08T14:12:11Z
+ * Created: 2014-12-08T17:23:20Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -69,21 +69,25 @@ public final class ExtensionList {
 	list.add(new database.mdb());
 	list.add(new database.sql());
 	list.add(new database.tsv());
-	list.add(new document.chm());
 	list.add(new document.dia());
-	list.add(new document.doc());
 	list.add(new document.edoc());
 	list.add(new document.epub());
 	list.add(new document.markdown());
+	list.add(new document.microsoft.chm());
+	list.add(new document.microsoft.doc());
+	list.add(new document.microsoft.docx());
+	list.add(new document.microsoft.pot());
+	list.add(new document.microsoft.ppt());
+	list.add(new document.microsoft.pptx());
+	list.add(new document.microsoft.vsd());
+	list.add(new document.microsoft.xls());
+	list.add(new document.microsoft.xlsx());
 	list.add(new document.odt());
 	list.add(new document.pdf());
-	list.add(new document.pot());
-	list.add(new document.ppt());
 	list.add(new document.rdoc());
 	list.add(new document.rtf());
 	list.add(new document.spdx());
 	list.add(new document.tex());
-	list.add(new document.vsd());
 	list.add(new executable.dll());
 	list.add(new executable.exe());
 	list.add(new executable.ocx());

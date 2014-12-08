@@ -1,4 +1,4 @@
-package document;
+package document.microsoft;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-08T01:08:51Z
+ * Created: 2014-12-08T01:06:35Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: pot.java  
+ * FileName: ppt.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> pot file type. </text> 
+ * FileComment: <text> ppt file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class pot extends FileExtension{
+public class ppt extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class pot extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Powerpoint template file"; // file type description
+        return "Microsoft Powerpoint presentation"; // file type description
     }
     
     /**
@@ -74,7 +74,7 @@ public class pot extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "pot";
+        return "ppt";
     }
     
     /**

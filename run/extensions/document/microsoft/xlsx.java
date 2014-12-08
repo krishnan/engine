@@ -1,4 +1,4 @@
-package document;
+package document.microsoft;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,11 +9,11 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2014-12-06T22:55:27Z
+ * Created: 2014-12-08T14:01:49Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: vsd.java  
+ * FileName: pptx.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
- * FileComment: <text> vsd file type. </text> 
+ * FileComment: <text> pptx file type. </text> 
  */
 
 
@@ -21,7 +21,7 @@ import spdxlib.FileLanguage;
  *
  * @file provenance by Nuno Brito
  */
-public class vsd extends FileExtension{
+public class xlsx extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -54,7 +54,7 @@ public class vsd extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "Microsoft Visio diagram file"; // file type description
+        return "Microsoft Excel spreadsheet document"; // file type description
     }
     
     /**
@@ -74,7 +74,7 @@ public class vsd extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "vsd";
+        return "xlsx";
     }
     
     /**
