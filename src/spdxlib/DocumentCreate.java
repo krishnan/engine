@@ -24,7 +24,7 @@ import FileExtension.FileExtension;
 import script.Trigger;
 import script.log;
 import ssdeep.ssdeep;
-import utils.model.FileWriteLinesWithBuffer;
+import utils.ReadWrite.FileWriteLinesWithBuffer;
 
 /**
  *
@@ -107,6 +107,7 @@ public class DocumentCreate {
             folderSource = new File(canonicalPath);
         } catch (IOException ex) {
             Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
             // something failed, no problem. We can recover
             folderSource = folderToAnalyze;
         }
@@ -121,13 +122,9 @@ public class DocumentCreate {
             // get down to business
             processFiles(folderSource, 25);
             
-            while(buffer.isHoldInMemory()){
-                utils.time.wait(1);
-            }
-            
-            
         } catch (Exception e){
-                System.err.println("Error: " + e.getMessage());
+                System.err.println("Error DC131: Failed to process files");
+                e.printStackTrace();
                 processing = false;
                 return false;
             }
@@ -300,7 +297,7 @@ public class DocumentCreate {
         final String SHA1 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumSHA1
                         .concat(" ".concat(
-                                utils.Checksum.generateFileChecksum("SHA-1", file)
+                                utils.checksum.generateFileChecksum("SHA-1", file)
                                 .concat("\n"
                         ))
                 )));
@@ -308,7 +305,7 @@ public class DocumentCreate {
         final String SHA256 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumSHA256
                         .concat(" ".concat(
-                                utils.Checksum.generateFileChecksum("SHA-256", file)
+                                utils.checksum.generateFileChecksum("SHA-256", file)
                                 .concat("\n"
                         ))
                 )));
@@ -316,7 +313,7 @@ public class DocumentCreate {
         final String MD5 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumMD5
                         .concat(" ".concat(
-                                utils.Checksum.generateFileChecksum("MD5", file)
+                                utils.checksum.generateFileChecksum("MD5", file)
                                 .concat("\n")
                         )
                 )));
@@ -456,13 +453,14 @@ public class DocumentCreate {
      * @param folderSource  The folder from where we get information
      */
     private void createHeader(final File folderSourceCode) {
-            Thread thread = new Thread(){
-            @Override
-            public void run(){
-                launchCreateHeaderThread(folderSourceCode);
-           }
-       };
-        thread.start();
+//            Thread thread = new Thread(){
+//            @Override
+//            public void run(){
+                
+        launchCreateHeaderThread(folderSourceCode);
+//           }
+//       };
+//        thread.start();
     }
 
     /**
@@ -471,7 +469,7 @@ public class DocumentCreate {
      */
     private void launchCreateHeaderThread(final File folderSourceCode) {
         // let's hold everything in memory until the buffer is written
-        buffer.setHoldInMemory(true);
+        //buffer.setHoldInMemory(true);
         // define the package name if still empty at this stage
         if(packageName.isEmpty()){
             packageName = folderSourceCode.getName();
@@ -486,7 +484,7 @@ public class DocumentCreate {
         // perhaps this source code folder has some license(s) declared?
         String packageLicenseDeclared = "NOASSERTION";
         // try to infer the license for this source code folder
-        log.write(is.INFO, "Detecting declared license for this project");
+        log.write(is.INFO, "Detecting declared license for this project, please wait");
         LicenseInfer infer = new LicenseInfer(folderSource);
         // positive results?
         if(infer.isValid()){
@@ -515,9 +513,10 @@ public class DocumentCreate {
                 + addParagraph("File Information")
                 ;
         
-         // write the header
-        buffer.setHeaderText(header);
-        buffer.setHoldInMemory(false);
+        // write the header
+        // buffer.setHeaderText(header);
+        // buffer.setHoldInMemory(false);
+        buffer.write(header);
         log.write(is.INFO, "Finished detecting declared license for this project");
     }
     
@@ -580,5 +579,21 @@ public class DocumentCreate {
         this.packageURL = packageURL;
     }
     
+    /**
+     *
+     * @param params
+     */
+    public static void main(String[] params){
+        
+        File folderSource = new File("../../source/7z922//");
+        File fileOutput = new File("test/example.spdx");
+        
+        engine.warmUp();
+        
+        System.out.println("Creating document: " + fileOutput.getAbsolutePath());
+        DocumentCreate create = new DocumentCreate();
+        create.create(folderSource, fileOutput);
+        
+    }
     
 }

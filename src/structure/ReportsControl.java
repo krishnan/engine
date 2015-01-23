@@ -76,8 +76,11 @@ public final class ReportsControl {
             // read the file
             readSPDXfile(file);
         }
-        log.write(is.INFO, "Found and processed %1 reports", 
-        counter + "");
+        // show the number of reports that were found (if any)
+        if(counter > 0){
+            log.write(is.INFO, "Found and processed %1 reports", 
+            counter + "");
+        }
     }
 
     /**
