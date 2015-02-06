@@ -35,8 +35,8 @@ public class engine {
     
     // basic configuration. Non-volatile, stored as XML on disk
     public static
-            Settings settings;
-    
+            Settings settings = new Settings(
+                    new File(engine.getWorkFolder(), "settings.xml"), "");
     
     // where we keep our shared objects
     public static HashMap
@@ -45,13 +45,13 @@ public class engine {
     public static File thisFile;
 
     public static ExtensionControl
-            extensions;
+            extensions = new ExtensionControl();
 
     public static TriggerControl
-            triggers;
+            triggers = new TriggerControl();
    
     public static ReportsControl
-            reports;
+            reports = new ReportsControl();
     
     // find the licenses available on disk
     public static LicenseControl
@@ -222,10 +222,9 @@ public class engine {
         return new File(getExtensionsFolder(), "unknown");
     }
     
-  
     /**
      * Prepares the SPDX engine to be used. This involves initiating the
-     * different components.
+     * different components. This method is deprecated. Not needed for new code.
      */
     public static void warmUp(){
      // initialize the settings

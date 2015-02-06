@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-12-08T18:21:15Z
+ * Created: 2015-02-06T13:15:25Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -170,6 +170,7 @@ public final class ExtensionList {
 	list.add(new source.asm());
 	list.add(new source.basic.bas());
 	list.add(new source.basic.vb());
+	list.add(new source.clojure());
 	list.add(new source.coffee());
 	list.add(new source.cpp_lang.cc());
 	list.add(new source.cpp_lang.cpp());
@@ -223,7 +224,7 @@ public final class ExtensionList {
 	list.add(new source.ruby.ext_rake());
 	list.add(new source.ruby.ext_rakefile());
 	list.add(new source.ruby.rb());
-	list.add(new source.scale());
+	list.add(new source.scala());
 	list.add(new specific.ext_about());
 	list.add(new specific.ext_announce());
 	list.add(new specific.ext_changelog());

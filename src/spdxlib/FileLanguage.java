@@ -26,6 +26,7 @@ public enum FileLanguage{
     GO,
     MATLAB,
     SCALA,
+    CLOJURE,
     
     // scripted
     PHP,
@@ -65,6 +66,8 @@ public enum FileLanguage{
         case C_SHARP: return "C#";
         case OBJECTIVE_C: return "Objective C";
         case ASSEMBLER: return "Assembler";
+        case SCALA: return "Scala";
+        case CLOJURE: return "Clojure";
     
     // scripted
         case PHP: return "PHP";
