@@ -30,7 +30,7 @@ import utils.www.html;
  */
 public class CompSummary {
 
-    private SPDXfile spdx;
+    private final SPDXfile spdx;
     private final int max = 10;
     
     public CompSummary(SPDXfile input){
@@ -208,7 +208,6 @@ public class CompSummary {
                                 + html.br);
                     }
                 // all done, move to the next
-                continue;
             }
         }
     
