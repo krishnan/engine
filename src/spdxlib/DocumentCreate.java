@@ -297,7 +297,7 @@ public class DocumentCreate {
         final String SHA1 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumSHA1
                         .concat(" ".concat(
-                                utils.checksum.generateFileChecksum("SHA-1", file)
+                                utils.hashing.checksum.generateFileChecksum("SHA-1", file)
                                 .concat("\n"
                         ))
                 )));
@@ -305,7 +305,7 @@ public class DocumentCreate {
         final String SHA256 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumSHA256
                         .concat(" ".concat(
-                                utils.checksum.generateFileChecksum("SHA-256", file)
+                                utils.hashing.checksum.generateFileChecksum("SHA-256", file)
                                 .concat("\n"
                         ))
                 )));
@@ -313,7 +313,7 @@ public class DocumentCreate {
         final String MD5 = is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumMD5
                         .concat(" ".concat(
-                                utils.checksum.generateFileChecksum("MD5", file)
+                                utils.hashing.checksum.generateFileChecksum("MD5", file)
                                 .concat("\n")
                         )
                 )));
