@@ -41,6 +41,8 @@ public class ComponentControl {
 
     enum SearchType {exactId, report, anyText};
     
+    String componentsOnDisk = "Components on disk";
+    
     int componentCounter = 0;
     
     /**
@@ -188,7 +190,8 @@ public class ComponentControl {
                     final String input = utils.files.readAsString(file);
                     final Component result = gson.fromJson(input, Component.class);
                     // only continue if the id contain part of the search term
-                    if(result.id.contains(searchTerm) == false){
+                    if(result.id.toLowerCase().contains(searchTerm) == false
+                      && result.title.toLowerCase().contains(searchTerm)){
                         continue;
                     }
                     output += result.getOneLineHTML(link) 
@@ -259,7 +262,7 @@ public class ComponentControl {
         componentCounter = 0;
         String result = getReportCustomComponents(link, engine.getComponentFolder(), 25);
         
-        result = html.h3("Custom components available (" + componentCounter + ")")
+        result = html.h3(componentsOnDisk + " (" + componentCounter + ")")
                 + result;
         
         result = html.div() + result + html._div;
@@ -394,14 +397,15 @@ public class ComponentControl {
         
         String result = "" 
                 + html.div()
-                + html.h2("Local components")
-                + searchLocalRepository(links, engine.getComponentFolder(), searchTerm, 25)
+                + html.h2(componentsOnDisk)
+                + searchLocalRepository(links, engine.getComponentFolder(), 
+                        searchTerm.toLowerCase(), 25)
                 + html.br
-                + html.h2("Results on public repositories")
-                + html.div()
-                + searchRepositoriesHTML
-                    (searchTerm, link, engine.getComponentFolder(), 25)
-                + html._div
+//                + html.h2("Results on public repositories")
+//                + html.div()
+//                + searchRepositoriesHTML
+//                    (searchTerm, link, engine.getComponentFolder(), 25)
+//                + html._div
                 + html._div
                 ;
         return result;

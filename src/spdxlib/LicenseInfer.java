@@ -140,7 +140,7 @@ public class LicenseInfer {
         // get the license contents in lower case
         final String contentLicense = thisLicense.getTerms().toLowerCase();
         // do the comparison
-        final int value = utils.similarity.levenshteinPercentage(content, contentLicense);
+        final int value = utils.hashing.similarity.levenshteinPercentage(content, contentLicense);
 
         // do we have a high-probability match?
         if(value > highestSimilar){

@@ -23,7 +23,7 @@ import main.engine;
 import FileExtension.FileExtension;
 import script.Trigger;
 import script.log;
-import ssdeep.ssdeep;
+import utils.hashing.ssdeep.ssdeep;
 import utils.ReadWrite.FileWriteLinesWithBuffer;
 
 /**
