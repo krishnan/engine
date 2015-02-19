@@ -173,7 +173,7 @@ public class ComponentControl {
      * @return          A component if exact match is found, null otherwise
      */
     private String searchLocalRepository(final ArrayList<LinkType> link,
-            File where,final String searchTerm, int maxDeep){
+            File where, final String searchTerm, int maxDeep){
         // create the gson builder
         Gson gson = new Gson();
         // get an array with the files on the current folder
@@ -191,7 +191,7 @@ public class ComponentControl {
                     final Component result = gson.fromJson(input, Component.class);
                     // only continue if the id contain part of the search term
                     if(result.id.toLowerCase().contains(searchTerm) == false
-                      && result.title.toLowerCase().contains(searchTerm)){
+                      && result.title.toLowerCase().contains(searchTerm) == false){
                         continue;
                     }
                     output += result.getOneLineHTML(link) 

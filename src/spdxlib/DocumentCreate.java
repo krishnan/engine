@@ -23,7 +23,6 @@ import main.engine;
 import FileExtension.FileExtension;
 import script.Trigger;
 import script.log;
-import utils.hashing.ssdeep.ssdeep;
 import utils.ReadWrite.FileWriteLinesWithBuffer;
 
 /**
@@ -142,7 +141,7 @@ public class DocumentCreate {
  * @param maxDeep How deep is the crawl allowed to proceed
  * @throws java.io.IOException
  */
- private void processFiles(File where, int maxDeep) throws IOException{
+ private void processFiles(File where, int maxDeep) throws Exception{
     File[] files = where.listFiles();
     if(files != null)
         for (File file : files) {
@@ -188,7 +187,7 @@ public class DocumentCreate {
   * Process a given file to extract the information relevant to SPDX
   * @param file     A file on disk
   */
- private void processFile(File file) throws IOException {
+ private void processFile(File file) throws Exception {
      
      final String fileName = "." + file.getAbsolutePath()
              .substring(folderSourceLength).replace("\\", "/");
@@ -223,23 +222,6 @@ public class DocumentCreate {
         return spdx;
     }
     
- 
- 
-     /**
-     * Returns the SSDEEP checksum for a given file
-     * @param file  A file on disk
-     * @return      A string with the hash representation of the file
-     */
-    private String getSSDEEP(File file){
-    // compute our SSDEEP hashes
-        ssdeep test = new ssdeep();
-        try {
-            return test.fuzzy_hash_file(file);
-        } catch (IOException ex) {
-            return "NOASSERTION";
-        }
-    }
-
  
     /**
      * Returns if a given file type is SOURCE, ARCHIVE and OTHER
@@ -284,48 +266,19 @@ public class DocumentCreate {
      * @param file      A file on disk
      * @return          The text ready to be written on the SPDX document
      */
-    private String getChecksums(final File file) {
+    private String getChecksums(final File file) throws Exception {
         // compute the checksums
-        final String SSDEEP = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSSDEEP
-                        .concat(" ".concat(
-                                getSSDEEP(file) 
-                                .concat("\n")
-                        )
-                )));
-
-        final String SHA1 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSHA1
-                        .concat(" ".concat(
-                                utils.hashing.checksum.generateFileChecksum("SHA-1", file)
-                                .concat("\n"
-                        ))
-                )));
-        
-        final String SHA256 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSHA256
-                        .concat(" ".concat(
-                                utils.hashing.checksum.generateFileChecksum("SHA-256", file)
-                                .concat("\n"
-                        ))
-                )));
-        
-        final String MD5 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumMD5
-                        .concat(" ".concat(
-                                utils.hashing.checksum.generateFileChecksum("MD5", file)
-                                .concat("\n")
-                        )
-                )));
+        final ChecksumedFile checksum = new ChecksumedFile(file);
         
         // now save this information into our file info object
-        tempInfo.setTagFileChecksumMD5(MD5);
-        tempInfo.setTagFileChecksumSHA1(SHA1);
-        tempInfo.setTagFileChecksumSHA256(SHA256);
-        tempInfo.setTagFileChecksumSSDEEP(SSDEEP);
+        tempInfo.setTagFileChecksumMD5(checksum.MD5);
+        tempInfo.setTagFileChecksumSHA1(checksum.SHA1);
+        tempInfo.setTagFileChecksumSHA256(checksum.SHA256);
+        tempInfo.setTagFileChecksumSSDEEP(checksum.SSDEEP);
         
         // give back the result from the checksum computation
-        return SHA1.concat(SHA256.concat(MD5).concat(SSDEEP));
+        return checksum.SHA1.concat(checksum.SHA256.concat
+            (checksum.MD5).concat(checksum.SSDEEP));
     }
 
     /**
