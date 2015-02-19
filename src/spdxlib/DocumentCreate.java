@@ -274,11 +274,11 @@ public class DocumentCreate {
         tempInfo.setTagFileChecksumMD5(checksum.MD5);
         tempInfo.setTagFileChecksumSHA1(checksum.SHA1);
         tempInfo.setTagFileChecksumSHA256(checksum.SHA256);
-        tempInfo.setTagFileChecksumSSDEEP(checksum.SSDEEP);
+        tempInfo.setTagFileChecksumSSDEEP(checksum.TLSH);
         
         // give back the result from the checksum computation
         return checksum.SHA1.concat(checksum.SHA256.concat
-            (checksum.MD5).concat(checksum.SSDEEP));
+            (checksum.MD5).concat(checksum.TLSH));
     }
 
     /**

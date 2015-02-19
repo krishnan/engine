@@ -39,7 +39,7 @@ public class is {
             tagFileChecksumSHA1 = "SHA1:",
             tagFileChecksumSHA256 = "SHA256:",
             tagFileChecksumMD5 = "MD5:",
-            tagFileChecksumSSDEEP = "SSDEEP:",
+            tagFileChecksumTLSH = "TLSH:",
             tagFileLOC = "FileLOC:",
             tagFileSize = "FileSize:",
             tagLicenseInfoInFile = "LicenseInfoInFile:",

@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
+import utils.hashing.TLSH;
 import utils.hashing.ssdeep.ssdeep;
 
 /**
@@ -26,7 +27,7 @@ public class ChecksumedFile {
 
 
     final String 
-            SSDEEP,
+            TLSH,
             SHA1,
             SHA256,
             MD5;
@@ -38,6 +39,8 @@ public class ChecksumedFile {
                 hashMD5 = MessageDigest.getInstance("MD5"),
                 hashSHA256 = MessageDigest.getInstance("SHA-256");
 
+        final TLSH tlsh = new TLSH();
+        
         byte[] buffer = new byte[16384];
         int len;
         InputStream inputStream = new FileInputStream(file);
@@ -47,17 +50,19 @@ public class ChecksumedFile {
             hashSHA1.update(buffer, 0, len);
             hashMD5.update(buffer, 0, len);
             hashSHA256.update(buffer, 0, len);
+            tlsh.update(buffer);
         }
         // compute the file signature
         byte[] 
                 digestSHA1 = hashSHA1.digest(),
                 digestMD5 = hashMD5.digest(),
                 digestSHA256 = hashSHA256.digest();
+        tlsh.finale();
         
-        SSDEEP = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSSDEEP
+        TLSH = is.tagFileChecksum
+                .concat(" ".concat(is.tagFileChecksumTLSH
                         .concat(" ".concat(
-                                getSSDEEP(file) 
+                                tlsh.hash()
                                 .concat("\n")
                         )
                 )));
@@ -89,12 +94,12 @@ public class ChecksumedFile {
     
      
     /**
-     * Returns the SSDEEP checksum for a given file
+     * Returns the TLSH checksum for a given file
      * @param file  A file on disk
      * @return      A string with the hash representation of the file
      */
     private String getSSDEEP(final File file){
-    // compute our SSDEEP hashes
+    // compute our TLSH hashes
         ssdeep test = new ssdeep();
         try {
             return test.fuzzy_hash_file(file);
