@@ -13,11 +13,9 @@ package spdxlib;
 import definitions.is;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import utils.hashing.TLSH;
-import utils.hashing.ssdeep.ssdeep;
 
 /**
  *
@@ -25,13 +23,17 @@ import utils.hashing.ssdeep.ssdeep;
  */
 public class ChecksumedFile {
 
-    final String 
+    public final File file;
+    
+    public final String 
             TLSH,
             SHA1,
             SHA256,
             MD5;
         
     public ChecksumedFile(final File file) throws Exception{
+        // assign the file
+        this.file = file;
         
         final MessageDigest 
                 hashSHA1 = MessageDigest.getInstance("SHA-1"),

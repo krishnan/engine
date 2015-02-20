@@ -26,22 +26,26 @@ import utils.hashing.TLSH;
  */
 public class LicenseInfer {
     
+    // options that we can change
+    final int maxMatches = 10;
+    
+    // variables that we should not change
     // where the licenses are declared
     private final String licenseFilename = "license";
     // where the source code files are located
     private File sourceCodeFolder;
     
-    // 
     private int
             // what we accept as minimum
-            minMatch = 200,
+            tlshMatch = 200,
             // the current high-score
-            smallestSimilar = minMatch
+            levenMatch = 80
             ;
     // the up-to-date license that was found
     private License license;
     
-    
+    // where we keep nice matches
+    ArrayList<License> licensePairs = new ArrayList();
     
     /**
      * Indicate the folder where the source code files are located.
@@ -133,7 +137,21 @@ public class LicenseInfer {
                 continue;
             }
             // compare the content against this specific license
-            licenseCompare(tlshThisLicense, thisLicense);
+            licenseCompare(content, tlshThisLicense, thisLicense);
+        }
+        
+        // compare between what we have on our queue to find a match
+        for(License thisLicense : licensePairs){
+            final int levenValue = utils.hashing.similarity
+                    .levenshteinPercentage(content, thisLicense.getTerms());
+            
+            System.out.println(levenValue + " -> " + thisLicense.getId());
+            
+            if(levenValue > levenMatch){
+                // mark the license and keep moving
+                levenMatch = levenValue;
+                license = thisLicense;
+            }
         }
     } 
     
@@ -142,25 +160,29 @@ public class LicenseInfer {
      * @param content   The thing we want to compare
      * @param license   The license on our database
      */
-    private void licenseCompare(final TLSH content, final License thisLicense) {
+    private void licenseCompare(final String foundContent, 
+            final TLSH content, final License thisLicense) {
         // get the license contents in lower case
         final String contentThisLicense = thisLicense.getTerms();
-        // do the comparison
-        //final int value = utils.hashing.similarity.levenshteinPercentage(content, contentLicense);
-
-               // compute the TLSH checksum for this license file
+        // compute the TLSH checksum for this license file
         final TLSH tlshLicense = new TLSH();
         tlshLicense.update(contentThisLicense);
         tlshLicense.finale();
         final int value = tlshLicense.totalDiff(content, false);
-        
-        System.out.println(thisLicense.getId() + "-> " + value);
-        
-        // do we have a high-probability match?
-        if(value < smallestSimilar){
-            // mark the license and keep moving
-            smallestSimilar = value;
-            license = thisLicense;
+       
+         // do we have a high-probability match?
+        if(value <= tlshMatch){
+            tlshMatch = value;
+            // add the new license to our list
+            licensePairs.add(0, thisLicense);
+        }else
+        if(value <= tlshMatch + 50 && licensePairs.size() > 0){
+            licensePairs.add(1, thisLicense);
+        }
+               
+        // trim the list size
+        if(licensePairs.size() > maxMatches){
+            licensePairs.remove(licensePairs.size()-1);
         }
     }
     
@@ -180,7 +202,7 @@ public class LicenseInfer {
     }
 
     public int getMatchValue() {
-        return smallestSimilar;
+        return levenMatch;
     }
 
     /**
