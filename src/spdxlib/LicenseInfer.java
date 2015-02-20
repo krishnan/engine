@@ -45,7 +45,7 @@ public class LicenseInfer {
     private License license;
     
     // where we keep nice matches
-    ArrayList<License> licensePairs = new ArrayList();
+    final ArrayList<License> licenseFinalist = new ArrayList();
     
     /**
      * Indicate the folder where the source code files are located.
@@ -110,7 +110,6 @@ public class LicenseInfer {
         if(engine.licenses == null){
             engine.licenses = new LicenseControl();
         }
-
         processLicenseWithCache(file);
     }
     
@@ -141,11 +140,9 @@ public class LicenseInfer {
         }
         
         // compare between what we have on our queue to find a match
-        for(License thisLicense : licensePairs){
+        for(License thisLicense : licenseFinalist){
             final int levenValue = utils.hashing.similarity
                     .levenshteinPercentage(content, thisLicense.getTerms());
-            
-            System.out.println(levenValue + " -> " + thisLicense.getId());
             
             if(levenValue > levenMatch){
                 // mark the license and keep moving
@@ -174,15 +171,16 @@ public class LicenseInfer {
         if(value <= tlshMatch){
             tlshMatch = value;
             // add the new license to our list
-            licensePairs.add(0, thisLicense);
+            licenseFinalist.add(0, thisLicense);
         }else
-        if(value <= tlshMatch + 50 && licensePairs.size() > 0){
-            licensePairs.add(1, thisLicense);
+            // not the best match, but still worth to consider on the final round
+        if(value <= tlshMatch + 50 && licenseFinalist.size() > 0){
+            licenseFinalist.add(1, thisLicense);
         }
                
         // trim the list size
-        if(licensePairs.size() > maxMatches){
-            licensePairs.remove(licensePairs.size()-1);
+        if(licenseFinalist.size() > maxMatches){
+            licenseFinalist.remove(licenseFinalist.size()-1);
         }
     }
     
