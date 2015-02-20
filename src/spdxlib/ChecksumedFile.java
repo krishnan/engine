@@ -25,7 +25,6 @@ import utils.hashing.ssdeep.ssdeep;
  */
 public class ChecksumedFile {
 
-
     final String 
             TLSH,
             SHA1,
@@ -41,7 +40,7 @@ public class ChecksumedFile {
 
         final TLSH tlsh = new TLSH();
         
-        byte[] buffer = new byte[16384];
+        final byte[] buffer = new byte[16384];
         int len;
         InputStream inputStream = new FileInputStream(file);
         // main loop of byte copy
@@ -57,6 +56,7 @@ public class ChecksumedFile {
                 digestSHA1 = hashSHA1.digest(),
                 digestMD5 = hashMD5.digest(),
                 digestSHA256 = hashSHA256.digest();
+        
         tlsh.finale();
         
         TLSH = is.tagFileChecksum
@@ -90,24 +90,8 @@ public class ChecksumedFile {
                                 .concat("\n")
                         )
                 )));
+        // no need to keep this stream open
+        inputStream.close();
     }
-    
-     
-    /**
-     * Returns the TLSH checksum for a given file
-     * @param file  A file on disk
-     * @return      A string with the hash representation of the file
-     */
-    private String getSSDEEP(final File file){
-    // compute our TLSH hashes
-        ssdeep test = new ssdeep();
-        try {
-            return test.fuzzy_hash_file(file);
-        } catch (IOException ex) {
-            return "NOASSERTION";
-        }
-    }
-
-    
     
 }
