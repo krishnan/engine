@@ -55,45 +55,65 @@ public class ChecksumedFile {
         }
         // compute the file signature
         byte[] 
-                digestSHA1 = hashSHA1.digest(),
-                digestMD5 = hashMD5.digest(),
-                digestSHA256 = hashSHA256.digest();
+            digestSHA1 = hashSHA1.digest(),
+            digestMD5 = hashMD5.digest(),
+            digestSHA256 = hashSHA256.digest();
         
         tlsh.finale();
         
-        TLSH = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumTLSH
-                        .concat(" ".concat(
-                                tlsh.hash()
-                                .concat("\n")
-                        )
-                )));
-
-        SHA1 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSHA1
-                        .concat(" ".concat(
-                                utils.hashing.checksum.convertHash(digestSHA1)
-                                .concat("\n"
-                        ))
-                )));
+        TLSH = tlsh.hash();
+        SHA1 = utils.hashing.checksum.convertHash(digestSHA1);
+        SHA256 = utils.hashing.checksum.convertHash(digestSHA256);
+        MD5 = utils.hashing.checksum.convertHash(digestMD5);
         
-        SHA256 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumSHA256
-                        .concat(" ".concat(
-                                utils.hashing.checksum.convertHash(digestSHA256)
-                                .concat("\n"
-                        ))
-                )));
-        
-        MD5 = is.tagFileChecksum
-                .concat(" ".concat(is.tagFileChecksumMD5
-                        .concat(" ".concat(
-                                utils.hashing.checksum.convertHash(digestMD5)
-                                .concat("\n")
-                        )
-                )));
         // no need to keep this stream open
         inputStream.close();
     }
+
+    public File getFile() {
+        return file;
+    }
+
+    public String getTLSH() {
+        return is.tagFileChecksum
+                .concat(" ".concat(is.tagFileChecksumTLSH
+                        .concat(" ".concat(
+                                TLSH
+                                .concat("\n")
+                        )
+                )));
+    }
+
+    public String getSHA1() {
+        return is.tagFileChecksum
+                .concat(" ".concat(is.tagFileChecksumSHA1
+                        .concat(" ".concat(
+                                SHA1
+                                .concat("\n"
+                        ))
+                )));
+    }
+
+    public String getSHA256() {
+        return is.tagFileChecksum
+                .concat(" ".concat(is.tagFileChecksumSHA256
+                        .concat(" ".concat(
+                                SHA256
+                                .concat("\n"
+                        ))
+                )));
+    }
+
+    public String getMD5() {
+        return is.tagFileChecksum
+                .concat(" ".concat(is.tagFileChecksumMD5
+                        .concat(" ".concat(
+                                MD5
+                                .concat("\n")
+                        )
+                )));
+    }
+    
+    
     
 }

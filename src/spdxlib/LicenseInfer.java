@@ -173,7 +173,7 @@ public class LicenseInfer {
             // add the new license to our list
             licenseFinalist.add(0, thisLicense);
         }else
-            // not the best match, but still worth to consider on the final round
+        // not the best match, but still worth to consider on the final round
         if(value <= tlshMatch + 50 && licenseFinalist.size() > 0){
             licenseFinalist.add(1, thisLicense);
         }

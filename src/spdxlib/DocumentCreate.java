@@ -271,14 +271,14 @@ public class DocumentCreate {
         final ChecksumedFile checksum = new ChecksumedFile(file);
         
         // now save this information into our file info object
-        tempInfo.setTagFileChecksumMD5(checksum.MD5);
-        tempInfo.setTagFileChecksumSHA1(checksum.SHA1);
-        tempInfo.setTagFileChecksumSHA256(checksum.SHA256);
-        tempInfo.setTagFileChecksumSSDEEP(checksum.TLSH);
+        tempInfo.setTagFileChecksumMD5(checksum.getMD5());
+        tempInfo.setTagFileChecksumSHA1(checksum.getSHA1());
+        tempInfo.setTagFileChecksumSHA256(checksum.getSHA256());
+        tempInfo.setTagFileChecksumSSDEEP(checksum.getTLSH());
         
         // give back the result from the checksum computation
-        return checksum.SHA1.concat(checksum.SHA256.concat
-            (checksum.MD5).concat(checksum.TLSH));
+        return checksum.getSHA1().concat(checksum.getSHA256().concat
+            (checksum.getMD5()).concat(checksum.getTLSH()));
     }
 
     /**
