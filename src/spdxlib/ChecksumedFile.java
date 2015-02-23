@@ -15,16 +15,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
+import tokenizator.BinaryFile;
 import utils.hashing.TLSH;
 
 /**
  *
  * @author Nuno Brito, 19th of February 2015 in Tettnang, Germany
  */
-public class ChecksumedFile {
+public class ChecksumedFile extends BinaryFile {
 
-    public final File file;
-    
     public final String 
             TLSH,
             SHA1,
@@ -68,10 +67,6 @@ public class ChecksumedFile {
         
         // no need to keep this stream open
         inputStream.close();
-    }
-
-    public File getFile() {
-        return file;
     }
 
     public String getTLSH() {
