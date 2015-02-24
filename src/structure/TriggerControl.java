@@ -53,7 +53,7 @@ public final class TriggerControl {
         
          // worry about the case when there is no folder nor triggers to include
         if(list.isEmpty()){
-            log.write(is.WARNING, "No trigger were added, "
+            log.write(is.WARNING, "No triggers were added, "
                     + "trigger detection is disabled.");
         }
         
