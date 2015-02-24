@@ -268,7 +268,7 @@ public class DocumentCreate {
      */
     private String getChecksums(final File file) throws Exception {
         // compute the checksums
-        final ChecksumedFile checksum = new ChecksumedFile(file);
+        final ChecksumFile checksum = new ChecksumFile(file);
         
         // now save this information into our file info object
         tempInfo.setTagFileChecksumMD5(checksum.getMD5());

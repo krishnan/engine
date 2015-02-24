@@ -22,15 +22,18 @@ import utils.hashing.TLSH;
  *
  * @author Nuno Brito, 19th of February 2015 in Tettnang, Germany
  */
-public class ChecksumedFile extends BinaryFile {
+public class ChecksumFile extends BinaryFile {
 
     public final String 
             TLSH,
             SHA1,
             SHA256,
             MD5;
+    
+    private final String
+            fileExtension;
         
-    public ChecksumedFile(final File file) throws Exception{
+    public ChecksumFile(final File file) throws Exception{
         // assign the file
         this.file = file;
         
@@ -65,8 +68,19 @@ public class ChecksumedFile extends BinaryFile {
         SHA256 = utils.hashing.checksum.convertHash(digestSHA256);
         MD5 = utils.hashing.checksum.convertHash(digestMD5);
         
+        // set the identifier hash 
+        this.identifierHash = SHA1;
+        
+        // define the file extension
+        final int lastDot = file.getAbsolutePath().lastIndexOf(".");
+        fileExtension = file.getAbsolutePath().substring(lastDot+1).toLowerCase();
+        
         // no need to keep this stream open
         inputStream.close();
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
     }
 
     public String getTLSH() {
