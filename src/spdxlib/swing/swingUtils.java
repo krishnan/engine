@@ -338,7 +338,7 @@ public class swingUtils {
      */
     public static String addSSDEEP(String title, FileInfo file) {
         // get the contents of this tag
-        String text = file.getTagFileChecksumSSDEEP();
+        String text = file.getTagFileChecksumTLSH();
         return swingUtils.addIfNotEmpty(title, text);
     } 
     

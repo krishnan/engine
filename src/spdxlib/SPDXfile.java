@@ -435,7 +435,7 @@ public class SPDXfile implements Serializable{
         }else
         if(tagStartsWith(is.tagFileChecksumTLSH, line)){
             final String temp = tagGetValue(is.tagFileChecksumTLSH, line);
-            tempInfo.setTagFileChecksumSSDEEP(temp);
+            tempInfo.setTagFileChecksumTLSH(temp);
         }
     }
     

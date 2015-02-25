@@ -40,7 +40,9 @@ public class DocumentCreate {
     SPDXfile spdx = new SPDXfile();
     
     // are we processing a new document right now?
-    private boolean processing = false;
+    private boolean 
+            processing = false,
+            wasCreatedWithSuccess = false;
 
     // how many files have been processed, how many missing?
     private int
@@ -98,6 +100,15 @@ public class DocumentCreate {
      * @return                  true if everything went as planned
      */
     public boolean create(final File folderToAnalyze, final File resultFile) {
+        // initialize the variable in case of need 
+        wasCreatedWithSuccess = true;
+        
+        // preflight check, make sure the folder exists.
+        if(folderToAnalyze.exists() == false || folderToAnalyze.isFile()){
+            System.err.println("DC103 error: Folder does not exist: " 
+                    + folderToAnalyze.getAbsolutePath());
+            return false;
+        }
         
         try {
             // get rid of dots and shortcuts, we want the real path
@@ -125,12 +136,14 @@ public class DocumentCreate {
                 System.err.println("Error DC131: Failed to process files");
                 e.printStackTrace();
                 processing = false;
+                buffer.close();
                 return false;
             }
         // all done
         processing = false;
         buffer.close();
         // we are expected to return the pointer to the new report on disk
+        wasCreatedWithSuccess = true;
         return true;
     }
 
@@ -268,13 +281,13 @@ public class DocumentCreate {
      */
     private String getChecksums(final File file) throws Exception {
         // compute the checksums
-        final ChecksumFile checksum = new ChecksumFile(file, null);
+        final ChecksumFile checksum = new ChecksumFile(file, folderSource.getAbsolutePath());
         
         // now save this information into our file info object
         tempInfo.setTagFileChecksumMD5(checksum.getMD5());
         tempInfo.setTagFileChecksumSHA1(checksum.getSHA1());
         tempInfo.setTagFileChecksumSHA256(checksum.getSHA256());
-        tempInfo.setTagFileChecksumSSDEEP(checksum.getTLSH());
+        tempInfo.setTagFileChecksumTLSH(checksum.getTLSH());
         
         // give back the result from the checksum computation
         return checksum.getSHA1().concat(checksum.getSHA256().concat
@@ -531,7 +544,7 @@ public class DocumentCreate {
      */
     public static void main(String[] params){
         
-        File folderSource = new File("../../source/7z922//");
+        File folderSource = new File("/mnt/06B6C215B6C20561/core/code/mom/run/samples/tigl-master");
         File fileOutput = new File("test/example.spdx");
         
         engine.warmUp();

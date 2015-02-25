@@ -32,12 +32,20 @@ public class ChecksumFile extends BinaryFile {
             
             filename;
     
+    private final int
+            // the minimum size that we need for computing a TLSH checksum
+            minSizeTLSH = 16384;
+    
+    private final long 
+            size;
+    
     private final String
             fileExtension;
     
     public ChecksumFile(final File file, final String baseFolder) throws Exception{
         // assign the file
         this.file = file;
+        this.size = file.length();
         
         final MessageDigest 
                 hashSHA1 = MessageDigest.getInstance("SHA-1"),
@@ -94,7 +102,12 @@ public class ChecksumFile extends BinaryFile {
     }
 
     public String getTLSH() {
-        return is.tagFileChecksum
+        // avoid hashes that are too small for computing
+        if(size < minSizeTLSH){
+            return "";
+        }
+        else
+            return is.tagFileChecksum
                 .concat(" ".concat(is.tagFileChecksumTLSH
                         .concat(" ".concat(
                                 TLSH

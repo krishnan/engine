@@ -48,7 +48,7 @@ public class FileInfo {
     private String tagFileChecksumSHA1;
     private String tagFileChecksumSHA256;
     private String tagFileChecksumMD5;
-    private String tagFileChecksumSSDEEP;
+    private String tagFileChecksumTLSH;
     
     // how many lines of code has this file? (when applicable)
     private int fileLOC = 0;
@@ -128,12 +128,12 @@ public class FileInfo {
         this.tagFileChecksumSHA256 = tagFileChecksumSHA256;
     }
 
-    public String getTagFileChecksumSSDEEP() {
-        return tagFileChecksumSSDEEP;
+    public String getTagFileChecksumTLSH() {
+        return tagFileChecksumTLSH;
     }
 
-    public void setTagFileChecksumSSDEEP(final String tagFileChecksumSSDEEP) {
-        this.tagFileChecksumSSDEEP = tagFileChecksumSSDEEP;
+    public void setTagFileChecksumTLSH(final String tagFileChecksumTLSH) {
+        this.tagFileChecksumTLSH = tagFileChecksumTLSH;
     }
 
     public int getFileLOC() {
@@ -147,8 +147,6 @@ public class FileInfo {
     public long getFileSize() {
         return fileSize;
     }
-
-    
     
     public void setFileSize(final long fileSize) {
         this.fileSize = fileSize;
@@ -190,8 +188,6 @@ public class FileInfo {
     public boolean hasCopyrightDeclared() {
         return hasCopyrightDeclared;
     }
-    
-    
 
     public FileOrigin getFileOrigin() {
         return fileOrigin;
@@ -208,7 +204,6 @@ public class FileInfo {
     public String getFileComponent() {
         return fileComponent;
     }
-
     
     public LicenseType getLicenseConcluded() {
         return licenseConcluded;
@@ -219,8 +214,6 @@ public class FileInfo {
         licenseConcludedAvailable = true;
         toString = getName() + " (" + licenseConcluded.toId() + ")";
     }
-
-    
     
     /**
      * Has this file a license concluded?
@@ -267,7 +260,6 @@ public class FileInfo {
     public String getExtension() {
         return extension;
     }
-    
     
     /**
      * This method returns a more advanced type of file category than FileType
