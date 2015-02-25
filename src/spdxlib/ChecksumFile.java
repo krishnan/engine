@@ -28,12 +28,14 @@ public class ChecksumFile extends BinaryFile {
             TLSH,
             SHA1,
             SHA256,
-            MD5;
+            MD5,
+            
+            filename;
     
     private final String
             fileExtension;
-        
-    public ChecksumFile(final File file) throws Exception{
+    
+    public ChecksumFile(final File file, final String baseFolder) throws Exception{
         // assign the file
         this.file = file;
         
@@ -47,7 +49,7 @@ public class ChecksumFile extends BinaryFile {
         final byte[] buffer = new byte[16384];
         int len;
         InputStream inputStream = new FileInputStream(file);
-        // main loop of byte copy
+        // main loop of byte copy, calculate all checksums together
         while((len = inputStream.read(buffer)) >= 0){
             // update the hash for the signature hash (typically SHA1)
             hashSHA1.update(buffer, 0, len);
@@ -68,12 +70,20 @@ public class ChecksumFile extends BinaryFile {
         SHA256 = utils.hashing.checksum.convertHash(digestSHA256);
         MD5 = utils.hashing.checksum.convertHash(digestMD5);
         
-        // set the identifier hash 
+        // set the identifier hash and name portion
         this.identifierHash = SHA1;
+
+        // try to assign only a relative path, not the full path
+        if(baseFolder == null || baseFolder.isEmpty()){
+            this.filename = file.getName();
+        }else{
+            this.filename = file.getAbsolutePath().replace(baseFolder, ".");
+        }
+        
         
         // define the file extension
-        final int lastDot = file.getAbsolutePath().lastIndexOf(".");
-        fileExtension = file.getAbsolutePath().substring(lastDot+1).toLowerCase();
+        final int lastDot = filename.lastIndexOf(".");
+        fileExtension = filename.substring(lastDot+1).toLowerCase();
         
         // no need to keep this stream open
         inputStream.close();

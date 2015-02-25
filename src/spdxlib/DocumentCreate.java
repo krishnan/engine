@@ -268,7 +268,7 @@ public class DocumentCreate {
      */
     private String getChecksums(final File file) throws Exception {
         // compute the checksums
-        final ChecksumFile checksum = new ChecksumFile(file);
+        final ChecksumFile checksum = new ChecksumFile(file, null);
         
         // now save this information into our file info object
         tempInfo.setTagFileChecksumMD5(checksum.getMD5());
@@ -406,14 +406,7 @@ public class DocumentCreate {
      * @param folderSource  The folder from where we get information
      */
     private void createHeader(final File folderSourceCode) {
-//            Thread thread = new Thread(){
-//            @Override
-//            public void run(){
-                
         launchCreateHeaderThread(folderSourceCode);
-//           }
-//       };
-//        thread.start();
     }
 
     /**
