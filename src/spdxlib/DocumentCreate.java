@@ -544,7 +544,7 @@ public class DocumentCreate {
      */
     public static void main(String[] params){
         
-        File folderSource = new File("/mnt/06B6C215B6C20561/core/code/mom/run/samples/tigl-master");
+        File folderSource = new File("/mnt/06B6C215B6C20561/core/code/source/linux-kernel");
         File fileOutput = new File("test/example.spdx");
         
         engine.warmUp();
