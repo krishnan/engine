@@ -4,6 +4,7 @@ package licenses;
 import definitions.TriggerType;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import script.Trigger;
 
 /*
@@ -484,7 +485,10 @@ public class GNU implements Trigger {
       * @param license  A valid LicenseGNU object
       */
      private void addLicense(final String newLicense){
-         for(final String license : licenses){
+         Iterator iterator = licenses.iterator();
+         while(iterator.hasNext()){
+             String license = (String) iterator.next();
+         //for(final String license : licenses){
              if(utils.text.equals(license, newLicense)){
                  return;
              }

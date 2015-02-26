@@ -17,6 +17,7 @@ import definitions.folder;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import main.engine;
 import script.Trigger;
 import script.log;
@@ -27,7 +28,7 @@ import script.log;
  */
 public final class TriggerControl {
     
-    private final ArrayList<Trigger> list = new ArrayList();
+    private final CopyOnWriteArrayList<Trigger> list = new CopyOnWriteArrayList();
     
     
     public TriggerControl(){

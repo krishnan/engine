@@ -21,6 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
 import FileExtension.FileExtension;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import script.Trigger;
 import script.log;
 import utils.ReadWrite.FileWriteLinesWithBuffer;
@@ -42,7 +45,7 @@ public class DocumentCreate {
     // are we processing a new document right now?
     private boolean 
             processing = false,
-            wasCreatedWithSuccess = false;
+            isCreatedWithSuccess = false;
 
     // how many files have been processed, how many missing?
     private int
@@ -58,12 +61,11 @@ public class DocumentCreate {
             packageName = "",
             packageURL = "";
     
-    // misc variables
+    // the queue for files to be processed
+    private BlockingQueue<File> queue = new LinkedBlockingQueue<File>();
     
     // the generic file writer (where we store the results on disk)
     FileWriteLinesWithBuffer buffer;
-    FileInfo tempInfo;
-   
     
     public boolean isProcessing() {
         return processing;
@@ -80,7 +82,6 @@ public class DocumentCreate {
     public File getOutputFile() {
         return outputFile;
     }
-    
     
     /**
      * From a given folder on disk, create an SPDX report
@@ -101,7 +102,7 @@ public class DocumentCreate {
      */
     public boolean create(final File folderToAnalyze, final File resultFile) {
         // initialize the variable in case of need 
-        wasCreatedWithSuccess = true;
+        isCreatedWithSuccess = false;
         
         // preflight check, make sure the folder exists.
         if(folderToAnalyze.exists() == false || folderToAnalyze.isFile()){
@@ -116,7 +117,8 @@ public class DocumentCreate {
             // setup the real path
             folderSource = new File(canonicalPath);
         } catch (IOException ex) {
-            Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DocumentCreate.class.getName())
+                    .log(Level.SEVERE, null, ex);
             ex.printStackTrace();
             // something failed, no problem. We can recover
             folderSource = folderToAnalyze;
@@ -129,8 +131,10 @@ public class DocumentCreate {
             buffer = new FileWriteLinesWithBuffer(resultFile);
             // do the header
             createHeader(folderSource);
-            // get down to business
-            processFiles(folderSource, 25);
+            // find the files we want to process, add them on the queue
+            processFindFiles(folderSource, 25);
+            // launch the threads to process the queue
+            processQueue();
             
         } catch (Exception e){
                 System.err.println("Error DC131: Failed to process files");
@@ -143,44 +147,71 @@ public class DocumentCreate {
         processing = false;
         buffer.close();
         // we are expected to return the pointer to the new report on disk
-        wasCreatedWithSuccess = true;
+        isCreatedWithSuccess = true;
         return true;
     }
 
-/**
- * Find all files in a given folder and respective subfolders to
- * start indexing them.
- * @param where A file object of the start folder
- * @param maxDeep How deep is the crawl allowed to proceed
- * @throws java.io.IOException
- */
- private void processFiles(File where, int maxDeep) throws Exception{
-    File[] files = where.listFiles();
-    if(files != null)
-        for (File file : files) {
-        if (file.isFile())
-            processFile(file);
-        else
-            if ( (file.isDirectory())
-                    &&( maxDeep-1 > 0 ) ){
-                
-                // ignore intentionally the repository folders
-                if(isRepositoryFolder(file)){
-                    continue;
+    private void processQueue() throws Exception{
+        for(int i = 0; i < utils.hardware.numberCPU(); i++){
+            Thread thread = new Thread(){
+                @Override
+                public void run(){
+                        while(queue.size() > 0){
+                            try {
+                                processFile(queue.take());
+                            } catch (Exception ex) {
+                                Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                 }
-                
-                // do the recursive crawling
-                processFiles(file, maxDeep-1);
+            };
+            thread.start();
+        }
+        
+        while(queue.size() > 0){
+            utils.time.wait(1);
+        }
+        
+    }
+    
+    public boolean isCreatedWithSuccess() {
+        return isCreatedWithSuccess;
+    }
+    
+    /**
+     * Find all files in a given folder and respective subfolders to
+     * start indexing them.
+     * @param where A file object of the start folder
+     * @param maxDeep How deep is the crawl allowed to proceed
+     * @throws java.io.IOException
+     */
+    private void processFindFiles(File where, int maxDeep) throws Exception{
+        final File[] files = where.listFiles();
+        if(files != null){
+            for (final File file : files) {
+                if (file.isFile()){
+                    //processFile(file);
+                    queue.add(file);
+                }else
+                    if ((file.isDirectory())
+                            &&( maxDeep-1 > 0 )){
+                        // ignore intentionally the repository folders
+                        if(isRepositoryFolder(file)){
+                            continue;
+                        }
+                        // do the recursive crawling
+                        processFindFiles(file, maxDeep-1);
+                    }
             }
         }
- }
+    }
 
  /**
   * Avoid the indexing of folders that belong to popular versioning systems
   * @param folder   The folder on disk to evaluate
   * @return True is this is a repository folder, false otherwise
   */
-     boolean isRepositoryFolder(final File folder){
+    boolean isRepositoryFolder(final File folder){
          final String folderName = folder.getName();
          if(utils.text.equals(folderName, ".git")){
              return true;
@@ -190,10 +221,10 @@ public class DocumentCreate {
          }else
              if(utils.text.equals(folderName, ".hg")){
                  return true;
-         }
+             }
          // not one of those folders. All good to go.
          return false;
-     }
+    }
  
 
  /**
@@ -206,7 +237,7 @@ public class DocumentCreate {
              .substring(folderSourceLength).replace("\\", "/");
      
      // create the fileInfo pointer
-     tempInfo = new FileInfo(spdx);
+     final FileInfo tempInfo = new FileInfo(spdx);
      
      // write the file name
      tempInfo.setFileName(fileName);
@@ -215,13 +246,13 @@ public class DocumentCreate {
      // what kind of file are we dealing here?
      final FileExtension tagFileExtension = tempInfo.getExtensionObject();
      // process the file type
-     final String tagFileType = getFileType(tagFileExtension);
+     final String tagFileType = getFileType(tagFileExtension, tempInfo);
      // now process the checksums
-     final String tagChecksum = getChecksums(file);
+     final String tagChecksum = getChecksums(file, tempInfo);
      // now calculate the metrics
-     final String tagSize= getFileSize(file);
+     final String tagSize= getFileSize(file, tempInfo);
      // get the Lines of Code, licensing and copyright information
-     final String tagCodeInsight = getCodeInsight(file);
+     final String tagCodeInsight = getCodeInsight(file, tempInfo);
      
      final String result = tagFileName + tagFileType + tagChecksum 
              + tagSize + tagCodeInsight + "\n";
@@ -241,12 +272,13 @@ public class DocumentCreate {
      * @param fileInfo      The file info to be processed
      * @return              A string ready to be written on the SPDX document
      */
-    private String getFileType(final FileExtension tagFileExtension){
+    private String getFileType(final FileExtension tagFileExtension,
+            FileInfo tempInfo){
         // preflight, when null just output the default value
         if(tagFileExtension == null){
             // when the extension doesn't exist, we can create a template
             // for indexing this kind of extension in the future
-            createExtension();
+            createExtension(tempInfo);
             // save the information into our file object
             tempInfo.setFileType(FileType.OTHER);
             return is.tagFileType.concat(" OTHER\n");
@@ -279,7 +311,7 @@ public class DocumentCreate {
      * @param file      A file on disk
      * @return          The text ready to be written on the SPDX document
      */
-    private String getChecksums(final File file) throws Exception {
+    private String getChecksums(final File file, FileInfo tempInfo) throws Exception {
         // compute the checksums
         final ChecksumFile checksum = new ChecksumFile(file, folderSource.getAbsolutePath());
         
@@ -299,7 +331,7 @@ public class DocumentCreate {
      * @param file  A file on disk
      * @return      A text ready to include on the SPDX document
      */
-    private String getFileSize(File file) {
+    private String getFileSize(File file, FileInfo tempInfo) {
         // define the file size in human readable format
         final long fileSize = file.length();
         // write this value onto the file info object
@@ -328,7 +360,7 @@ public class DocumentCreate {
      * @param file  A file on disk
      * @return      A piece of text ready to be inserted inside the SPDX content
      */
-    private String getCodeInsight(final File file) {        
+    private String getCodeInsight(final File file, FileInfo tempInfo) {        
         // read this file from disk onto local memory
         final String contentNormalCase = utils.files.readAsString(file);
         final String contentLowerCase = contentNormalCase.toLowerCase();
@@ -395,7 +427,7 @@ public class DocumentCreate {
      * during the processing of files. This code is launched on a separate
      * thread to prevent delaying the overall progress
      */
-    private void createExtension() {
+    private void createExtension(final FileInfo tempInfo) {
         Thread thread = new Thread(){
             @Override
             public void run(){
