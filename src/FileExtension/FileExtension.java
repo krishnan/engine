@@ -122,40 +122,12 @@ public class FileExtension {
         
         // source code of some kind?
         if((category == FileCategory.SOURCE)
-                ||(category == FileCategory.SCRIPT)){
+                ||(category == FileCategory.SCRIPT)
+                && (targetFile.length() < 1000)){
             // read the contents of this file
             String result = utils.files.readAsString(targetFile);
-            
-            
-            result = utils.code.convertToHTML(result);
-            
-            // try to add some nice and pretty formatting
-//            try{
-                
-//                Java2HtmlOptionsPanel optionsPanel = new Java2HtmlOptionsPanel();
-//                JavaSourceConversionSettings options = optionsPanel.getConversionSettings();
-//                options.getConversionOptions().setShowJava2HtmlLink(false);
-//                options.getConversionOptions().setShowTableBorder(false);
-//                options.getConversionOptions().setShowFileName(false);
-//                options.getConversionOptions().setAddLineAnchors(false);
-//
-//                String htmlText = Java2Html.convertToHtmlPage(result, options);
-//
-//                int pos1 = htmlText.indexOf("<!-- start source code -->");
-//                int pos2 = htmlText.indexOf("<!-- end source code -->");
-//
-//                result = "<tr>" + htmlText.substring(pos1, pos2) + "</tr>";
-//            } catch (Exception e){
-                // something went wrong, show text without formatting
-//                String tag = "pre";
-//                //result = result.replace("\n", "\n" + html.br);
-//                result = "<"+tag+">" + result + "</"+tag+">";
-//                result = html.div() + result + html._div;
-//            }finally{
-//            
-//            }
-            
-           return result;
+
+            return utils.code.convertToHTML(result);
         }
         
 //        // if this is a compressed file of some kind, no need to bother

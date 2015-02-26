@@ -21,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
 import FileExtension.FileExtension;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import script.Trigger;
@@ -62,7 +61,7 @@ public class DocumentCreate {
             packageURL = "";
     
     // the queue for files to be processed
-    private BlockingQueue<File> queue = new LinkedBlockingQueue<File>();
+    private final BlockingQueue<File> queue = new LinkedBlockingQueue<File>();
     
     // the generic file writer (where we store the results on disk)
     FileWriteLinesWithBuffer buffer;
@@ -81,6 +80,10 @@ public class DocumentCreate {
 
     public File getOutputFile() {
         return outputFile;
+    }
+
+    public File getFolderSource() {
+        return folderSource;
     }
     
     /**

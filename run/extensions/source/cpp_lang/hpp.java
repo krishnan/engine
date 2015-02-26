@@ -1,4 +1,4 @@
-package source.c_lang;
+package source.cpp_lang;
 
 import java.io.File;
 import FileExtension.FileExtension;
@@ -9,13 +9,13 @@ import spdxlib.FileLanguage;
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
- * Created: 2013-11-16T14:43:36Z
+ * Created: 2015-02-26T22:17:01Z
  * LicenseName: CC-BY-4.0
- * FileName: h.java  
+ * FileName: hpp.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
+ * FileCopyrightText: <text> Copyright © 2015, Nuno Brito </text>
  * FileComment: <text> This class provides details about files that have
- * the extension of type h. Extensions tend to represent a specific type
+ * the extension of type hpp. Extensions tend to represent a specific type
  * of file structure from where we can extract information. In some cases, the
  * same type of file is used for representing different types of data from 
  * different types of applications. We make no specific arrangement to handle
@@ -32,7 +32,7 @@ import spdxlib.FileLanguage;
  *
  * @author Nuno Brito
  */
-public class h extends FileExtension{
+public class hpp extends FileExtension{
     /**
      * How can we confirm that this file extension is applicable to this file?
      * This method analyses the binary contents of a file to get the answer.
@@ -65,7 +65,7 @@ public class h extends FileExtension{
      */
     @Override
     public String getDescription() {
-        return "C language Header file"; // file type description
+        return "C++ language Header file"; // file type description
     }
     
     /**
@@ -75,14 +75,9 @@ public class h extends FileExtension{
     @Override
     public FileLanguage getLanguage(){
         /**
-         * .h files are headers for the C programming language, they apply
-         * both for C++ and C. For this kind of situation, we define the
-         * applicable language as "multiple" and then define the possible
-         * language options
+         * This special type of header only applies to C++
          */
-        languages.add(FileLanguage.C_PLUS_PLUS);
-        languages.add(FileLanguage.C);
-        return FileLanguage.MULTIPLE; // to which language is the file more related?
+        return FileLanguage.C_PLUS_PLUS; // to which language is the file more related?
     }
 
     /**
@@ -92,7 +87,7 @@ public class h extends FileExtension{
      */
     @Override
     public String getIdentifierShort() {
-        return "h";
+        return "hpp";
     }
     
     /**

@@ -2,7 +2,7 @@
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2015-02-06T13:15:25Z
+ * Created: 2015-02-26T22:20:34Z
  * LicenseName: EUPL-1.1-without-appendix
  * FileName: ExtensionList.java
  * FileOrigin: Auto-Generated
@@ -175,6 +175,7 @@ public final class ExtensionList {
 	list.add(new source.cpp_lang.cc());
 	list.add(new source.cpp_lang.cpp());
 	list.add(new source.cpp_lang.ext_pch());
+	list.add(new source.cpp_lang.hpp());
 	list.add(new source.csharp.cd());
 	list.add(new source.csharp.config());
 	list.add(new source.csharp.cs());

@@ -100,7 +100,7 @@ public class SPDXfile implements Serializable{
     private String packageLicenseDeclaredText;
     
     // global variables only used during a read of the document
-    String line;
+    String globalLine;
     
     // default constructor, we need a file to proceed
     public SPDXfile(final File canonicalFile) {
@@ -224,17 +224,17 @@ public class SPDXfile implements Serializable{
      */
     private void processHeader(BufferedReader reader) {
         try {
-            while ((line = reader.readLine()) != null) {
+            while ((globalLine = reader.readLine()) != null) {
                 // increase the char counting
-                charPosition+= line.length() + 1;
+                charPosition+= globalLine.length() + 1;
                 
                 // PackageLicenseDeclared:
-                if(tagStartsWith(is.tagPackageLicenseDeclared, line)){
-                    packageLicenseDeclaredText = tagGetValue(is.tagPackageLicenseDeclared, line);
+                if(tagStartsWith(is.tagPackageLicenseDeclared, globalLine)){
+                    packageLicenseDeclaredText = tagGetValue(is.tagPackageLicenseDeclared, globalLine);
                 }
                 
                 // have we read enough?
-                if(line.startsWith("FileName:")){
+                if(globalLine.startsWith("FileName:")){
                     // no more header information available
                     break;
                 }
@@ -280,25 +280,25 @@ public class SPDXfile implements Serializable{
           processHeader(reader);
           
           // process the file information
-          while (line != null) {
+          while (globalLine != null) {
                try {
                     // increase the line counter
                     lineCounter++;
                     // read the tag/value information
-                    processFileLine(line, charPosition);
+                    processFileLine(globalLine, charPosition);
                } catch (Exception ex) {
                     log.write(is.ERROR, "SPDX246: Error reading line: %1 of file %2"
                             + " with content: %3"
                             ,lineCounter + "", file.getAbsolutePath(),
-                            line);
+                            globalLine);
                     ex.printStackTrace();
                     // no need to stop, continue to the next item
                     continue;
                 }
                 // increase the char counting
-                charPosition+= line.length() + 1;
+                charPosition+= globalLine.length() + 1;
                 // move to the next line
-                line = reader.readLine();
+                globalLine = reader.readLine();
             }
             reader.close();
             // small tidybits that were left to fix up
