@@ -151,18 +151,18 @@ public class DocumentCreate {
         return true;
     }
 
-    private void processQueue() throws Exception{
-        for(int i = 0; i < utils.hardware.numberCPU(); i++){
+    private void processQueueThreaded() throws Exception{
+    for(int i = 0; i < utils.hardware.numberCPU(); i++){
             Thread thread = new Thread(){
                 @Override
                 public void run(){
-                        while(queue.size() > 0){
-                            try {
-                                processFile(queue.take());
-                            } catch (Exception ex) {
-                                Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+                    try {
+                        // process a given queue
+                        processQueue();
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(DocumentCreate.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             };
             thread.start();
@@ -172,6 +172,16 @@ public class DocumentCreate {
             utils.time.wait(1);
         }
         
+    }
+    
+    /**
+     * The code that will go through the queue and process files
+     * @throws Exception 
+     */
+    private void processQueue() throws Exception{
+        while(queue.size() > 0){
+            processFile(queue.take());
+        }
     }
     
     public boolean isCreatedWithSuccess() {
