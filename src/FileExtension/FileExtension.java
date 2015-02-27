@@ -157,8 +157,6 @@ public class FileExtension {
                     + "\"> ";
         }
         
-        
-        //throw new UnsupportedOperationException("Not yet implemented");
         String result = utils.files.readAsString(targetFile);
         result = "<pre>" + result + "</pre>";
         result = html.div() + result + html._div;
