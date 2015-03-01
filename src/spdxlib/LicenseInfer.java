@@ -193,7 +193,7 @@ public class LicenseInfer {
     }
     
     public static void main(String[] args){
-        final String location = "/mnt/06B6C215B6C20561/core/code/source/corefx-master-2014-11-15/";
+        final String location = "../../source/corefx-master-2014-11-15/";
         File folder = new File(location);
         LicenseInfer infer = new LicenseInfer(folder);
         
