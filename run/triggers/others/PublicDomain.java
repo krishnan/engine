@@ -1,9 +1,9 @@
 package others;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -34,7 +34,7 @@ import script.Trigger;
 public class PublicDomain implements Trigger {
     
     // the list of id's that we can use to identify a license
-    String[] list = {
+    final String[] list = {
         "public domain"
     };
     
@@ -66,7 +66,8 @@ public class PublicDomain implements Trigger {
                 return false;
         }
         if(lowerCaseText.contains(id)){
-                return true;
+            result.add(getShortIdentifier());
+            return true;
         }
         // not enough reasons to consider applicable
         return false;
@@ -103,7 +104,7 @@ public class PublicDomain implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
     

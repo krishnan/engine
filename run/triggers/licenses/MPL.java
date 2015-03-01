@@ -1,9 +1,9 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -35,7 +35,7 @@ import script.Trigger;
 public class MPL implements Trigger {
     
     // the list of id's that we can use to identify a license
-    String[] list = {
+    final String[] list = {
         "Mozilla Public License",
         "http://www.mozilla.org/MPL",
         //"MPL",
@@ -110,6 +110,7 @@ public class MPL implements Trigger {
         // mark the license description
         defaultId = resultId;
         defaultTitle = resultTitle;
+        result.add(resultTitle);
         return true;
                 //isNotBlackListed(text);
     }
@@ -122,11 +123,11 @@ public class MPL implements Trigger {
      * @return      the source code after removing non-wanted characters
      */
     private String normalizeText(String text){
-        String result = text.replace("\n", "");
-            result = result.replace("\r", "");
-            result = result.replace("*", "");
+        String result1 = text.replace("\n", "");
+            result1 = result1.replace("\r", "");
+            result1 = result1.replace("*", "");
             
-        return result;
+        return result1;
     }
     
     
@@ -209,7 +210,7 @@ public class MPL implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
   

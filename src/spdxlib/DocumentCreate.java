@@ -23,7 +23,7 @@ import main.engine;
 import FileExtension.FileExtension;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import script.Trigger;
+import provenance.Trigger;
 import script.log;
 import utils.ReadWrite.FileWriteLinesWithBuffer;
 
@@ -137,14 +137,14 @@ public class DocumentCreate {
             // find the files we want to process, add them on the queue
             processFindFiles(folderSource, 25);
             // launch the threads to process the queue
-            processQueue();
+            processQueueThreaded();
             
         } catch (Exception e){
-                System.err.println("Error DC131: Failed to process files");
-                e.printStackTrace();
-                processing = false;
-                buffer.close();
-                return false;
+            System.err.println("Error DC131: Failed to process files");
+            e.printStackTrace();
+            processing = false;
+            buffer.close();
+            return false;
             }
         // all done
         processing = false;
@@ -402,7 +402,7 @@ public class DocumentCreate {
             for(Trigger thisTrigger: engine.triggers.getList()){
                 // does our text contains an applicable trigger?
                 if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
-                   result = result.concat(thisTrigger.getResult()).concat("\n");
+                   result = result.concat(thisTrigger.getResultSPDX()).concat("\n");
                 }
             }
         }else{

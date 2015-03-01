@@ -1,9 +1,10 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -57,6 +58,7 @@ public class Apache_v2 implements Trigger {
         // iterate all our ids
         for(String id : list){
             if(textLowerCase.contains(id)){
+                result.add(getShortIdentifier());
                 return true;
             }
         }
@@ -90,7 +92,7 @@ public class Apache_v2 implements Trigger {
     }
     
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
 

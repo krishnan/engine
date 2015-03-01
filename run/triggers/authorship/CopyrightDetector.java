@@ -1,11 +1,11 @@
 package authorship;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -99,6 +99,9 @@ public class CopyrightDetector implements Trigger {
                 copyright = copyright.concat(temp);
                 onlyOne = false;
                 copyrightCounter++;
+                // add this item to our results
+                result.add(temp);
+                
                 // add a line break for everything after
             }else{
                 // we need to check if this is a duplicate or not
@@ -113,6 +116,8 @@ public class CopyrightDetector implements Trigger {
                         + 
                         temp;
                 copyrightCounter++;
+                // add a new copyright holder
+                result.add(temp);
             }
         }
         
@@ -193,7 +198,7 @@ public class CopyrightDetector implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
           
         // do some pretty adjustments when there is more than one entry
 //        if(copyrightCounter > 1){

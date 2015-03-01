@@ -1,9 +1,9 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -28,7 +28,7 @@ import script.Trigger;
 public class EPL implements Trigger {
     
     // the list of id's that we can use to identify a license
-    String[] list = {
+    final String[] list = {
         "epl-1.0",
         "eclipse public license",
     };
@@ -44,6 +44,7 @@ public class EPL implements Trigger {
         // iterate all our ids
         for(String id : list){
             if(textLowerCase.contains(id)){
+                result.add(getShortIdentifier());
                 return true;
             }
         }
@@ -81,7 +82,7 @@ public class EPL implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
     

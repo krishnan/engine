@@ -11,7 +11,7 @@
  * using. For example, one trigger might be used to detect copyright notices,
  * while another trigger might be used for detecting licenses.</text> 
  */
-package definitions;
+package provenance;
 
 /**
  *

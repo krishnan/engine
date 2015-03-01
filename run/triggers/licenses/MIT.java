@@ -1,9 +1,9 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -28,7 +28,7 @@ import script.Trigger;
 public class MIT implements Trigger {
     
     // the list of id's that we can use to identify a license
-    String[] list = {
+    final String[] list = {
         "MIT license",
         "Permission is hereby granted, free of charge, to any person obtaining",
         "and associated documentation files",
@@ -48,6 +48,7 @@ public class MIT implements Trigger {
         // iterate all our ids
         for(String id : list){
             if(text.contains(id)){
+                result.add(getShortIdentifier());
                 return true;
             }
         }
@@ -85,7 +86,7 @@ public class MIT implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
     

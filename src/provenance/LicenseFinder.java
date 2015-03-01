@@ -16,7 +16,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
-import script.Trigger;
 import spdxlib.DocumentCreate;
 
 /**
@@ -184,7 +183,7 @@ public class LicenseFinder {
         for(Trigger thisTrigger: engine.triggers.getList()){
             // does our text contains an applicable trigger?
             if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
-               //result = result.concat(thisTrigger.getResult()).concat("\n");
+               //result = result.concat(thisTrigger.getResultSPDX()).concat("\n");
             }
         }
     }

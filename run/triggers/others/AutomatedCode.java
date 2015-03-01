@@ -1,9 +1,9 @@
 package others;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
-import script.Trigger;
+import provenance.Trigger;
 import spdxlib.FileOrigin;
 
 /*
@@ -52,7 +52,6 @@ public class AutomatedCode implements Trigger {
             snippetCSharp = textLowerCase;
         }
         
-        
         // so, is it here?
         if(snippetCSharp.contains(csharp)){
             return true;
@@ -92,7 +91,7 @@ public class AutomatedCode implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return FileOriginInFile + FileOrigin.AUTOMATED.toString();
     }
     

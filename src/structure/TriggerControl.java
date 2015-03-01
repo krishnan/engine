@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
-import script.Trigger;
+import provenance.Trigger;
 import script.log;
 
 /**

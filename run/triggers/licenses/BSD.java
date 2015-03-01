@@ -1,10 +1,10 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
 import java.io.Serializable;
-import script.Trigger;
+import provenance.Trigger;
 
 /**
  * SPDXVersion: SPDX-1.1
@@ -109,7 +109,7 @@ public class BSD implements Trigger {
     
     final String bsd4ClauseSpecificUC = "4. neither the name of the university";
     
-    String result = null;
+    String resultText = null;
     
     final LicenseBSD 
             bsd2Clause = new LicenseBSD("BSD-2-Clause"),
@@ -133,7 +133,7 @@ public class BSD implements Trigger {
         for(String keyword : keywordPreFilter){
             if(textLowerCase.contains(keyword)){
                 detectKindOfBSD(textLowerCase);
-                return result != null;
+                return resultText != null;
             }
         }
         return false;
@@ -143,8 +143,14 @@ public class BSD implements Trigger {
      * Reset all the settings to start again
      */
     void preFlight(){
-        result = null;
+        resultText = null;
     }
+    
+    private void addResult(final String text){
+         result.add(text);
+         resultText = text;
+    }
+    
     
     /**
      * Tries to distinguish the type of BSD license that we
@@ -156,33 +162,33 @@ public class BSD implements Trigger {
         if(isBSD(textLowerCase, keywordsBSD4Clause)){
             // there's a trick, the Sleepy Cat contains the same contents
 //            if(textLowerCase.contains("the sleepycat license")){
-//                result = "Sleepycat";
+//                resultText = "Sleepycat";
 //                return;
 //            }
             
             // is it the original berkley license?
             if(isBSD(textLowerCase, keywordsBSD4ClauseUC)){
-                result = "BSD-4-Clause-UC";
+                addResult("BSD-4-Clause-UC");
             }else{
                 // seems like this is the old, but generic version
-                result = "BSD-4-Clause";
+                addResult("BSD-4-Clause");
             }
         }
         else
         if(isBSD(textLowerCase, keywordsBSD3ClauseClear)){
-            result = "BSD-3-Clause-Clear";
+            addResult("BSD-3-Clause-Clear");
         }
         else
         if(isBSD(textLowerCase, keywordsBSD3Clause)){
-            result = "BSD-3-Clause";
+            addResult("BSD-3-Clause");
         }
         else
         if(isBSD(textLowerCase, keywordsFreeBSD)){
-            result = "BSD-2-Clause-FreeBSD";
+            addResult("BSD-2-Clause-FreeBSD");
         }
         else
         if(isBSD(textLowerCase, keywordsNetBSD)){
-            result = "BSD-2-Clause-NetBSD";
+            addResult("BSD-2-Clause-NetBSD");
         }
         else
         if(isBSD(textLowerCase, keywordsBSD)){
@@ -191,13 +197,13 @@ public class BSD implements Trigger {
               &&(textLowerCase.contains("redistributions in binary"))
                     || textLowerCase.contains("BSD-2-Clause"))
                     ){
-                result = "BSD-2-Clause";
+                addResult("BSD-2-Clause");
                 return;
             }
                 
-        // in some remote case, this might be an ISC license
+            // in some remote cases, this might be an ISC license
            if(textLowerCase.contains("copyright notice and this permission notice appear in all copies.")){
-               result = "ISC";
+               addResult("ISC");
                return;
            } 
              
@@ -206,17 +212,17 @@ public class BSD implements Trigger {
                // we got a match, but was it blacklisted before?
                if(isBSD(textLowerCase, keywordsBlackListed)){
                    // no point in continuing
-                   result = null;
+                   resultText = null;
                    return;
                }
                
                // someone is declaring BSD but we lack further detail
-               result = "BSD";
+               addResult("BSD");
                return;
            }
         
            // no conclusive results, better safe than sorry. Don't mention BSD
-           result = null;
+           resultText = null;
             
         }
         
@@ -246,7 +252,7 @@ public class BSD implements Trigger {
 
     @Override
     public String getShortIdentifier() {
-        return result;
+        return resultText;
     }
 
     @Override
@@ -270,7 +276,7 @@ public class BSD implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         return LicenseInfoInFile + getShortIdentifier();
     }
     

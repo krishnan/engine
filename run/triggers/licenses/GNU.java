@@ -1,12 +1,12 @@
 package licenses;
 
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import script.Trigger;
+import provenance.Trigger;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -210,7 +210,6 @@ public class GNU implements Trigger {
          if(contentLowerCase.contains("13. use with the gnu affero general public license.")){
              isTermsAGPL = false;
          }
-         
          
          // not an AGPL license file
          if(isTermsAGPL == false){
@@ -431,9 +430,6 @@ public class GNU implements Trigger {
         
     }
 
-    
-    
-    
     /**
      * Try to pinpoint which license version is being used when only a part
      * of the license designation is provided.
@@ -483,7 +479,7 @@ public class GNU implements Trigger {
     
      /**
       * Adds a new license to list if not added before
-      * @param license  A valid LicenseGNU object
+      * @param license  A valid License object
       */
      private void addLicense(final String newLicense){
          Iterator iterator = licenses.iterator();
@@ -496,6 +492,7 @@ public class GNU implements Trigger {
          }
          // no duplicates, add it up
          licenses.add(newLicense);
+         result.add(newLicense);
      }
      
      private void addLicense(final LicenseGNU newLicense){
@@ -534,7 +531,7 @@ public class GNU implements Trigger {
     }
 
     @Override
-    public String getResult() {
+    public String getResultSPDX() {
         String result = "";
          // list the detected licenses
         for(final String license : licenses){
@@ -603,7 +600,7 @@ class LicenseGNU  implements Serializable {
         this.title = assignedTitle;
     }
 
-    public boolean isHasException() {
+    public boolean hasException() {
         return hasException;
     }
 

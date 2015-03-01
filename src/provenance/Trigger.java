@@ -17,9 +17,9 @@
  * </text> 
  */
 
-package script;
+package provenance;
 
-import definitions.TriggerType;
+import provenance.TriggerType;
 import java.io.File;
 import java.io.Serializable;
 
@@ -42,6 +42,7 @@ public interface Trigger extends Serializable{
     // file authorship
     final String FileOriginInFile = "FileOrigin: ";
     
+    public TriggerData result = new TriggerData();
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -82,8 +83,8 @@ public interface Trigger extends Serializable{
     public String getFullName();
     
     // what should be given as result?
-    public String getResult();
+    public String getResultSPDX();
     
     public String getTriggerTitle();
-    
+   
 }
