@@ -14,6 +14,8 @@ package spdxlib;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import main.engine;
 import script.log;
 import structure.LicenseControl;
@@ -80,21 +82,27 @@ public class LicenseInfer {
             // transform the file name to lower case
             final String fileName = file.getName().toLowerCase();
             
-            // first test, matching file names
-            if(fileName.equals(licenseFilename)){
-                processLicense(file);
-                return;
-            }
+            // use a specific regular expression to detect license combinations
+            Pattern pattern = Pattern.compile("(\\b[\\w]+-|)licen(c|s)e(.|)+");
+            Matcher matcher = pattern.matcher(fileName);
             
-            if(fileName.endsWith(licenseFilename + ".md")){
-                processLicense(file);
-                return;
+            /*
+            This regular expression should work for these combinations:
+                LICENSE
+                MIT-LICENSE
+                LICENSE-MIT
+                LICENCE-APACHE
+                APACHE-LICENSE
+                MIT-LICENSE.txt
+                MIT-LICENSE.md
+                LICENSE-MIT.txt
+            */
+            if(matcher.matches()==false){
+                continue;
             }
-             
-            if(fileName.endsWith(licenseFilename + ".txt")){
-                processLicense(file);
-                return;
-            }
+          
+            // we have a match, process the file
+            processLicense(file);
         }
     }
     
