@@ -21,6 +21,7 @@ package script;
 
 import definitions.TriggerType;
 import java.io.File;
+import java.io.Serializable;
 
 
 /**
@@ -28,7 +29,7 @@ import java.io.File;
  * @author Nuno Brito, 14th of November 2013 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public interface Trigger {
+public interface Trigger extends Serializable{
     
     public File 
             thisFile = null, // pointer to this beanshell file being executed

@@ -15,9 +15,15 @@ package structure;
 
 import definitions.folder;
 import definitions.is;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.engine;
 import script.Trigger;
 import script.log;
@@ -28,11 +34,31 @@ import script.log;
  */
 public final class TriggerControl {
     
-    private final CopyOnWriteArrayList<Trigger> list = new CopyOnWriteArrayList();
+    private final ArrayList<Trigger> 
+            listOriginal = new ArrayList();
     
+    
+    // do a byte copy of the array, avoid the references
+    ByteArrayOutputStream baos;
+    ObjectOutputStream oos;
+        
     
     public TriggerControl(){
+        
         addTriggers();
+            
+        try {
+            
+            // do a byte copy of the array, avoid the references
+            baos = new ByteArrayOutputStream();
+            oos = new ObjectOutputStream(baos);
+            // write the array to memory
+            oos.writeObject(listOriginal);
+            oos.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TriggerControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
      /**
@@ -48,20 +74,29 @@ public final class TriggerControl {
             
             if(result != null){
                 log.write(is.ADDING, "Trigger: " + result.getTriggerTitle());
-                list.add(result);
+                listOriginal.add(result);
             }
         }
         
          // worry about the case when there is no folder nor triggers to include
-        if(list.isEmpty()){
+        if(listOriginal.isEmpty()){
             log.write(is.WARNING, "No triggers were added, "
                     + "trigger detection is disabled.");
         }
         
     }
 
-    public Iterable<Trigger> getList() {
-        return list;
+    /**
+     * Gets a list of the currently active triggers
+     * @return
+     * @throws Exception 
+     */
+    public Iterable<Trigger> getList() throws Exception {
+        ByteArrayInputStream bins = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream oins = new ObjectInputStream(bins);
+        ArrayList<Trigger> ret =  (ArrayList<Trigger>)oins.readObject();
+        oins.close();
+        return ret;
     }
 
     /**
@@ -69,7 +104,7 @@ public final class TriggerControl {
      * @return the number of triggers 
      */
     public int size(){
-        return list.size();
+        return listOriginal.size();
     }
     
     

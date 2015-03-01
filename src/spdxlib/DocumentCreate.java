@@ -373,7 +373,7 @@ public class DocumentCreate {
      * @param file  A file on disk
      * @return      A piece of text ready to be inserted inside the SPDX content
      */
-    private String getCodeInsight(final File file, FileInfo tempInfo) {        
+    private String getCodeInsight(final File file, FileInfo tempInfo) throws Exception {        
         // read this file from disk onto local memory
         final String contentNormalCase = utils.files.readAsString(file);
         final String contentLowerCase = contentNormalCase.toLowerCase();

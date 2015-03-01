@@ -191,18 +191,7 @@ public class LicenseInfer {
             licenseFinalist.remove(licenseFinalist.size()-1);
         }
     }
-    
-    public static void main(String[] args){
-        final String location = "../../source/corefx-master-2014-11-15/";
-        File folder = new File(location);
-        LicenseInfer infer = new LicenseInfer(folder);
-        
-        if(infer.getLicense() != null){
-            System.out.println("Found: " + infer.getMatchValue() 
-                    + "%: " + infer.getLicense().getId());
-        }
-    }
-
+   
     public License getLicense() {
         return license;
     }
@@ -219,5 +208,17 @@ public class LicenseInfer {
         return license != null;
     }
     
+    public static void main(String[] args){
+        final String location = "../../source/corefx-master-2014-11-15/";
+        File folder = new File(location);
+        LicenseInfer infer = new LicenseInfer(folder);
+        
+        if(infer.getLicense() != null){
+            System.out.println("Found: " + infer.getMatchValue() 
+                    + "%: " + infer.getLicense().getId());
+        }
+    }
+
+   
 
 }

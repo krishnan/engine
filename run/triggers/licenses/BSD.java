@@ -3,6 +3,7 @@ package licenses;
 
 import definitions.TriggerType;
 import java.io.File;
+import java.io.Serializable;
 import script.Trigger;
 
 /**
@@ -110,7 +111,7 @@ public class BSD implements Trigger {
     
     String result = null;
     
-    LicenseBSD 
+    final LicenseBSD 
             bsd2Clause = new LicenseBSD("BSD-2-Clause"),
             bsd2ClauseFreeBSD = new LicenseBSD("BSD-2-Clause-FreeBSD"),
             bsd2ClauseNetBSD = new LicenseBSD("BSD-2-Clause-NetBSD"),
@@ -285,7 +286,7 @@ public class BSD implements Trigger {
  * Identify the BSD license
  * @author nuno
  */
-class LicenseBSD{
+class LicenseBSD implements Serializable{
     final String id;
     String keyword;
     

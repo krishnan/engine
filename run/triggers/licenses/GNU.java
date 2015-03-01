@@ -3,6 +3,7 @@ package licenses;
 
 import definitions.TriggerType;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import script.Trigger;
@@ -33,7 +34,7 @@ public class GNU implements Trigger {
     final int headerSize = 150;
     
     // the list of keywords that we use to identify a possible license match
-    String[] 
+    final String[] 
             keywordsFirstFilter = {
                 "gpl",
                 "general public license",
@@ -60,7 +61,7 @@ public class GNU implements Trigger {
     
     
     // list the available licenses available
-    LicenseGNU 
+    final LicenseGNU 
             GPL, GPL1_0, GPL2_0, GPL3_0, 
             LGPL, LGPL2_0, LGPL2_1, LGPL3_0, 
             AGPL3_0;
@@ -571,7 +572,7 @@ public class GNU implements Trigger {
 /**
  * Define the identifiers specific to each GNU license
  */
-class LicenseGNU{
+class LicenseGNU  implements Serializable {
     private final String id, title;
     private boolean 
             hasException = false,
