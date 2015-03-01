@@ -39,18 +39,16 @@ public final class TriggerControl {
     
     
     // do a byte copy of the array, avoid the references
-    ByteArrayOutputStream baos;
+    final ByteArrayOutputStream baos;
     ObjectOutputStream oos;
         
     
     public TriggerControl(){
         
         addTriggers();
-            
+        baos = new ByteArrayOutputStream();
         try {
-            
             // do a byte copy of the array, avoid the references
-            baos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(baos);
             // write the array to memory
             oos.writeObject(listOriginal);
@@ -67,10 +65,10 @@ public final class TriggerControl {
     private void addTriggers(){
         File folderTriggers = new File(engine.getWorkFolder(), folder.triggers);
         //log.write(is.INFO, "Adding triggers from %1", folderTriggers.getAbsolutePath());
-        ArrayList<File> files = utils.files.findFilesFiltered(folderTriggers, ".java", 2);
+        final ArrayList<File> files = utils.files.findFilesFiltered(folderTriggers, ".java", 2);
         for(File file : files){
             //Trigger result = (Trigger) script.exec.runJava(file, is.trigger);
-            Trigger result = (Trigger) utils.bytecode.getObject(file);
+            final Trigger result = (Trigger) utils.bytecode.getObject(file);
             
             if(result != null){
                 log.write(is.ADDING, "Trigger: " + result.getTriggerTitle());
@@ -78,12 +76,11 @@ public final class TriggerControl {
             }
         }
         
-         // worry about the case when there is no folder nor triggers to include
+        // worry about the case when there is no folder nor triggers to include
         if(listOriginal.isEmpty()){
-            log.write(is.WARNING, "No triggers were added, "
-                    + "trigger detection is disabled.");
+            log.write(is.WARNING, "No triggers were added, trigger detection "
+                    + "is disabled.");
         }
-        
     }
 
     /**
@@ -92,11 +89,12 @@ public final class TriggerControl {
      * @throws Exception 
      */
     public Iterable<Trigger> getList() throws Exception {
-        ByteArrayInputStream bins = new ByteArrayInputStream(baos.toByteArray());
-        ObjectInputStream oins = new ObjectInputStream(bins);
-        ArrayList<Trigger> ret =  (ArrayList<Trigger>)oins.readObject();
+        // do a byte copy of the contents, avoid the JVM pointer references
+        final ByteArrayInputStream bins = new ByteArrayInputStream(baos.toByteArray());
+        final ObjectInputStream oins = new ObjectInputStream(bins);
+        final ArrayList<Trigger> result = (ArrayList<Trigger>)oins.readObject();
         oins.close();
-        return ret;
+        return result;
     }
 
     /**

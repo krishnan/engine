@@ -30,7 +30,8 @@ public class LicenseFinder {
     
     
     // the queue for files to be processed
-    private final BlockingQueue<File> queue = new LinkedBlockingQueue<File>();
+    private final BlockingQueue<File> 
+            queue = new LinkedBlockingQueue<File>();
  
         
     // how many files have been processed, how many are missing?
@@ -50,8 +51,8 @@ public class LicenseFinder {
         if(files != null){
             for (final File file : files) {
                 if (file.isFile()){
-                    //processFile(file);
                     queue.add(file);
+                    filesTotal++;
                 }else
                     if ((file.isDirectory())
                             &&( maxDeep-1 > 0 )){
@@ -86,7 +87,7 @@ public class LicenseFinder {
          return false;
     }
  
- /**
+    /**
      *
      * @param params
      * @throws java.lang.Exception
@@ -105,7 +106,6 @@ public class LicenseFinder {
                 + finder.filesProcessed
                 + " files");
         System.exit(0);
-        
     }
 
     /**
@@ -123,7 +123,6 @@ public class LicenseFinder {
      */
     private void process() throws Exception {
         processQueueThreaded();
-        //processQueue();
     }
     
     /**
@@ -170,20 +169,34 @@ public class LicenseFinder {
     private void processFile(final File file) throws Exception {
         // increase the counter
         filesProcessed++;
+        
+        // avoid over-weight files
+        if(file.length() > maxFileSize){
+            return;
+        }
         // get the extension data
         final String extension = utils.files.getExtension(file).toLowerCase();
         //FileExtension extensionType = engine.extensions.get(extension);
         // read this file from disk onto local memory
         final String contentNormalCase = utils.files.readAsString(file);
         final String contentLowerCase = contentNormalCase.toLowerCase();
-        
-        if(file.length() < maxFileSize){
-            for(Trigger thisTrigger: engine.triggers.getList()){
-                // does our text contains an applicable trigger?
-                if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
-                   //result = result.concat(thisTrigger.getResult()).concat("\n");
-                }
+        // proceed to trigger detection
+        for(Trigger thisTrigger: engine.triggers.getList()){
+            // does our text contains an applicable trigger?
+            if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
+               //result = result.concat(thisTrigger.getResult()).concat("\n");
             }
         }
     }
+
+    public int getFilesProcessed() {
+        return filesProcessed;
+    }
+
+    public int getFilesTotal() {
+        return filesTotal;
+    }
+    
+    
+    
 }
