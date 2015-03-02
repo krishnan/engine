@@ -4,6 +4,7 @@ package licenses;
 import provenance.TriggerType;
 import java.io.File;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -68,6 +69,7 @@ public class MPL implements Trigger {
             defaultId = idMPL2_0,
             defaultTitle = title;
     
+    private final TriggerData result = new TriggerData();
     
     /**
      * Detects which kind of LGPL license we are referring to. When no specific
@@ -217,5 +219,10 @@ public class MPL implements Trigger {
     @Override
     public String getTriggerTitle() {
         return "MPL";
+    }
+    
+    @Override
+    public TriggerData getResult(){
+        return result;
     }
 }

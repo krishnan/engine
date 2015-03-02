@@ -46,6 +46,8 @@ public class Apache_v2 implements Trigger {
         "apache 2",
     };
     
+    private final TriggerData result = new TriggerData();
+    
     /**
      * Verifies if the provided text applies to the triggers that
      * included on this license.
@@ -105,5 +107,9 @@ public class Apache_v2 implements Trigger {
     public String getTriggerTitle() {
         return "Apache-2.0";
     }
-    
+     
+    @Override
+    public TriggerData getResult(){
+        return result;
+    }
 }

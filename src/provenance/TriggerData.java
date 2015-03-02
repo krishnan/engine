@@ -9,13 +9,14 @@
 
 package provenance;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Nuno Brito, 1st of March 2015 in Darmstadt, Germany
  */
-public class TriggerData {
+public class TriggerData implements Serializable{
     
     private final ArrayList<String> content = new ArrayList();
     

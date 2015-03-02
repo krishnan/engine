@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -92,6 +93,7 @@ public class GNU implements Trigger {
         AGPL3_0 = new LicenseGNU("AGPL-3.0", "GNU Affero General Public License v3.0");
     }
     
+    private final TriggerData result = new TriggerData();
     
     @Override
     public Boolean isApplicable(String content, String contentLowerCase) {
@@ -564,6 +566,10 @@ public class GNU implements Trigger {
         }
     }
     
+    @Override
+    public TriggerData getResult(){
+        return result;
+    }
 }
 
 /**

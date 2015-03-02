@@ -30,14 +30,23 @@ public class LicenseFinder {
     
     // the queue for files to be processed
     private final BlockingQueue<File> 
-            queue = new LinkedBlockingQueue<File>();
- 
+            queue;
+    
+    private final BlockingQueue<FileProvenance> 
+            resultList;
         
     // how many files have been processed, how many are missing?
     private int
             filesProcessed,
             filesTotal;
+
+    public LicenseFinder() {
+        this.resultList = new LinkedBlockingQueue<FileProvenance>();
+        this.queue = new LinkedBlockingQueue<File>();
+    }
         
+    private String baseFolder = null;
+    
     /**
      * Find all files in a given folder and respective subfolders to
      * start indexing them.
@@ -113,6 +122,7 @@ public class LicenseFinder {
      * @throws Exception 
      */
     public void addFolder(final File folderSource) throws Exception {
+        baseFolder = folderSource.getAbsolutePath();
         this.processFindFiles(folderSource, 25);
     }
 
@@ -173,19 +183,9 @@ public class LicenseFinder {
         if(file.length() > maxFileSize){
             return;
         }
-        // get the extension data
-        final String extension = utils.files.getExtension(file).toLowerCase();
-        //FileExtension extensionType = engine.extensions.get(extension);
-        // read this file from disk onto local memory
-        final String contentNormalCase = utils.files.readAsString(file);
-        final String contentLowerCase = contentNormalCase.toLowerCase();
-        // proceed to trigger detection
-        for(Trigger thisTrigger: engine.triggers.getList()){
-            // does our text contains an applicable trigger?
-            if(thisTrigger.isApplicable(contentNormalCase, contentLowerCase)){
-               //result = result.concat(thisTrigger.getResultSPDX()).concat("\n");
-            }
-        }
+        // create the new file provenance
+        final FileProvenance fileProvenance = new FileProvenance(file, baseFolder);
+        resultList.add(fileProvenance);
     }
 
     public int getFilesProcessed() {
@@ -195,7 +195,5 @@ public class LicenseFinder {
     public int getFilesTotal() {
         return filesTotal;
     }
-    
-    
     
 }

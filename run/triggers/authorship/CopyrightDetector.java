@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -30,6 +31,7 @@ public class CopyrightDetector implements Trigger {
     String copyrightText = "";
     int copyrightCounter = 0;
     
+    private TriggerData result = new TriggerData();
     
     
     final String[] blackList = {
@@ -58,6 +60,21 @@ public class CopyrightDetector implements Trigger {
         "barrier"
     };
     
+    // the super-duper-mega expression to catch copyright statements
+    final String 
+            patternString = ""
+                 + "(\\((C|c)\\) |)"    // detect (c) before the copyright text
+                 + "(C|c)opyright"      // detect the copyright text
+                 + "( \\((C|c)\\)|) "   // sometimes with a (c)
+                 + "([0-9]|)"           // optionally with the year
+                 + "+"                 
+                 + "[^\\n\\t\\*]+\\.?",
+            
+            patternCleaner = "(\\((C|c)\\) |)(C|c)opyright( \\((C|c)\\) |)";
+    
+    Pattern pattern = Pattern.compile(patternString);
+        
+    
     /**
      * Verifies if the provided text applies to the triggers that
      * included on this license.
@@ -66,20 +83,9 @@ public class CopyrightDetector implements Trigger {
      */
     @Override
     public Boolean isApplicable(final String text, final String textLowerCase){
-        // the mega-super expression to catch copyright statements
-        String patternString = ""
-             + "(\\((C|c)\\) |)"    // detect a (c) before the copyright text
-             + "(C|c)opyright"      // detect the copyright text
-             + "( \\((C|c)\\)|) "   // sometimes with a (c)
-             + "([0-9]|)"           // optionally with the year
-             + "+"                 
-             + "[^\\n\\t\\*]+\\.?";
-
-     String patternCleaner = "(\\((C|c)\\) |)(C|c)opyright( \\((C|c)\\) |)";
-     
-        Pattern pattern = Pattern.compile(patternString);
+       
         Matcher matcher = pattern.matcher(text);
-
+        
         String copyright = "";
         Boolean onlyOne = true;
         copyrightCounter = 0;
@@ -198,6 +204,11 @@ public class CopyrightDetector implements Trigger {
     }
 
     @Override
+    public TriggerData getResult(){
+        return result;
+    }
+    
+    @Override
     public String getResultSPDX() {
           
         // do some pretty adjustments when there is more than one entry
@@ -221,5 +232,5 @@ public class CopyrightDetector implements Trigger {
     public String getTriggerTitle() {
         return "Copyright finder";
     }
-  
+    
 }

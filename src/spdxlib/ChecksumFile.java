@@ -65,8 +65,12 @@ public class ChecksumFile extends BinaryFile {
             hashSHA256.update(buffer, 0, len);
             tlsh.update(buffer);
         }
+        
+        // no need to keep this stream open
+        inputStream.close();
+        
         // compute the file signature
-        byte[] 
+        final byte[] 
             digestSHA1 = hashSHA1.digest(),
             digestMD5 = hashMD5.digest(),
             digestSHA256 = hashSHA256.digest();
@@ -88,13 +92,10 @@ public class ChecksumFile extends BinaryFile {
             this.filename = file.getAbsolutePath().replace(baseFolder, ".");
         }
         
-        
         // define the file extension
         final int lastDot = filename.lastIndexOf(".");
         fileExtension = filename.substring(lastDot+1).toLowerCase();
         
-        // no need to keep this stream open
-        inputStream.close();
     }
 
     public String getFileExtension() {

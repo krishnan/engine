@@ -5,6 +5,7 @@ import provenance.TriggerType;
 import java.io.File;
 import java.io.Serializable;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /**
  * SPDXVersion: SPDX-1.1
@@ -110,6 +111,7 @@ public class BSD implements Trigger {
     final String bsd4ClauseSpecificUC = "4. neither the name of the university";
     
     String resultText = null;
+    private final TriggerData result = new TriggerData();
     
     final LicenseBSD 
             bsd2Clause = new LicenseBSD("BSD-2-Clause"),
@@ -284,7 +286,11 @@ public class BSD implements Trigger {
     public String getTriggerTitle() {
         return "BSD";
     }
-    
+       
+    @Override
+    public TriggerData getResult(){
+        return result;
+    }
 }
 
 
@@ -308,7 +314,5 @@ class LicenseBSD implements Serializable{
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
-    
-    
     
 }

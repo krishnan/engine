@@ -42,8 +42,6 @@ public interface Trigger extends Serializable{
     // file authorship
     final String FileOriginInFile = "FileOrigin: ";
     
-    public TriggerData result = new TriggerData();
-    
     /**
      * Verifies if the provided text applies to the triggers that
      * included on this license.
@@ -84,6 +82,8 @@ public interface Trigger extends Serializable{
     
     // what should be given as result?
     public String getResultSPDX();
+    
+    public TriggerData getResult();
     
     public String getTriggerTitle();
    

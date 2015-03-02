@@ -4,6 +4,7 @@ package licenses;
 import provenance.TriggerType;
 import java.io.File;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -32,6 +33,8 @@ public class EPL implements Trigger {
         "epl-1.0",
         "eclipse public license",
     };
+    
+    private final TriggerData result = new TriggerData();
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -89,5 +92,10 @@ public class EPL implements Trigger {
     @Override
     public String getTriggerTitle() {
         return "EPL";
+    }
+    
+    @Override
+    public TriggerData getResult(){
+        return result;
     }
 }

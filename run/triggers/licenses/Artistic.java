@@ -4,6 +4,7 @@ package licenses;
 import provenance.TriggerType;
 import java.io.File;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -31,6 +32,8 @@ public class Artistic implements Trigger {
         "Artistic 2.0",
         "Artistic-2.0"
     };
+    
+    private final TriggerData result = new TriggerData();
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -88,5 +91,10 @@ public class Artistic implements Trigger {
     @Override
     public String getTriggerTitle() {
         return "Artistic-2.0";
+    }
+    
+    @Override
+    public TriggerData getResult(){
+        return result;
     }
 }

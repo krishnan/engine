@@ -1,9 +1,9 @@
 package others;
 
-
 import provenance.TriggerType;
 import java.io.File;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -37,6 +37,8 @@ public class PublicDomain implements Trigger {
     final String[] list = {
         "public domain"
     };
+    
+    private final TriggerData result = new TriggerData();
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -111,5 +113,10 @@ public class PublicDomain implements Trigger {
     @Override
     public String getTriggerTitle() {
         return "Public Domain finder";
+    }
+    
+    @Override
+    public TriggerData getResult(){
+        return result;
     }
 }

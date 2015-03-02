@@ -4,6 +4,7 @@ package licenses;
 import provenance.TriggerType;
 import java.io.File;
 import provenance.Trigger;
+import provenance.TriggerData;
 
 /*
  * SPDXVersion: SPDX-1.1
@@ -35,6 +36,8 @@ public class EUPL implements Trigger {
         "eupl-1.",
         "european union public licence v. 1."
     };
+    
+    private final TriggerData result = new TriggerData();
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -96,4 +99,8 @@ public class EUPL implements Trigger {
         return "EUPL";
     }
     
+    @Override
+    public TriggerData getResult(){
+        return result;
+    }
 }
