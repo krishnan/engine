@@ -31,7 +31,7 @@ import utils.Settings;
 
 public class engine {
 
-    public static String version = "0.9.6";
+    public static String version = "1.0.0";
     
     // basic configuration. Non-volatile, stored as XML on disk
     public static
@@ -55,7 +55,7 @@ public class engine {
     
     // find the licenses available on disk
     public static LicenseControl
-            licenses; // = new LicenseControl();
+            licenses = new LicenseControl();
    
     public static 
             Script script = new Script();

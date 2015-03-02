@@ -13,9 +13,7 @@
 package license;
 
 import license.terms.LicenseList;
-import definitions.is;
 import java.util.ArrayList;
-import main.script.log;
 import utils.www.html;
 
 
@@ -30,7 +28,6 @@ public final class LicenseControl {
      * Public constructor
      */
     public LicenseControl(){
-        //launchThreadedStart();
         find();
     }
     
@@ -99,7 +96,7 @@ public final class LicenseControl {
 //            }
 //        }
         // output some statistics about the number of extensions registered
-        log.write(is.COMPLETED, "Licenses recognized: %1", "" + list.size());
+        //log.write(is.COMPLETED, "Licenses recognized: %1", "" + list.size());
         //System.err.println("LC85 - Found licenses: " + files.size() + "");
         //TODO we are still listing the template class as a file type.
         hasNotProcessed = false;
@@ -201,20 +198,5 @@ public final class LicenseControl {
         return hasNotProcessed;
     }
 
-    /**
-     * We launch after a few second a thread that will automatically index
-     * the licenses available on this machine
-     */
-    private void launchThreadedStart() {
-               // launch a small thread to keep the progress updated
-               Thread thread = new Thread(){
-                   @Override
-                   public void run(){
-                       // wait a little bit for things to start
-                       utils.time.wait(2);
-                       find(); 
-                   }
-            };
-    }
     
 }

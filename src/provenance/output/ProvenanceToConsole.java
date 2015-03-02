@@ -11,7 +11,7 @@
 package provenance.output;
 
 import provenance.FileProvenance;
-import provenance.LicenseFinder;
+import provenance.ProvenanceFinder;
 
 /**
  *
@@ -19,7 +19,7 @@ import provenance.LicenseFinder;
  */
 public class ProvenanceToConsole extends TemplateOutput{
 
-    public ProvenanceToConsole(LicenseFinder licenseFinder) {
+    public ProvenanceToConsole(ProvenanceFinder licenseFinder) {
         super(licenseFinder);
     }
 

@@ -4,8 +4,9 @@
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2015-03-01T14:51:01Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileCopyrightText: <text> Discover references to licenses and copyrights
-    inside a set of files on disk.</text> 
+ * FileCopyrightText: <text> Copyright 2015 Nuno Brito, TripleCheck </text>
+ * FileComment: <text> Discover references to licenses and copyrights
+    inside a set of files on disk. </text> 
  */
 
 package provenance;
@@ -15,22 +16,20 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.engine;
-import provenance.output.ProvenanceToConsole;
 import spdxlib.DocumentCreate;
 
 /**
  *
  * @author Nuno Brito, 1st of March 2015 in Darmstadt, Germany
  */
-public class LicenseFinder {
+public class ProvenanceFinder {
 
     // values that you can tweak around:
     final long maxFileSize = 15000000;
     
     
     // the queue for files to be processed
-    private final BlockingQueue<File> 
+    private final BlockingQueue<FileToProcess> 
             queue;
     
     private final BlockingQueue<FileProvenance> 
@@ -41,12 +40,15 @@ public class LicenseFinder {
             filesProcessed,
             filesTotal;
 
-    private LicenseFinder() {
+    public ProvenanceFinder() {
         resultList = new LinkedBlockingQueue<FileProvenance>();
-        queue = new LinkedBlockingQueue<File>();
+        queue = new LinkedBlockingQueue<FileToProcess>();
     }
         
     private String baseFolder = null;
+    
+    // records the tree structure of what was analysed
+    private final FolderProvenance tree = new FolderProvenance(null, ".");
     
     /**
      * Find all files in a given folder and respective subfolders to
@@ -55,12 +57,13 @@ public class LicenseFinder {
      * @param maxDeep How deep is the crawl allowed to proceed
      * @throws java.io.IOException
      */
-    private void processFindFiles(File where, int maxDeep) throws Exception{
+    private void processFindFiles(File where, int maxDeep, FolderProvenance folder) throws Exception{
         final File[] files = where.listFiles();
         if(files != null){
             for (final File file : files) {
                 if (file.isFile()){
-                    queue.add(file);
+                    FileToProcess fileToProcess = new FileToProcess(file, folder);
+                    queue.add(fileToProcess);
                     filesTotal++;
                 }else
                     if ((file.isDirectory())
@@ -69,8 +72,13 @@ public class LicenseFinder {
                         if(isRepositoryFolder(file)){
                             continue;
                         }
+                        // create a new folder object
+                        FolderProvenance thisFolder = 
+                                new FolderProvenance(folder, file.getName());
+                        // add the folder to our list
+                        folder.addFolder(thisFolder);
                         // do the recursive crawling
-                        processFindFiles(file, maxDeep-1);
+                        processFindFiles(file, maxDeep-1, thisFolder);
                     }
             }
         }
@@ -103,14 +111,15 @@ public class LicenseFinder {
      */
     public void addFolder(final File folderSource) throws Exception {
         baseFolder = folderSource.getAbsolutePath();
-        this.processFindFiles(folderSource, 25);
+        this.processFindFiles(folderSource, 25, tree);
     }
 
     /**
      * Processes the files on the queue of this finder to expose licenses
      * and copyrights included
+     * @throws java.lang.Exception
      */
-    private void process() throws Exception {
+    public void process() throws Exception {
         processQueueThreaded();
     }
     
@@ -153,19 +162,22 @@ public class LicenseFinder {
     
     /**
      * Process a given file to extract the information relevant to SPDX
-     * @param file     A file on disk
+     * @param fileToProcess     A file on disk
      */
-    private void processFile(final File file) throws Exception {
+    private void processFile(final FileToProcess fileToProcess) throws Exception {
         // increase the counter
         filesProcessed++;
         
         // avoid over-weight files
-        if(file.length() > maxFileSize){
+        if(fileToProcess.file.length() > maxFileSize){
             return;
         }
         // create the new file provenance
-        final FileProvenance fileProvenance = new FileProvenance(file, baseFolder);
-        resultList.add(fileProvenance);
+        final FileProvenance thisFile = new FileProvenance(fileToProcess.file, baseFolder);
+        // add the file to the folder structure
+        fileToProcess.folder.addFile(thisFile);
+        // add the file to our flat list
+        resultList.add(thisFile);
     }
 
     public int getFilesProcessed() {
@@ -190,17 +202,13 @@ public class LicenseFinder {
         //File folderSource = new File("../../source/linux-kernel");
         File folderSource = new File("../../source/corefx-master-2014-11-15");
         
-        
-        engine.warmUp();
-        
-        System.out.println("Discovering licenses on: " + folderSource.getAbsolutePath());
-        LicenseFinder finder = new LicenseFinder();
+        System.out.println("Discovering licenses on: " + folderSource.getPath());
+        ProvenanceFinder finder = new ProvenanceFinder();
         finder.addFolder(folderSource);
         finder.process();
         System.out.println("All done, processed "
                 + finder.filesProcessed
                 + " files");
-        
         
         //ProvenanceToConsole console = new ProvenanceToConsole(finder);
         //console.getOutput();
@@ -209,4 +217,16 @@ public class LicenseFinder {
     }
 
     
+}
+
+class FileToProcess{
+    
+    final File file;
+    final FolderProvenance folder;
+    
+    FileToProcess(File thisFile, FolderProvenance thisFolder){
+        file = thisFile;
+        folder = thisFolder;
+    }
+
 }

@@ -8,7 +8,7 @@
  */
 package provenance.output;
 
-import provenance.LicenseFinder;
+import provenance.ProvenanceFinder;
 
 /**
  *
@@ -16,9 +16,9 @@ import provenance.LicenseFinder;
  */
 public abstract class TemplateOutput {
     
-    final protected LicenseFinder licenseFinder;
+    final protected ProvenanceFinder licenseFinder;
     
-    public TemplateOutput(LicenseFinder licenseFinder){
+    public TemplateOutput(ProvenanceFinder licenseFinder){
         this.licenseFinder = licenseFinder;
     }
     

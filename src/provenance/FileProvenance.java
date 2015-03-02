@@ -4,7 +4,8 @@
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2015-03-02T07:07:01Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileCopyrightText: <text> Add data related to provenance. </text> 
+ * FileCopyrightText: <text> Copyright 2015 Nuno Brito, TripleCheck </text>
+ * FileComment: <text> Add data related to provenance. </text> 
  */
 
 package provenance;

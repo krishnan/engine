@@ -24,6 +24,13 @@ public final class LicenseList {
     // complete list with the recognized extensions
     private final ArrayList<License> list = new ArrayList();
     
+//    
+//    private final License[] list2 = new License[]{
+//        new license.terms.custom.LGPL(),
+//        new license.terms.custom.Proprietary(),
+//    
+//    };
+    
     
     public LicenseList(){
 	list.add(new license.terms.custom.LGPL());
