@@ -15,7 +15,7 @@ package license;
 import license.terms.LicenseList;
 import definitions.is;
 import java.util.ArrayList;
-import script.log;
+import main.script.log;
 import utils.www.html;
 
 

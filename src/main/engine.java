@@ -22,9 +22,9 @@ import java.io.File;
 import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import script.Script;
+import main.script.Script;
 import license.LicenseControl;
-import structure.ReportsControl;
+import definitions.structure.ReportsControl;
 import provenance.TriggerControl;
 import utils.Settings;
 

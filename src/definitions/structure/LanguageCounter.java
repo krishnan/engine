@@ -13,7 +13,7 @@
  * aims to enhance the speed required to do this math.</text>
  */
 
-package structure;
+package definitions.structure;
 
 import java.util.HashMap;
 import java.util.Map;

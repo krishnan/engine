@@ -10,14 +10,14 @@
     and then create a new class where they are defined.</text> 
  */
 
-package generators;
+package FileExtension.generators;
 
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
 import main.engine;
 import FileExtension.FileExtension;
-import script.log;
+import main.script.log;
 
 /**
  *

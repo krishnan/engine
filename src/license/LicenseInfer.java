@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import main.engine;
-import script.log;
+import main.script.log;
 import utils.hashing.TLSH;
 
 

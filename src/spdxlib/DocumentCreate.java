@@ -25,7 +25,7 @@ import FileExtension.FileExtension;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import provenance.Trigger;
-import script.log;
+import main.script.log;
 import utils.ReadWrite.FileWriteLinesWithBuffer;
 
 /**

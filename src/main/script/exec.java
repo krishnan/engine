@@ -14,7 +14,7 @@
  */
 
 
-package script;
+package main.script;
 
 import main.*;
 import bsh.EvalError;
@@ -115,7 +115,7 @@ public class exec {
             return runScript.get("plugin");
 
         } catch (EvalError e){
-            script.log.write(is.ERROR, "EXEC118 Error interpreting %1"
+            main.script.log.write(is.ERROR, "EXEC118 Error interpreting %1"
                     , scriptFile.getName());
             e.printStackTrace();
         }

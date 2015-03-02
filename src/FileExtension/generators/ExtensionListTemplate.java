@@ -11,7 +11,7 @@
     GenerateExtensionList.java to generate a compilable list of extensions</text> 
  */
 
-package generators;
+package FileExtension.generators;
 
 import java.util.ArrayList;
 import FileExtension.FileExtension;

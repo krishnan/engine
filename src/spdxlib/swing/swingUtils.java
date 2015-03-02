@@ -19,7 +19,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import main.engine;
-import script.log;
+import main.script.log;
 import spdxlib.FileInfo;
 import spdxlib.SPDXfile;
 import utils.www.html;

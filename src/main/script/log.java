@@ -9,7 +9,7 @@
  * 
  * Static version of the Log class
  */
-package script;
+package main.script;
 
 import definitions.is;
 import java.util.ArrayList;

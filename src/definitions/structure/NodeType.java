@@ -9,7 +9,7 @@
  * FileCopyrightText: <text> Copyright 2013 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Helps to define which types of tree nodes we use </text> 
  */
-package structure;
+package definitions.structure;
 
 
 public enum NodeType {

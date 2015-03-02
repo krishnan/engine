@@ -249,7 +249,7 @@ public class LicensesDownload {
      */
     private static void writeLicenseToDisk(License license) {
         // get the license list folder
-        File folder = new File("../src/license/terms", 
+        File folder = new File(License.folder, 
                 definitions.folder.spdxLL);
         
         if(folder.exists() == false){

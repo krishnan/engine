@@ -2,7 +2,7 @@
  * Provides a hook system that allows end users to trigger custom actions
  * whenever a log entry is made that matches a given pattern.
  */
-package script;
+package main.script;
 
 import definitions.is;
 import java.io.File;

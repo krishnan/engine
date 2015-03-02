@@ -16,7 +16,7 @@
  * the Beanshell scripting" </text> 
  */
 
-package script;
+package main.script;
 
 import java.io.File;
 import spdxlib.swing.TreeNodeSPDX;

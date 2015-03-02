@@ -15,7 +15,7 @@ package license.generator;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
-import script.log;
+import main.script.log;
 import license.License;
 
 /**

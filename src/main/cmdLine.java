@@ -15,7 +15,7 @@ package main;
 import definitions.is;
 import java.io.File;
 import static main.engine.warmUp;
-import script.log;
+import main.script.log;
 import spdxlib.DocumentCreate;
 import spdxlib.EvaluateLicensingQuality;
 

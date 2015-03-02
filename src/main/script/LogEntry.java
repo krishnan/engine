@@ -1,7 +1,7 @@
 /*
  * A log entry for keeping the data from each event that we want to track.
  */
-package script;
+package main.script;
 
 import definitions.is;
 

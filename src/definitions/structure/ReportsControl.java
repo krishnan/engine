@@ -10,7 +10,7 @@
  * FileComment: <text> Controls the list that are available. </text> 
  */
 
-package structure;
+package definitions.structure;
 
 import definitions.is;
 import spdxlib.SPDXfile;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
-import script.log;
+import main.script.log;
 
 
 /**

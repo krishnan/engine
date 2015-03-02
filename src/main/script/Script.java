@@ -3,7 +3,7 @@
  * the commands. The goal is to provide direct access to most of the features
  * within the builder without need to implement them manually.
  */
-package script;
+package main.script;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -51,7 +51,7 @@ public class Script {
         
         // shall we interpret this file?
         if(scriptFile.exists()==false){
-            script.log.write(is.NOTFOUND, "Couldn't find the mentioned script"
+            main.script.log.write(is.NOTFOUND, "Couldn't find the mentioned script"
                     + " at %1", scriptFile.getAbsolutePath());
             return;
         }
@@ -73,12 +73,12 @@ public class Script {
                 runScript.eval(what + "();");
             }
             } catch (EvalError e){
-                script.log.write(is.ERROR, "Error while interpreting %1, the "
+                main.script.log.write(is.ERROR, "Error while interpreting %1, the "
                         + "error message is: %2"
                         , scriptFile.getAbsolutePath(), e.getLocalizedMessage());
                // e.printStackTrace();
             } catch (IOException e) {
-                script.log.write(is.ERROR, "Error while interpreting %1, the "
+                main.script.log.write(is.ERROR, "Error while interpreting %1, the "
                         + "error message is: %2"
                         , scriptFile.getAbsolutePath(), e.getLocalizedMessage());
                 // e.printStackTrace();
@@ -140,7 +140,7 @@ public class Script {
     public void runJava(File scriptFile, String methodName, String className) {
         // shall we interpret this file?
         if(scriptFile.exists()==false){
-            script.log.write(is.NOTFOUND, "SC23 - Couldn't find script file"
+            main.script.log.write(is.NOTFOUND, "SC23 - Couldn't find script file"
                     + " %1", scriptFile.getAbsolutePath());
             return;
         }
@@ -210,7 +210,7 @@ public class Script {
                     (codeText, className, scriptFile, methodName, runScript);
 
             } catch (Exception e){
-                script.log.write(is.ERROR, "SC224 Error interpreting %2() on "
+                main.script.log.write(is.ERROR, "SC224 Error interpreting %2() on "
                         + "%1"
                         , scriptFile.getAbsolutePath(), methodName);
                 e.printStackTrace();

@@ -10,7 +10,7 @@
  * FileComment: <text> Defines a specific license  </text> 
  */
 
-package script;
+package main.script;
 
 import java.util.Date;
 
