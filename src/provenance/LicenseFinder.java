@@ -16,6 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.engine;
+import provenance.output.ProvenanceToConsole;
 import spdxlib.DocumentCreate;
 
 /**
@@ -40,7 +41,7 @@ public class LicenseFinder {
             filesProcessed,
             filesTotal;
 
-    public LicenseFinder() {
+    private LicenseFinder() {
         this.resultList = new LinkedBlockingQueue<FileProvenance>();
         this.queue = new LinkedBlockingQueue<File>();
     }
@@ -174,6 +175,10 @@ public class LicenseFinder {
     public int getFilesTotal() {
         return filesTotal;
     }
+
+    public BlockingQueue<FileProvenance> getResult() {
+        return resultList;
+    }
     
     /**
      *
@@ -195,6 +200,11 @@ public class LicenseFinder {
         System.out.println("All done, processed "
                 + finder.filesProcessed
                 + " files");
+        
+        
+        ProvenanceToConsole console = new ProvenanceToConsole(finder);
+        console.getOutput();
+        
         System.exit(0);
     }
 

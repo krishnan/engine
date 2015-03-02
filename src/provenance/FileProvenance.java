@@ -20,7 +20,7 @@ import utils.hashing.TLSH;
 
 /**
  *
- * @author Nuno Brito, 1st of March 2015 in Darmstadt, Germany
+ * @author Nuno Brito, 2nd of March 2015 in Darmstadt, Germany
  */
 public class FileProvenance {
   
@@ -46,6 +46,8 @@ public class FileProvenance {
     private final ArrayList<String>
             licenses = new ArrayList(),
             copyright = new ArrayList();
+    
+    private boolean isAutomaticallyGenerated = false;
     
     public FileProvenance(final File file, final String baseFolder) throws Exception{
 
@@ -139,6 +141,9 @@ public class FileProvenance {
             case COPYRIGHT:
                 copyright.addAll(thisTrigger.getResult().getData());
                 break;
+            case AUTO_GENERATED:
+                isAutomaticallyGenerated = true;
+                break;
         }
     }
     
@@ -179,6 +184,14 @@ public class FileProvenance {
 
     public ArrayList<String> getCopyright() {
         return copyright;
+    }
+
+    public long getLOC() {
+        return LOC;
+    }
+
+    public boolean isAutomaticallyGenerated() {
+        return isAutomaticallyGenerated;
     }
 
     
