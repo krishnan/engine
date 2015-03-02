@@ -31,7 +31,7 @@ import script.log;
 import spdxlib.summary.SummaryControl;
 import spdxlib.swing.NodeType;
 import structure.LanguageCounter;
-import structure.LicenseCounter;
+import license.LicenseCounter;
 import utils.files;
 import utils.www.html;
 

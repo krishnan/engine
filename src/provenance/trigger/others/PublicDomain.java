@@ -1,5 +1,4 @@
-package licenses;
-
+package provenance.trigger.others;
 
 import provenance.TriggerType;
 import java.io.File;
@@ -10,32 +9,33 @@ import provenance.TriggerData;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-04-06T00:00:00Z
+ * Created: 2013-11-16T00:00:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: MIT.java  
+ * FileName: PublicDomain.java  
  * FileType: SOURCE
- * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> Copyright 2013 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Given a text file, try to identify portions of text
- *  that allows us to distinguish if the file is covered under a specific 
- *  license and which version is applicable when possible.</text> 
+ *  that allows us to distinguish if the file is covered under Public Domain.
+ * 
+ * When looking at other tools detecting licenses, I note that exists a 
+ * tendency to create a catalogue separate for each type of license and its 
+ * variation. Here, the goal is different. We are grouping as much as possible 
+ * all the related licenses under a single class. In the end, this helps us to 
+ * accomodate in a much more sensible manner all the existent variations.
+ * </text> 
  */
 
 
 /**
  *
- * @author Nuno Brito, 6th of April 2014 in Darmstadt, Germany.
+ * @author Nuno Brito, 14th of November 2013 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class MIT implements Trigger {
+public class PublicDomain implements Trigger {
     
     // the list of id's that we can use to identify a license
     final String[] list = {
-        "MIT license",
-        "Permission is hereby granted, free of charge, to any person obtaining",
-        "and associated documentation files",
-        " MIT-",
-        "Licensed MIT ",
-        "License: MIT",
+        "public domain"
     };
     
     private final TriggerData result = new TriggerData();
@@ -49,15 +49,32 @@ public class MIT implements Trigger {
     @Override
     public Boolean isApplicable(final String text, final String textLowerCase){
         // iterate all our ids
-        for(String id : list){
-            if(text.contains(id)){
-                result.add(getShortIdentifier());
-                return true;
-            }
+        for(final String id : list){
+            return verify(id, text, textLowerCase);
         }
         return false;
     }
 
+    // instead of generic "Public Domain"
+    
+    /**
+     * Verifies if everything matches and if this trigger is applicable
+     * @param text  the source code to verify
+     * @return      true if applicable, false if not applicable
+     */
+    private boolean verify(String id, String text, String lowerCaseText){
+        // detect a case where the public domain is listed but not applicable
+        if(lowerCaseText.contains("instead of generic \"public domain\"")){
+                return false;
+        }
+        if(lowerCaseText.contains(id)){
+            result.add(getShortIdentifier());
+            return true;
+        }
+        // not enough reasons to consider applicable
+        return false;
+    }
+    
     @Override
     public Boolean isApplicable(File file) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -65,7 +82,7 @@ public class MIT implements Trigger {
 
     @Override
     public String getShortIdentifier() {
-        return "MIT";
+        return "Public Domain";
     }
 
     @Override
@@ -77,7 +94,7 @@ public class MIT implements Trigger {
     public Boolean supportsTextFiles() {
         return true;
     }
- 
+
     @Override
     public TriggerType getType(){
         return TriggerType.LICENSE;
@@ -85,7 +102,7 @@ public class MIT implements Trigger {
 
     @Override
     public String getFullName() {
-        return "MIT detection";
+        return "Public Domain";
     }
 
     @Override
@@ -95,9 +112,9 @@ public class MIT implements Trigger {
     
     @Override
     public String getTriggerTitle() {
-        return "MIT";
+        return "Public Domain finder";
     }
-      
+    
     @Override
     public TriggerData getResult(){
         return result;

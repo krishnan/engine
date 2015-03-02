@@ -1,4 +1,4 @@
-package others;
+package provenance.trigger.others;
 
 
 import provenance.TriggerType;

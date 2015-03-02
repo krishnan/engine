@@ -23,9 +23,9 @@ import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import script.Script;
-import structure.LicenseControl;
+import license.LicenseControl;
 import structure.ReportsControl;
-import structure.TriggerControl;
+import provenance.TriggerControl;
 import utils.Settings;
 
 
@@ -231,7 +231,6 @@ public class engine {
         settings = new Settings(
                     new File(engine.getWorkFolder(), "settings.xml"), "");
         extensions = new ExtensionControl();
-        triggers = new TriggerControl();
         reports = new ReportsControl();
     }
     

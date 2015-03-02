@@ -1,4 +1,4 @@
-package licenses;
+package provenance.trigger.licenses;
 
 
 import provenance.TriggerType;

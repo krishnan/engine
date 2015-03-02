@@ -1,4 +1,4 @@
-package authorship;
+package provenance.trigger.authorship;
 
 
 import provenance.TriggerType;

@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import main.engine;
 import script.log;
-import structure.LicenseControl;
+import license.LicenseControl;
 import utils.hashing.TLSH;
 
 

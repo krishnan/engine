@@ -11,22 +11,28 @@
     other details inside source code files.</text> 
  */
 
-package structure;
+package provenance;
 
-import definitions.folder;
-import definitions.is;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.engine;
-import provenance.Trigger;
-import script.log;
+import provenance.trigger.authorship.CopyrightDetector;
+import provenance.trigger.licenses.Apache_v2;
+import provenance.trigger.licenses.Artistic;
+import provenance.trigger.licenses.EPL;
+import provenance.trigger.licenses.EUPL;
+import provenance.trigger.licenses.GNU;
+import provenance.trigger.licenses.MPL;
+import provenance.trigger.licenses.SPLv1;
+import provenance.trigger.others.AutomatedCode;
+import provenance.trigger.others.PublicDomain;
+import provenance.trigger.licenses.BSD;
+import provenance.trigger.licenses.MIT;
 
 /**
  *
@@ -46,6 +52,9 @@ public final class TriggerControl {
     public TriggerControl(){
         
         addTriggers();
+        
+        // do a physical byte copy (avoid JVM reference passing) to ensure
+        // we always give a fresh copy of the initiated triggers
         baos = new ByteArrayOutputStream();
         try {
             // do a byte copy of the array, avoid the references
@@ -63,24 +72,38 @@ public final class TriggerControl {
      * This method adds up all the triggers found on the triggers folder
      */
     private void addTriggers(){
-        File folderTriggers = new File(engine.getWorkFolder(), folder.triggers);
-        //log.write(is.INFO, "Adding triggers from %1", folderTriggers.getAbsolutePath());
-        final ArrayList<File> files = utils.files.findFilesFiltered(folderTriggers, ".java", 2);
-        for(File file : files){
-            //Trigger result = (Trigger) script.exec.runJava(file, is.trigger);
-            final Trigger result = (Trigger) utils.bytecode.getObject(file);
-            
-            if(result != null){
-                log.write(is.ADDING, "Trigger: " + result.getTriggerTitle());
-                listOriginal.add(result);
-            }
-        }
         
-        // worry about the case when there is no folder nor triggers to include
-        if(listOriginal.isEmpty()){
-            log.write(is.WARNING, "No triggers were added, trigger detection "
-                    + "is disabled.");
-        }
+        listOriginal.add(new CopyrightDetector());
+        listOriginal.add(new Apache_v2());
+        listOriginal.add(new Artistic());
+        listOriginal.add(new BSD());
+        listOriginal.add(new EPL());
+        listOriginal.add(new EUPL());
+        listOriginal.add(new GNU());
+        listOriginal.add(new MIT());
+        listOriginal.add(new MPL());
+        listOriginal.add(new SPLv1());
+        listOriginal.add(new AutomatedCode());
+        listOriginal.add(new PublicDomain());
+        
+//        File folderTriggers = new File(engine.getWorkFolder(), folder.triggers);
+//        //log.write(is.INFO, "Adding triggers from %1", folderTriggers.getAbsolutePath());
+//        final ArrayList<File> files = utils.files.findFilesFiltered(folderTriggers, ".java", 2);
+//        for(File file : files){
+//            //Trigger result = (Trigger) script.exec.runJava(file, is.trigger);
+//            final Trigger result = (Trigger) utils.bytecode.getObject(file);
+//            
+//            if(result != null){
+//                log.write(is.ADDING, "Trigger: " + result.getTriggerTitle());
+//                listOriginal.add(result);
+//            }
+//        }
+//        
+//        // worry about the case when there is no folder nor triggers to include
+//        if(listOriginal.isEmpty()){
+//            log.write(is.WARNING, "No triggers were added, trigger detection "
+//                    + "is disabled.");
+//        }
     }
 
     /**

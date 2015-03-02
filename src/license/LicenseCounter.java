@@ -11,7 +11,7 @@
  * keeping track of how many similar licenses are being used on a project.</text>
  */
 
-package structure;
+package license;
 
 import java.util.ArrayList;
 import java.util.HashMap;

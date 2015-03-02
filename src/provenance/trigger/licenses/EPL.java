@@ -1,4 +1,4 @@
-package licenses;
+package provenance.trigger.licenses;
 
 
 import provenance.TriggerType;
@@ -10,27 +10,28 @@ import provenance.TriggerData;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-10-16T19:44:00Z
+ * Created: 2014-10-04T18:07:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: Artistic.java  
+ * FileName: EPL.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
- * FileComment: <text> Tries to identify licenses based on their SPDX-id's
- *   </text> 
+ * FileComment: <text> Given a text file, try to identify portions of text
+ *  that allows us to distinguish if the file is covered under a specific 
+ *  license and which version is applicable when possible.</text> 
  */
 
 
 /**
  *
- * @author Nuno Brito, 16th of October 2014 in Darmstadt, Germany.
+ * @author Nuno Brito, 4th of October 2014 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class Artistic implements Trigger {
+public class EPL implements Trigger {
     
     // the list of id's that we can use to identify a license
-    String[] list = {
-        "Artistic 2.0",
-        "Artistic-2.0"
+    final String[] list = {
+        "epl-1.0",
+        "eclipse public license",
     };
     
     private final TriggerData result = new TriggerData();
@@ -45,7 +46,7 @@ public class Artistic implements Trigger {
     public Boolean isApplicable(final String text, final String textLowerCase){
         // iterate all our ids
         for(String id : list){
-            if(text.contains(id)){
+            if(textLowerCase.contains(id)){
                 result.add(getShortIdentifier());
                 return true;
             }
@@ -60,7 +61,7 @@ public class Artistic implements Trigger {
 
     @Override
     public String getShortIdentifier() {
-        return "Artistic-2.0";
+        return "EPL-1.0";
     }
 
     @Override
@@ -80,7 +81,7 @@ public class Artistic implements Trigger {
 
     @Override
     public String getFullName() {
-        return "Artistic-2.0";
+        return "Eclipse Public License detection";
     }
 
     @Override
@@ -90,7 +91,7 @@ public class Artistic implements Trigger {
     
     @Override
     public String getTriggerTitle() {
-        return "Artistic-2.0";
+        return "EPL";
     }
     
     @Override

@@ -1,4 +1,4 @@
-package licenses;
+package provenance.trigger.licenses;
 
 
 import provenance.TriggerType;
@@ -10,31 +10,27 @@ import provenance.TriggerData;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
- * Created: 2014-09-18T00:00:00Z
+ * Created: 2014-04-06T00:00:00Z
  * LicenseName: EUPL-1.1-without-appendix
- * FileName: EUPL.java  
+ * FileName: SunPublicLicense.java  
  * FileType: SOURCE
- * FileCopyrightText: <text> Copyright 2013 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Given a text file, try to identify portions of text
- *  that allows us to distinguish if the file is covered under the EUPL 
- *  license and which version when possible.
- * </text> 
+ *  that allows us to distinguish if the file is covered under a specific 
+ *  license and which version is applicable when possible.</text> 
  */
 
 
 /**
  *
- * @author Nuno Brito, 18th of September 2014 in Darmstadt, Germany.
+ * @author Nuno Brito, 6th of April 2014 in Darmstadt, Germany.
  *  nuno.brito@triplecheck.de | http://nunobrito.eu
  */
-public class EUPL implements Trigger {
+public class SPLv1 implements Trigger {
     
     // the list of id's that we can use to identify a license
-    // identifiers are always in lower case to ease processing speed
     String[] list = {
-        "eupl v.1.",
-        "eupl-1.",
-        "european union public licence v. 1."
+        "subject to the Sun Public License"
     };
     
     private final TriggerData result = new TriggerData();
@@ -47,10 +43,9 @@ public class EUPL implements Trigger {
      */
     @Override
     public Boolean isApplicable(final String text, final String textLowerCase){
-       // String lowerCaseText = text.toLowerCase();
         // iterate all our ids
         for(String id : list){
-            if(textLowerCase.contains(id)){
+            if(text.contains(id)){
                 result.add(getShortIdentifier());
                 return true;
             }
@@ -65,7 +60,7 @@ public class EUPL implements Trigger {
 
     @Override
     public String getShortIdentifier() {
-        return "EUPL-1.1";
+        return "SPL-1.0";
     }
 
     @Override
@@ -77,26 +72,25 @@ public class EUPL implements Trigger {
     public Boolean supportsTextFiles() {
         return true;
     }
-
   
-    @Override
-    public String getFullName() {
-        return "European Union Public License 1.1";
-    }
-    
-    @Override
-    public String getResultSPDX() {
-        return LicenseInfoInFile + getShortIdentifier();
-    }
-
     @Override
     public TriggerType getType(){
         return TriggerType.LICENSE;
     }
+
+    @Override
+    public String getFullName() {
+        return "Sun Public License v1.0";
+    }
+
+    @Override
+    public String getResultSPDX() {
+        return LicenseInfoInFile + getShortIdentifier();
+    }
     
     @Override
     public String getTriggerTitle() {
-        return "EUPL";
+        return "SPL";
     }
     
     @Override

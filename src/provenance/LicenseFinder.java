@@ -42,8 +42,8 @@ public class LicenseFinder {
             filesTotal;
 
     private LicenseFinder() {
-        this.resultList = new LinkedBlockingQueue<FileProvenance>();
-        this.queue = new LinkedBlockingQueue<File>();
+        resultList = new LinkedBlockingQueue<FileProvenance>();
+        queue = new LinkedBlockingQueue<File>();
     }
         
     private String baseFolder = null;
@@ -202,8 +202,8 @@ public class LicenseFinder {
                 + " files");
         
         
-        ProvenanceToConsole console = new ProvenanceToConsole(finder);
-        console.getOutput();
+        //ProvenanceToConsole console = new ProvenanceToConsole(finder);
+        //console.getOutput();
         
         System.exit(0);
     }

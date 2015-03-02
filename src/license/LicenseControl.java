@@ -10,7 +10,7 @@
  * FileComment: <text> Allows to handle the registered licenses </text> 
  */
 
-package structure;
+package license;
 
 import definitions.is;
 import java.util.ArrayList;
