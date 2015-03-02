@@ -96,27 +96,6 @@ public class LicenseFinder {
     }
  
     /**
-     *
-     * @param params
-     * @throws java.lang.Exception
-     */
-    public static void main(String[] params) throws Exception{
-        
-        File folderSource = new File("../../source/linux-kernel");
-        
-        engine.warmUp();
-        
-        System.out.println("Discovering licenses on: " + folderSource.getAbsolutePath());
-        LicenseFinder finder = new LicenseFinder();
-        finder.addFolder(folderSource);
-        finder.process();
-        System.out.println("All done, processed "
-                + finder.filesProcessed
-                + " files");
-        System.exit(0);
-    }
-
-    /**
      * Adds the files within a folder to be processed
      * @param folderSource
      * @throws Exception 
@@ -195,5 +174,29 @@ public class LicenseFinder {
     public int getFilesTotal() {
         return filesTotal;
     }
+    
+    /**
+     *
+     * @param params
+     * @throws java.lang.Exception
+     */
+    public static void main(String[] params) throws Exception{
+        
+        //File folderSource = new File("../../source/linux-kernel");
+        File folderSource = new File("../../source/corefx-master-2014-11-15");
+        
+        
+        engine.warmUp();
+        
+        System.out.println("Discovering licenses on: " + folderSource.getAbsolutePath());
+        LicenseFinder finder = new LicenseFinder();
+        finder.addFolder(folderSource);
+        finder.process();
+        System.out.println("All done, processed "
+                + finder.filesProcessed
+                + " files");
+        System.exit(0);
+    }
+
     
 }

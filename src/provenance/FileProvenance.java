@@ -9,6 +9,7 @@
 
 package provenance;
 
+import FileExtension.FileExtension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -77,13 +78,13 @@ public class FileProvenance {
                 }
             }
         }
-        
+        // how many Lines of Code (comment and blank lines ARE counted)
         LOC = countLOC;
         
         // no need to keep this stream open
         inputStream.close();
         
-        // compute the file signature
+        // compute the file signatures
         final byte[] 
             digestSHA1 = hashSHA1.digest(),
             digestMD5 = hashMD5.digest(),
@@ -95,33 +96,29 @@ public class FileProvenance {
         SHA1 = utils.hashing.checksum.convertHash(digestSHA1);
         SHA256 = utils.hashing.checksum.convertHash(digestSHA256);
         MD5 = utils.hashing.checksum.convertHash(digestMD5);
-        
-        // try to assign only a relative path, not the full path
-        if(baseFolder == null || baseFolder.isEmpty()){
-            this.filename = file.getName();
-        }else{
-            this.filename = file.getAbsolutePath().replace(baseFolder, ".");
-        }
-        
+
+        // get the relative file name for this file
+        filename = file.getAbsolutePath().replace(baseFolder, ".")
+                // solve the conversion issue when running on Windows
+                .replace("\\", "/");
         // define the file extension
         fileExtension = utils.files.getExtension(file).toLowerCase();
-        //FileExtension extensionType = engine.extensions.get(extension);
         
-        // avoid small files
-        if(content.length() < 100){
-            return;
-        }
-        
-        // read this file from disk onto local memory
-        final String contentLowerCase = content.toString().toLowerCase();
+        // convert the file content to actionable text
+        final String 
+                contentNormal = content.toString(),
+                contentLowerCase = contentNormal.toLowerCase();
         
         // proceed to trigger detection
         for(Trigger thisTrigger: engine.triggers.getList()){
-            processTriggers(thisTrigger, TLSH, contentLowerCase);
+            processTriggers(thisTrigger, contentNormal, contentLowerCase);
         }
-        
     }
-
+    
+    public FileExtension getFileExtensionType(){
+        return engine.extensions.get(fileExtension);
+    }
+    
     /**
      * Where we process each of the different trigger types
      * @param thisTrigger
