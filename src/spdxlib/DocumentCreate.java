@@ -13,6 +13,7 @@
 
 package spdxlib;
 
+import license.LicenseInfer;
 import FileExtension.ExtensionCreate;
 import definitions.is;
 import java.io.File;

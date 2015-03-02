@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import main.engine;
-import spdxlib.License;
+import license.License;
 import utils.www.html;
 
 

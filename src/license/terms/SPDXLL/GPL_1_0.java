@@ -1,0 +1,285 @@
+package license.terms.SPDXLL;
+
+import license.License;
+
+/*
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: nuno
+ * Created: 2015-03-02T19:17:17Z
+ * LicenseName: EUPL-1.1-without-appendix
+ * FileName: GPL_1_0.java 
+ * FileCategory: SOURCE
+ * FileCopyrightText: <text> Copyright (c) 2015, nuno </text>
+ */
+
+
+public class GPL_1_0 extends License{
+   /**
+     * Was this license approved by the OSI?
+     * @return  True if the license is listed as approved   
+     */
+    @Override
+    public Boolean approvedOSI(){
+        return false; // was this license OSI approved or not?
+    }
+    
+    /**
+     * The SPDX identifier
+     * @return  The unique identifier for this license
+     */
+    @Override
+    public String getId(){
+        return "GPL-1.0"; // short and unique id
+    }
+    
+    /**
+     * What is the full title for this license?
+     * @return  The official full title of the license
+     */
+    @Override
+    public String getTitle(){
+        return "GNU General Public License v1.0 only"; // full text title
+    }
+    
+    /**
+     * In most cases, the license will have generic terms that only present
+     * minor changes such as copyright attributions. This method provides
+     * an idea of the contents of the license.
+     * @return  Normal text (no markup) version of the license terms
+     */
+    @Override
+    public String getTerms(){
+        return "GNU GENERAL PUBLIC LICENSE \n"
+        + "Version 1, February 1989\n"
+        + "\n"
+        + "Copyright (C) 1989 Free Software Foundation, Inc. 51 Franklin St, Fifth Floor, B"
+        + "oston, MA 02110-1301 USA \n"
+        + "\n"
+        + "Everyone is permitted to copy and distribute verbatim copies of this license doc"
+        + "ument, but changing it is not allowed.\n"
+        + "\n"
+        + "Preamble\n"
+        + "\n"
+        + "The license agreements of most software companies try to keep users at the mercy"
+        + " of those companies. By contrast, our General Public License is intended to guar"
+        + "antee your freedom to share and change free software--to make sure the software "
+        + "is free for all its users. The General Public License applies to the Free Softwa"
+        + "re Foundation's software and to any other program whose authors commit to using "
+        + "it. You can use it for your programs, too.\n"
+        + "\n"
+        + "When we speak of free software, we are referring to freedom, not price. Specific"
+        + "ally, the General Public License is designed to make sure that you have the free"
+        + "dom to give away or sell copies of free software, that you receive source code o"
+        + "r can get it if you want it, that you can change the software or use pieces of i"
+        + "t in new free programs; and that you know you can do these things.\n"
+        + "\n"
+        + "To protect your rights, we need to make restrictions that forbid anyone to deny "
+        + "you these rights or to ask you to surrender the rights. These restrictions trans"
+        + "late to certain responsibilities for you if you distribute copies of the softwar"
+        + "e, or if you modify it.\n"
+        + "\n"
+        + "For example, if you distribute copies of a such a program, whether gratis or for"
+        + " a fee, you must give the recipients all the rights that you have. You must make"
+        + " sure that they, too, receive or can get the source code. And you must tell them"
+        + " their rights.\n"
+        + "\n"
+        + "We protect your rights with two steps: (1) copyright the software, and (2) offer"
+        + " you this license which gives you legal permission to copy, distribute and/or mo"
+        + "dify the software.\n"
+        + "\n"
+        + "Also, for each author's protection and ours, we want to make certain that everyo"
+        + "ne understands that there is no warranty for this free software. If the software"
+        + " is modified by someone else and passed on, we want its recipients to know that "
+        + "what they have is not the original, so that any problems introduced by others wi"
+        + "ll not reflect on the original authors' reputations.\n"
+        + "\n"
+        + "The precise terms and conditions for copying, distribution and modification foll"
+        + "ow.\n"
+        + "\n"
+        + "GNU GENERAL PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MO"
+        + "DIFICATION\n"
+        + "\n"
+        + "0. This License Agreement applies to any program or other work which contains a "
+        + "notice placed by the copyright holder saying it may be distributed under the ter"
+        + "ms of this General Public License. The \"Program\", below, refers to any such prog"
+        + "ram or work, and a \"work based on the Program\" means either the Program or any w"
+        + "ork containing the Program or a portion of it, either verbatim or with modificat"
+        + "ions. Each licensee is addressed as \"you\".\n"
+        + "\n"
+        + "1. You may copy and distribute verbatim copies of the Program's source code as y"
+        + "ou receive it, in any medium, provided that you conspicuously and appropriately "
+        + "publish on each copy an appropriate copyright notice and disclaimer of warranty;"
+        + " keep intact all the notices that refer to this General Public License and to th"
+        + "e absence of any warranty; and give any other recipients of the Program a copy o"
+        + "f this General Public License along with the Program. You may charge a fee for t"
+        + "he physical act of transferring a copy.\n"
+        + "\n"
+        + "2. You may modify your copy or copies of the Program or any portion of it, and c"
+        + "opy and distribute such modifications under the terms of Paragraph 1 above, prov"
+        + "ided that you also do the following:\n"
+        + "\n"
+        + "     a) cause the modified files to carry prominent notices stating that you cha"
+        + "nged the files and the date of any change; and\n"
+        + "\n"
+        + "     b) cause the whole of any work that you distribute or publish, that in whol"
+        + "e or in part contains the Program or any part thereof, either with or without mo"
+        + "difications, to be licensed at no charge to all third parties under the terms of"
+        + " this General Public License (except that you may choose to grant warranty prote"
+        + "ction to some or all third parties, at your option).\n"
+        + "\n"
+        + "     c) If the modified program normally reads commands interactively when run, "
+        + "you must cause it, when started running for such interactive use in the simplest"
+        + " and most usual way, to print or display an announcement including an appropriat"
+        + "e copyright notice and a notice that there is no warranty (or else, saying that "
+        + "you provide a warranty) and that users may redistribute the program under these "
+        + "conditions, and telling the user how to view a copy of this General Public Licen"
+        + "se.\n"
+        + "\n"
+        + "     d) You may charge a fee for the physical act of transferring a copy, and yo"
+        + "u may at your option offer warranty protection in exchange for a fee.\n"
+        + "\n"
+        + "Mere aggregation of another independent work with the Program (or its derivative"
+        + ") on a volume of a storage or distribution medium does not bring the other work "
+        + "under the scope of these terms.\n"
+        + "\n"
+        + "3. You may copy and distribute the Program (or a portion or derivative of it, un"
+        + "der Paragraph 2) in object code or executable form under the terms of Paragraphs"
+        + " 1 and 2 above provided that you also do one of the following:\n"
+        + "\n"
+        + "     a) accompany it with the complete corresponding machine-readable source cod"
+        + "e, which must be distributed under the terms of Paragraphs 1 and 2 above; or,\n"
+        + "\n"
+        + "     b) accompany it with a written offer, valid for at least three years, to gi"
+        + "ve any third party free (except for a nominal charge for the cost of distributio"
+        + "n) a complete machine-readable copy of the corresponding source code, to be dist"
+        + "ributed under the terms of Paragraphs 1 and 2 above; or,\n"
+        + "\n"
+        + "     c) accompany it with the information you received as to where the correspon"
+        + "ding source code may be obtained. (This alternative is allowed only for noncomme"
+        + "rcial distribution and only if you received the program in object code or execut"
+        + "able form alone.)\n"
+        + "\n"
+        + "Source code for a work means the preferred form of the work for making modificat"
+        + "ions to it. For an executable file, complete source code means all the source co"
+        + "de for all modules it contains; but, as a special exception, it need not include"
+        + " source code for modules which are standard libraries that accompany the operati"
+        + "ng system on which the executable file runs, or for standard header files or def"
+        + "initions files that accompany that operating system.\n"
+        + "\n"
+        + "4. You may not copy, modify, sublicense, distribute or transfer the Program exce"
+        + "pt as expressly provided under this General Public License. Any attempt otherwis"
+        + "e to copy, modify, sublicense, distribute or transfer the Program is void, and w"
+        + "ill automatically terminate your rights to use the Program under this License. H"
+        + "owever, parties who have received copies, or rights to use copies, from you unde"
+        + "r this General Public License will not have their licenses terminated so long as"
+        + " such parties remain in full compliance.\n"
+        + "\n"
+        + "5. By copying, distributing or modifying the Program (or any work based on the P"
+        + "rogram) you indicate your acceptance of this license to do so, and all its terms"
+        + " and conditions.\n"
+        + "\n"
+        + "6. Each time you redistribute the Program (or any work based on the Program), th"
+        + "e recipient automatically receives a license from the original licensor to copy,"
+        + " distribute or modify the Program subject to these terms and conditions. You may"
+        + " not impose any further restrictions on the recipients' exercise of the rights g"
+        + "ranted herein.\n"
+        + "\n"
+        + "7. The Free Software Foundation may publish revised and/or new versions of the G"
+        + "eneral Public License from time to time. Such new versions will be similar in sp"
+        + "irit to the present version, but may differ in detail to address new problems or"
+        + " concerns.\n"
+        + "\n"
+        + "Each version is given a distinguishing version number. If the Program specifies "
+        + "a version number of the license which applies to it and \"any later version\", you"
+        + " have the option of following the terms and conditions either of that version or"
+        + " of any later version published by the Free Software Foundation. If the Program "
+        + "does not specify a version number of the license, you may choose any version eve"
+        + "r published by the Free Software Foundation.\n"
+        + "\n"
+        + "8. If you wish to incorporate parts of the Program into other free programs whos"
+        + "e distribution conditions are different, write to the author to ask for permissi"
+        + "on. For software which is copyrighted by the Free Software Foundation, write to "
+        + "the Free Software Foundation; we sometimes make exceptions for this. Our decisio"
+        + "n will be guided by the two goals of preserving the free status of all derivativ"
+        + "es of our free software and of promoting the sharing and reuse of software gener"
+        + "ally.\n"
+        + "\n"
+        + "NO WARRANTY\n"
+        + "\n"
+        + "9. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE "
+        + "PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED"
+        + " IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS I"
+        + "S\" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT"
+        + " LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICU"
+        + "LAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS"
+        + " WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESS"
+        + "ARY SERVICING, REPAIR OR CORRECTION.\n"
+        + "\n"
+        + "10. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL A"
+        + "NY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE P"
+        + "ROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, "
+        + "SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY"
+        + " TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING REN"
+        + "DERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE"
+        + " PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY"
+        + " HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n"
+        + "\n"
+        + "END OF TERMS AND CONDITIONS\n"
+        + "\n"
+        + "Appendix: How to Apply These Terms to Your New Programs\n"
+        + "\n"
+        + "If you develop a new program, and you want it to be of the greatest possible use"
+        + " to humanity, the best way to achieve this is to make it free software which eve"
+        + "ryone can redistribute and change under these terms.\n"
+        + "\n"
+        + "To do so, attach the following notices to the program. It is safest to attach th"
+        + "em to the start of each source file to most effectively convey the exclusion of "
+        + "warranty; and each file should have at least the \"copyright\" line and a pointer "
+        + "to where the full notice is found.\n"
+        + "\n"
+        + "     <one line to give the program's name and a brief idea of what it does.> Cop"
+        + "yright (C) 19yy <name of author>\n"
+        + "\n"
+        + "     This program is free software; you can redistribute it and/or modify it und"
+        + "er the terms of the GNU General Public License as published by the Free Software"
+        + " Foundation; either version 1, or (at your option) any later version.\n"
+        + "\n"
+        + "     This program is distributed in the hope that it will be useful, but WITHOUT"
+        + " ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS F"
+        + "OR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
+        + "\n"
+        + "     You should have received a copy of the GNU General Public License along wit"
+        + "h this program; if not, write to the Free Software Foundation, Inc., 675 Mass Av"
+        + "e, Cambridge, MA 02139, USA.\n"
+        + "\n"
+        + "Also add information on how to contact you by electronic and paper mail.\n"
+        + "\n"
+        + "If the program is interactive, make it output a short notice like this when it s"
+        + "tarts in an interactive mode:\n"
+        + "\n"
+        + "     Gnomovision version 69, Copyright (C) 19xx name of author Gnomovision comes"
+        + " with ABSOLUTELY NO WARRANTY; for details type `show w'. This is free software, "
+        + "and you are welcome to redistribute it under certain conditions; type `show c' f"
+        + "or details.\n"
+        + "\n"
+        + "The hypothetical commands `show w' and `show c' should show the appropriate part"
+        + "s of the General Public License. Of course, the commands you use may be called s"
+        + "omething other than `show w' and `show c'; they could even be mouse-clicks or me"
+        + "nu items--whatever suits your program.\n"
+        + "\n"
+        + "You should also get your employer (if you work as a programmer) or your school, "
+        + "if any, to sign a \"copyright disclaimer\" for the program, if necessary. Here a s"
+        + "ample; alter the names:\n"
+        + "\n"
+        + "     Yoyodyne, Inc., hereby disclaims all copyright interest in the program `Gno"
+        + "movision' (a program to direct compilers to make passes at assemblers) written b"
+        + "y James Hacker.\n"
+        + "\n"
+        + "     <signature of Ty Coon>, 1 April 1989 Ty Coon, President of Vice\n"
+        + "\n"
+        + "That's all there is to it!\n"
+; // the license text
+    }
+ 
+    
+}

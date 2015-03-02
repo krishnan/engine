@@ -13,6 +13,7 @@
 
 package spdxlib;
 
+import license.LicenseType;
 import spdxlib.swing.TreeNodeSPDX;
 import java.io.File;
 import java.util.ArrayList;

@@ -17,6 +17,8 @@
 
 package spdxlib;
 
+import license.LicenseType;
+import license.License;
 import spdxlib.swing.TreeNodeSPDX;
 import definitions.id;
 import definitions.is;

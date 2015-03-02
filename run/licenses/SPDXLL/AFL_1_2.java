@@ -1,6 +1,6 @@
 package SPDXLL;
 
-import spdxlib.License;
+import license.License;
 
 /*
  * SPDXVersion: SPDX-1.1

@@ -12,11 +12,10 @@
 
 package license;
 
+import license.terms.LicenseList;
 import definitions.is;
 import java.util.ArrayList;
 import script.log;
-import spdxlib.License;
-import spdxlib.LicenseList;
 import utils.www.html;
 
 
