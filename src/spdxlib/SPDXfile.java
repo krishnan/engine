@@ -63,7 +63,8 @@ public class SPDXfile implements Serializable{
             nodeAuthorship,
             nodeSettings,
             nodeComponents,
-            nodeExport;
+            nodeExport,
+            nodeOriginality;
     
     // define our authorship counters
     private int 
@@ -889,7 +890,7 @@ public class SPDXfile implements Serializable{
         }
         
         // create the authorship node
-        nodeAuthorship = createNode("Authorship", "/spdx/authorship.java",
+        nodeAuthorship = createNode("Authorship", "/provenance/authorship.java",
                 NodeType.sectionCreator);
         // create the settings node
         nodeSettings = createNode("Settings", "/spdx/settings.java",

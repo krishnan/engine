@@ -239,13 +239,6 @@ public class FileInfo {
     public String getFileName(){
         // get the name in un-processed state (still with slashes)
         String result = fileName;
-        // remove slashes from the file name
-//        if(result != null){
-//            if (result.contains("/")) {
-//                return result.substring(result.lastIndexOf("/")+1);
-//            }
-//        }
-        
         // all done
         return result;
     }

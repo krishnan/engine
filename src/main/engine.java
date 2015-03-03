@@ -58,9 +58,9 @@ public class engine {
             licenses = new LicenseControl();
    
     public static 
-            Script script = new Script();
+            Script script;// = new Script();
     
-    public static ComponentControl components = new ComponentControl();
+    public static ComponentControl components; // = new ComponentControl();
     
     // where we define that we are working
     public static File workFolder;
@@ -232,6 +232,8 @@ public class engine {
                     new File(engine.getWorkFolder(), "settings.xml"), "");
         extensions = new ExtensionControl();
         reports = new ReportsControl();
+        script = new Script();
+        components = new ComponentControl();
     }
     
  

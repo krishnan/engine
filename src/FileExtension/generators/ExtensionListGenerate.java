@@ -15,7 +15,6 @@ package FileExtension.generators;
 import definitions.is;
 import java.io.File;
 import java.util.ArrayList;
-import main.engine;
 import FileExtension.FileExtension;
 import main.script.log;
 
@@ -26,6 +25,11 @@ import main.script.log;
  */
 public final class ExtensionListGenerate {
 
+    final File 
+            folderExtensions = new File("../src/extensions"),
+            folderOutput = new File("../src/FileExtension"),
+            folderTemplate = new File(folderOutput, "generators");
+    
     // where we write the list of classes compiled
     String output = "";
     
@@ -39,9 +43,8 @@ public final class ExtensionListGenerate {
      */
     public void processExtensions() {
         // clear up the list to avoid duplicates
-        final File folder = engine.getExtensionsFolder();
-        ArrayList<File> files = utils.files.findFilesFiltered(folder, ".java", 5);
-        log.write(is.INFO, "Adding extensions from %1", folder.getAbsolutePath());
+        ArrayList<File> files = utils.files.findFilesFiltered(folderExtensions, ".java", 5);
+        log.write(is.INFO, "Adding extensions from %1", folderExtensions.getAbsolutePath());
         log.write(is.INFO, "Extensions to process: %1", files.size() + "");
         for(File file : files){   
             // ignore the extensions inside the "unknown" folder
@@ -71,7 +74,7 @@ public final class ExtensionListGenerate {
             }
             
             // add it up to our lists
-            processExtension(temp, folder, file);
+            processExtension(temp, folderExtensions, file);
         }
     }
     
@@ -100,7 +103,9 @@ public final class ExtensionListGenerate {
         
 
         // convert this tidybut to a java code snippet
-        final String snippet = "\tlist.add(new " + path + "());\n";
+        final String snippet = "\tlist.add(new " + ""
+                + "extensions."
+                + path + "());\n";
         
         // add to the list
         output = output.concat(snippet);
@@ -113,17 +118,11 @@ public final class ExtensionListGenerate {
      * Read the template file and generate a new list
      */
     private void generateNewExtensionList() {
-        String pathCurrent = engine.getWorkFolder().getAbsolutePath();
-        String pathSourceFolder = "src/FileExtension/";
-        String pathGeneratorFolder = "src/generators/";
-        
         // where the source code template is located
-        File sourceCodeTemplate = new File(pathCurrent + "/../", 
-                pathGeneratorFolder + "ExtensionListTemplate.java");
+        File sourceCodeTemplate = new File(folderTemplate, "ExtensionListTemplate.java");
         
         // where the final source code file will be located
-        File sourceCodeOutput = new File(pathCurrent + "/../", 
-                pathSourceFolder + "ExtensionList.java");
+        File sourceCodeOutput = new File(folderOutput, "ExtensionList.java");
         
         // read the code
         String sourceCode = utils.files.readAsString(sourceCodeTemplate);
@@ -132,7 +131,9 @@ public final class ExtensionListGenerate {
         sourceCode = sourceCode.replace("//extensionList", output);
         // replace the class denominations
         sourceCode = sourceCode.replaceAll(" ExtensionListTemplate", " ExtensionList");
-        sourceCode = sourceCode.replaceAll("package generators;", "package FileExtension;");
+        
+        // package statement
+        sourceCode = sourceCode.replaceAll("package FileExtension.generators;", "package FileExtension;");
         sourceCode = sourceCode.replaceAll("import FileExtension.FileExtension;", "");
         // add the time stamp
         sourceCode = sourceCode.replaceAll("Created: %templatetime%", "Created: " + utils.time.getDateSPDX());
