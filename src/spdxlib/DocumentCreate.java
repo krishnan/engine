@@ -155,6 +155,10 @@ public class DocumentCreate {
         return true;
     }
 
+    /**
+     * The queue version that uses the CPU cores available on this machine
+     * @throws Exception 
+     */
     private void processQueueThreaded() throws Exception{
     for(int i = 0; i < utils.hardware.numberCPU(); i++){
             Thread thread = new Thread(){
