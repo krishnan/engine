@@ -50,6 +50,7 @@ public class ComponentControl {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("CC53: Test creating a new component");
         writeDefaultComponentToDisk();
         
         ComponentControl components = new ComponentControl();

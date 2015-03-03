@@ -158,9 +158,12 @@ public class cmdLine {
      * @param args  The arguments from command line
      */
     private static void commandEvaluateSPDX(final String[] args) {
+        
+        log.write(is.INFO, "Evaluating SPDX: %1", args[1]);
+        
         // do the initial checks to ensure things are ok
         if(args.length != 2){
-            log.write(is.ERROR, "Evaluate SPDX: Not enough parameters");
+            log.write(is.ERROR, "CL165 Error: Not enough parameters to evaluate SPDX");
             return;
         }
         
@@ -176,8 +179,8 @@ public class cmdLine {
         // create the object to handle the quality tests
         EvaluateLicensingQuality qualityTest = new EvaluateLicensingQuality();
         qualityTest.process(file);
-        System.exit(2);
-        
+        log.write(is.COMPLETED, "Concluded the SPDX evaluation");
+        //System.exit(2);
     }
     
     /**
