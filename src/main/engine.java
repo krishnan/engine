@@ -19,7 +19,6 @@ import comp.ComponentControl;
 import definitions.folder;
 import definitions.is;
 import java.io.File;
-import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import main.script.Script;
