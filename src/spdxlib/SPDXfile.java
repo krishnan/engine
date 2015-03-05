@@ -63,8 +63,7 @@ public class SPDXfile implements Serializable{
             nodeAuthorship,
             nodeSettings,
             nodeComponents,
-            nodeExport,
-            nodeOriginality;
+            nodeExport;
     
     // define our authorship counters
     private int 
@@ -100,7 +99,9 @@ public class SPDXfile implements Serializable{
     
     // was a license declared for this package?
     private License packageLicenseDeclared;
-    private String packageLicenseDeclaredText;
+    private String 
+            packageLicenseDeclaredText,
+            packageName;
     
     // global variables only used during a read of the document
     String globalLine;
@@ -236,6 +237,12 @@ public class SPDXfile implements Serializable{
                     packageLicenseDeclaredText = tagGetValue(is.tagPackageLicenseDeclared, globalLine);
                 }
                 
+                // PackageName:
+                if(tagStartsWith(is.tagPackageName, globalLine)){
+                    packageName = tagGetValue(is.tagPackageName, globalLine);
+                }
+                
+                
                 // have we read enough?
                 if(globalLine.startsWith("FileName:")){
                     // no more header information available
@@ -245,6 +252,18 @@ public class SPDXfile implements Serializable{
             
         } catch (IOException ex) {
             Logger.getLogger(SPDXfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns the declared name for this package
+     * @return 
+     */
+    public String getPackageName() {
+        if(packageName == null){
+            return "";
+        }else{
+            return packageName;
         }
     }
 

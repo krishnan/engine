@@ -521,15 +521,12 @@ public class DocumentCreate {
                 + "\n"
                 + addParagraph("File Information")
                 ;
-        
         // write the header
-        // buffer.setHeaderText(header);
-        // buffer.setHoldInMemory(false);
         buffer.write(header);
         log.write(is.INFO, "Finished detecting declared license for this project");
     }
     
-     /**
+    /**
      * Provides an ASCII paragraph
      * @param title the header text of the title
      * @return the ASCII text to be included on the final output
@@ -541,7 +538,7 @@ public class DocumentCreate {
                 ;
     }
     
-     /**
+    /**
      * Adds a simple line of text with a carriage return at the end
      * @param text the text to be included
      * @return a formatted string ready to be written at an ASCII file
@@ -594,7 +591,7 @@ public class DocumentCreate {
      */
     public static void main(String[] params){
         
-        File folderSource = new File("/mnt/06B6C215B6C20561/core/code/source/linux-kernel");
+        File folderSource = new File("../../source/linux-kernel");
         File fileOutput = new File("test/example.spdx");
         
         engine.warmUp();

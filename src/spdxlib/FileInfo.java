@@ -19,7 +19,9 @@ import java.io.File;
 import java.util.ArrayList;
 import main.engine;
 import FileExtension.FileExtension;
+import definitions.is;
 import spdxlib.swing.TreeviewUtils;
+import tokenizator.BinaryFile;
 
 
 /**
@@ -79,6 +81,9 @@ public class FileInfo {
     private TreeNodeSPDX node;
     private String toString; // we add use this for the node label
     
+    
+    // portion related to file matching and code originality
+    private final ArrayList<BinaryFile> matchesBinary = new ArrayList();
     
     
     public FileInfo(final SPDXfile spdx){
@@ -393,7 +398,66 @@ public class FileInfo {
         return licenseInfoInFileSummary;
     }
 
-    
-    
+    /**
+     * We have a group of files somewhere else that match with this one
+     * @param matches 
+     */
+    public void addBinaryMatches(ArrayList<BinaryFile> matches) {
+        matchesBinary.addAll(matches);
+    }
+
+    /**
+     * Outputs a text string with the contents of this FileInfo object that
+     * can be written to an SPDX 1.x document
+     * @return 
+     */
+    public String toSPDX() {
+        
+        StringBuilder output = new StringBuilder();
+        output.append(addText(is.tagFileName + " ", getFileName()));
+        output.append(addText(is.tagFileType + " ", getFileType().toString()));
+        output.append(addText(is.tagFileChecksum + " " + is.tagFileChecksumSHA1 + " ", getTagFileChecksumSHA1()));
+        output.append(addText(is.tagFileChecksum + " " + is.tagFileChecksumSHA256 + " ", getTagFileChecksumSHA256()));
+        output.append(addText(is.tagFileChecksum + " " + is.tagFileChecksumMD5 + " ", getTagFileChecksumMD5()));
+        output.append(addText(is.tagFileChecksum + " " + is.tagFileChecksumTLSH + " ", getTagFileChecksumTLSH()));
+        output.append(getFileSizeTag(getFileSize()));
+        output.append(addText(is.tagFileLOC + " ", getFileLOC() + ""));
+        
+        // add the license references inside this file
+        if(hasLicenseInfoInFile()){
+            for(LicenseType licenseType : licenseInfoInFile){
+                output.append(addText(is.tagLicenseInfoInFile + " ", licenseType.toId()));
+            }
+        
+        }
+        
+        output.append("\n");
+        return output.toString();
+    }
+    private String getFileSizeTag(long fileSize){
+        final String tagFileSize = ( fileSize > 1000 ? 
+            is.tagFileSize.concat(" ".concat(
+                    utils.files.humanReadableSize( fileSize ).concat(
+                    " (".concat( fileSize + " bytes)")
+                    )
+            ))
+            :
+            is.tagFileSize.concat(" ".concat( fileSize + " bytes")
+            )).concat("\n");
+        // all done
+        return tagFileSize;
+    }
+        
+    /**
+     * Adds a simple line of text with a carriage return at the end
+     * @param text the text to be included
+     * @return a formatted string ready to be written at an ASCII file
+     */
+    private String addText(final String key, final String text){
+        if(text == null || text.isEmpty()){
+            return "";
+        }
+        return key + text + "\n";
+    }
     
 }
