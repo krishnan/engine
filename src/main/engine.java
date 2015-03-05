@@ -231,8 +231,6 @@ public class engine {
      // initialize the settings
         settings = new Settings(
                     new File(engine.getWorkFolder(), "settings.xml"), "");
-        extensions = new ExtensionControl();
-        reports = new ReportsControl();
         script = new Script();
         components = new ComponentControl();
     }
