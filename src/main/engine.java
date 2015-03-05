@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import main.script.Script;
 import license.LicenseControl;
 import definitions.structure.ReportsControl;
+import java.util.concurrent.ConcurrentHashMap;
 import provenance.TriggerControl;
 import utils.Settings;
 
@@ -39,8 +40,8 @@ public class engine {
                     new File(engine.getWorkFolder(), "settings.xml"), "");
     
     // where we keep our shared objects
-    public static HashMap
-            temp = new HashMap<String, Object>();
+    public static ConcurrentHashMap
+            temp = new ConcurrentHashMap<String, Object>();
     
     public static File thisFile;
 
