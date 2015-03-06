@@ -424,12 +424,19 @@ public class FileInfo {
         output.append(addText(is.tagFileLOC + " ", getFileLOC() + ""));
         
         // add the license references inside this file
-        if(hasLicenseInfoInFile()){
-            for(LicenseType licenseType : licenseInfoInFile){
-                output.append(addText(is.tagLicenseInfoInFile + " ", licenseType.toId()));
-            }
-        
+        for(LicenseType licenseType : licenseInfoInFile){
+            output.append(addText(is.tagLicenseInfoInFile + " ", licenseType.toId()));
         }
+        // concluded license
+        output.append(addText(is.tagLicenseConcluded + " ", this.getLicenseConcluded().toId()));
+        // copyright statements
+        //TODO we need an array here one day
+        output.append(addText(is.tagFileCopyrightText + " ", fileCopyrightText));
+        
+        output.append(addText(is.tagFileOrigin + " ", fileOrigin.toString()));
+        
+        
+        
         
         output.append("\n");
         return output.toString();
