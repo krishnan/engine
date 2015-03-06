@@ -22,6 +22,8 @@ import FileExtension.FileExtension;
 import definitions.is;
 import spdxlib.swing.TreeviewUtils;
 import tokenizator.BinaryFile;
+import tokenizator.SourceCodeSnippet;
+import tokenizator.SourceCodeSnippetMatched;
 
 
 /**
@@ -83,7 +85,8 @@ public class FileInfo {
     
     
     // portion related to file matching and code originality
-    private final ArrayList<BinaryFile> matchesBinary = new ArrayList();
+    private final ArrayList<BinaryFile> matchBinaries = new ArrayList();
+    private final ArrayList<SourceCodeSnippet> matchSnippets= new ArrayList();
     
     
     public FileInfo(final SPDXfile spdx){
@@ -402,10 +405,14 @@ public class FileInfo {
      * We have a group of files somewhere else that match with this one
      * @param matches 
      */
-    public void addBinaryMatches(ArrayList<BinaryFile> matches) {
-        matchesBinary.addAll(matches);
+    public void addMatchBinaries(ArrayList<BinaryFile> matches) {
+        matchBinaries.addAll(matches);
     }
-
+    
+    public void addMatchSnippets(ArrayList<SourceCodeSnippet> snippets) {
+        matchSnippets.addAll(snippets);
+    }
+    
     /**
      * Outputs a text string with the contents of this FileInfo object that
      * can be written to an SPDX 1.x document
@@ -418,6 +425,11 @@ public class FileInfo {
             licenseConcludedText = "";
         }else{
             licenseConcludedText = getLicenseConcluded().toId();
+        }
+        // avoid the repeated UNKNOWN on this value
+        String fileOriginText = "";
+        if(fileOrigin != FileOrigin.UNKNOWN){
+            fileOriginText = fileOrigin.toString();
         }
         
         StringBuilder output = new StringBuilder();
@@ -440,13 +452,27 @@ public class FileInfo {
         //TODO we need an array here one day
         output.append(addText(is.tagFileCopyrightText + " ", fileCopyrightText));
         // add the file origin details
-        output.append(addText(is.tagFileOrigin + " ", fileOrigin.toString()));
+        output.append(addText(is.tagFileOrigin + " ", fileOriginText));
         // add the file origin details
         // TODO: we might have this file belonging to different component layers
         output.append(addText(is.tagFileComponent + " ", fileComponent));
         // add the binary matches
-        for(BinaryFile binaryFile : this.matchesBinary){
+        for(BinaryFile binaryFile : this.matchBinaries){
             output.append(addText(is.tagFileMatchBinary + " ", binaryFile.getReference()));
+        }
+        // add the snippet matches
+        for(SourceCodeSnippet snippet : this.matchSnippets){
+            for(SourceCodeSnippetMatched match : snippet.getMatches()){
+            final String snip = ""
+                    + snippet.getLines()
+                    + "->"
+                    + match.getLines()
+                    + " "
+                    + match.getSimilarityPercentage() + "%"
+                    + " "
+                    + match.getReference();
+            output.append(addText(is.tagFileMatchSnippet+ " ", snip));
+            }
         }
         
         

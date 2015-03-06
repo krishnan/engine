@@ -48,6 +48,7 @@ public class is {
             tagFileOrigin = "FileOrigin:",
             tagFileComponent = "ArtifactOfProjectName:",
             tagFileMatchBinary = "FileMatchBinary:",
+            tagFileMatchSnippet = "FileMatchSnippet:",
             
             tagPackageLicenseDeclared = "PackageLicenseDeclared:",
             tagPackageName = "PackageName:",
