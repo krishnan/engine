@@ -3,7 +3,7 @@
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-04-26T00:00:00Z
- * LicenseName: NOASSERTION
+ * LicenseName: AGPL-3.0+
  * FileName: LicenseControl.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>

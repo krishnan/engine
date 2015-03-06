@@ -1,6 +1,14 @@
 /*
- * Provides a hook system that allows end users to trigger custom actions
- * whenever a log entry is made that matches a given pattern.
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
+ * Creator: Organization: TripleCheck (contact@triplecheck.de)
+ * Created: 2013-01-12T14:28:55Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2013 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> 
+ *      Provides a hook system that allows end users to trigger custom actions
+ *      whenever a log entry is made that matches a given pattern.
+ * </text>
  */
 package main.script;
 

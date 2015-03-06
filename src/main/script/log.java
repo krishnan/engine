@@ -1,4 +1,12 @@
 /*
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
+ * Creator: Organization: TripleCheck (contact@triplecheck.de)
+ * Created: 2013-12-15T14:28:55Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2012 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> 
+ *
  * A mix of log messages and output of results for methods that is all-in-one.
  * 
  * Some people would argue it is better to use something like log4J and I agree
@@ -8,7 +16,9 @@
  * console or web panels when needed.
  * 
  * Static version of the Log class
+ </text>
  */
+ 
 package main.script;
 
 import definitions.is;

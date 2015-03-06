@@ -4,7 +4,7 @@ package license;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-05-15T11:43:29Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: LicenseType.java 
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
@@ -14,6 +14,7 @@ public enum LicenseType {
         // added for own use
 	Public_Domain,
         Proprietary,
+        MPL_1_0_plus,
         MPL_1_1_plus,
         MPL_2_0_plus,
         GPL,
@@ -242,6 +243,7 @@ public enum LicenseType {
         // own usage    
 	case Public_Domain: return "Public Domain";
         case Proprietary: return "Proprietary";
+        case MPL_1_0_plus: return "Mozilla Public License 1.0 or later";                                
         case MPL_2_0_plus: return "Mozilla Public License 2.0 or later";                                 
         case GPL: return "GNU General Public License (version not defined)";                                 
         case LGPL: return "GNU Lesser General Public License (version not defined)";                                 

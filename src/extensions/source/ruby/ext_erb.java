@@ -10,7 +10,7 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-12-06T17:50:05Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: erb.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
  * FileComment: <text> erb file type. </text> 

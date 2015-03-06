@@ -1,7 +1,14 @@
 package definitions;
-
 /*
- * Provides static definitions that we can use in other classes
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
+ * Creator: Organization: TripleCheck (contact@triplecheck.de)
+ * Created: 2013-09-20T00:00:00Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2015 Nuno Brito, TripleCheck </text>
+ * FileComment: <text> Log message constants. 
+ * Provides static definitions that we can use in other classes.
+ * </text> 
  */
 
 

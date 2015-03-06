@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2013-11-30T21:19:04Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: form.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, nuno </text>
+ * FileCopyrightText: <text> Copyright (c) 2013, nuno </text>
  * FileComment: <text> This class provides details about the files that make 
  * use of the "form" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.
@@ -57,18 +57,23 @@ public class form extends FileExtension{
 
     /**
      * A short text explaining what this file type is all about
+     * @return 
      */
     @Override
     public String getDescription() {
-        return null; // file type description
+        return "A GUI form for a software project"; // file type description
     }
     
     /**
      * To which kind of language does this file relates the most?
+     * @return 
      */
     @Override
     public FileLanguage getLanguage(){
-        return FileLanguage.DELPHI; // to which language is the file more related?
+        languages.add(FileLanguage.DELPHI);
+        languages.add(FileLanguage.JAVA);
+        
+        return FileLanguage.MULTIPLE; // to which language is the file more related?
     }
 
     /**
@@ -99,7 +104,7 @@ public class form extends FileExtension{
      */
     @Override
     public FileCategory getCategory() {
-        return FileCategory.SOURCE; // does it group under a category?
+        return FileCategory.SCHEMA; // does it group under a category?
     }
     
 }

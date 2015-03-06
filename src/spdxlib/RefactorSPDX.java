@@ -3,7 +3,7 @@
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (http://triplecheck.de)
  * Created: 2015-03-05T20:11:01Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileCopyrightText: <text> Copyright (c) 2015 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Refactor an existing SPDX to add new information in bulk.
  * One drawback of the current approach is that any data not indexed by the

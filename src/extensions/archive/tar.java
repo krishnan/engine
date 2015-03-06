@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2013-11-30T21:19:36Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: tar.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, nuno </text>
+ * FileCopyrightText: <text> Copyright (c) 2013, nuno </text>
  * FileComment: <text> This class provides details about the files that make 
  * use of the "tar" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.

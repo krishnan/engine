@@ -10,10 +10,11 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: #PERSON#
  * Created: #DATE#
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: #EXT#.java  
  * FileCopyrightText: <text> #COPYRIGHT# </text>
- * FileComment: <text> #EXT# file type. </text> 
+ * FileComment: <text> #EXT# file type. </text>
+ * TemplateCopyright: Copyright (c) 2015 Nuno Brito, TripleCheck 2015
  */
 
 

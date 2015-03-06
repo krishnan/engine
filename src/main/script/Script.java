@@ -1,7 +1,15 @@
 /*
- * This class allows running custom scripts using Beanshell as interpreter for
- * the commands. The goal is to provide direct access to most of the features
- * within the builder without need to implement them manually.
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
+ * Creator: Organization: TripleCheck (contact@triplecheck.de)
+ * Created: 2012-12-21T14:28:55Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2012 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> 
+ *      This class allows running custom scripts using Beanshell as interpreter for
+ *      the commands. The goal is to provide direct access to most of the features
+ *      within the builder without need to implement them manually.
+ * </text>
  */
 package main.script;
 
@@ -13,9 +21,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 import main.engine;
-
-//import script.log;
-
 
 /**
  *

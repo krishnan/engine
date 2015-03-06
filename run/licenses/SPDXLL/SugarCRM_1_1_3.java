@@ -6,7 +6,7 @@ import license.License;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: nuno
  * Created: 2014-06-01T13:29:49Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: SugarCRM_1_1_3.java 
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2014, nuno </text>

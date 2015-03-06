@@ -10,7 +10,7 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-12-02T14:49:00Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: glif.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
  * FileComment: <text> TIFF images.</text> 

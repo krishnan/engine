@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2013-11-16T13:52:35Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: jar.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
+ * FileCopyrightText: <text> Copyright (c) 2013, Nuno Brito </text>
  * FileComment: <text> This class provides details about files that have
  * the extension of type jar. Extensions tend to represent a specific type
  * of file structure from where we can extract information. In some cases, the

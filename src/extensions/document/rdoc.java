@@ -10,7 +10,7 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-12-03T00:39:32Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: rdoc.java  
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
  * FileComment: <text> rdoc file type. </text> 

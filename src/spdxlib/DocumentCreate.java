@@ -3,7 +3,7 @@
  * DocumentCreate: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * DocumentCreate: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-05-14T11:02:00Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: DocumentCreate.java  
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>

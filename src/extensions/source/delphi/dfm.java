@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-02-19T17:12:38Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: dfm.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2014, Nuno Brito </text>
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
  * FileComment: <text> This class provides details about the files that make 
  * use of the "dfm" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.

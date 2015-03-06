@@ -10,7 +10,7 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2015-02-06T13:12:21Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: clojure.java  
  * FileCopyrightText: <text> Copyright (c) 2015, Nuno Brito </text>
  * FileComment: <text> clojure programming language. </text> 

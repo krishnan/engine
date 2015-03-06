@@ -1,5 +1,13 @@
 /*
- * A log entry for keeping the data from each event that we want to track.
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
+ * Creator: Organization: TripleCheck (contact@triplecheck.de)
+ * Created: 2012-12-15T14:28:55Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2012 Nuno Brito, TripleCheck </text>
+ * FileCopyrightText: <text> 
+ *      A log entry for keeping the data from each event that we want to track.
+ * </text>
  */
 package main.script;
 

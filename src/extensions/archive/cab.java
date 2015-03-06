@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-01-25T17:43:50Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: cab.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2014, nuno </text>
+ * FileCopyrightText: <text> Copyright (c) 2014, nuno </text>
  * FileComment: <text> This class provides details about the files that make 
  * use of the "cab" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.

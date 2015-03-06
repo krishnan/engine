@@ -6,7 +6,7 @@ import license.License;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: #PERSON#
  * Created: #DATE#
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: #EXT# 
  * FileCategory: SOURCE
  * FileCopyrightText: <text> #COPYRIGHT# </text>

@@ -10,10 +10,10 @@ import spdxlib.FileLanguage;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2013-11-16T23:59:52Z
- * LicenseName: CC-BY-4.0
+ * LicenseName: AGPL-3.0+
  * FileName: patch.java  
  * FileCategory: SOURCE
- * FileCopyrightText: <text> Copyright © 2013, Nuno Brito </text>
+ * FileCopyrightText: <text> Copyright (c) 2013, Nuno Brito </text>
  * FileComment: <text> This class provides details about the files that make 
  * use of the "patch" extension. When possible, the file provenance author
  * includes details such as date when this extension first began to be used.

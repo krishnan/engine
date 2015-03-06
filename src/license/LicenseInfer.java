@@ -3,8 +3,8 @@
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-11-20T14:28:55Z
- * LicenseName: EUPL-1.1-without-appendix
- * FileName: LicenseInfer.java  
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileCopyrightText: <text> Infer the license applicable to a project
     using the license(s) included on the LICENSE file</text> 
  */

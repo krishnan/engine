@@ -3,7 +3,7 @@
  * Creator: Person: Nuno Brito (nuno.brito@triplecheck.de)
  * Creator: Organization: TripleCheck (contact@triplecheck.de)
  * Created: 2014-11-02T20:54:20Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: EvaluateLicensingQuality.java  
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> Using an SPDX tag/value document as starting point, 
@@ -583,11 +583,11 @@ public class EvaluateLicensingQuality {
        
         // adapt accordingly to a single result or  multiple results
         if(countLicensesNotDeclared == 1){
-            fixSuggestionLicense = "No <b>license</b> attribution was found for "
+            fixSuggestionLicense = "No <b>license</b> reference was found for "
                     + fixSuggestionLicense;
         }else{
             // show the list of results
-        fixSuggestionLicense = "No <b>license</b> attribution was found for the "
+        fixSuggestionLicense = "No <b>license</b> reference was found for the "
                 + "<b>"
                 + utils.text.convertToHumanNumbers(countLicensesNotDeclared)
                 + "</b>"

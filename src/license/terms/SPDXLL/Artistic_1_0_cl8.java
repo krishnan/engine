@@ -6,7 +6,7 @@ import license.License;
  * SPDXVersion: SPDX-1.1
  * Creator: Person: nuno
  * Created: 2015-03-02T19:16:05Z
- * LicenseName: EUPL-1.1-without-appendix
+ * LicenseName: AGPL-3.0+
  * FileName: Artistic_1_0_cl8.java 
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2015, nuno </text>
