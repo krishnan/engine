@@ -618,11 +618,11 @@ public class EvaluateLicensingQuality {
                     + fixSuggestionDocumentation;
         }else{
             // show the list of results
-        fixSuggestionDocumentation = "Please create the "
+        fixSuggestionDocumentation = "Please create these "
                 + "<b>"
                 + utils.text.convertToHumanNumbers(docsMandatory.length - countMandatoryDocs)
                 + "</b>"
-                + " files listed below."
+                + " files:"
                 + html.br
                 + html.br
                 + fixSuggestionDocumentation.replaceAll("\n", html.br);

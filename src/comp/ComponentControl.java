@@ -41,8 +41,6 @@ public class ComponentControl {
 
     enum SearchType {exactId, report, anyText};
     
-    String componentsOnDisk = "Components on disk";
-    
     int componentCounter = 0;
     
     /**
@@ -263,10 +261,10 @@ public class ComponentControl {
         componentCounter = 0;
         String result = getReportCustomComponents(link, engine.getComponentFolder(), 25);
         
-        result = html.h3(componentsOnDisk + " (" + componentCounter + ")")
+        result = html.h3(
+                componentCounter
+                + " components available")
                 + result;
-        
-        result = html.div() + result + html._div;
         
         return result;
     }
@@ -388,26 +386,18 @@ public class ComponentControl {
   /**
    * 
    * @param searchTerm  What we want to find
-   * @param link        The link location
+   * @param links
    * @return 
    */
-    public String search(String searchTerm, Link link) {
+    public String search(String searchTerm, ArrayList<LinkType> links) {
         
-        ArrayList<LinkType> links = new ArrayList();
-        links.add(LinkType.View);
+//        ArrayList<LinkType> links = new ArrayList();
+//        links.add(LinkType.View);
+//        links.add(LinkType.Choose);
         
         String result = "" 
-                + html.div()
-                + html.h2(componentsOnDisk)
                 + searchLocalRepository(links, engine.getComponentFolder(), 
                         searchTerm.toLowerCase(), 25)
-                + html.br
-//                + html.h2("Results on public repositories")
-//                + html.div()
-//                + searchRepositoriesHTML
-//                    (searchTerm, link, engine.getComponentFolder(), 25)
-//                + html._div
-                + html._div
                 ;
         return result;
     }
@@ -417,8 +407,8 @@ class Default extends Component{
     public Default(){
         id = "default";
         title = "The default component";
-        referenceURL = "http://triplecheck.de";
-        downloadURL = "http://triplecheck.de/download";    
+        referenceURL = "http://triplecheck.net";
+        downloadURL = "http://triplecheck.net/download";    
         authors = "Nuno Brito";
         desc = "A test component";
         //summary = "This test component helps to debug the component functionality";

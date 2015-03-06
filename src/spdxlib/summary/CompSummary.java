@@ -69,8 +69,6 @@ public class CompSummary {
         }
         
         // now do the output messages
-        result += html.h2("Components associated to " + spdx.getId());
-       
         if(counterNull == spdx.getFiles().size()){
         // no components were found
             result = html.div()
@@ -79,12 +77,6 @@ public class CompSummary {
                     + html._div;
             return result;
         }
-        // add the group of non-categorized files
-//        if(counterNull > 0){
-//            components.put("Not associated to component", counterNull);
-//        }
-        
-        
         
         // sort these groups according to their size 
         Map<String, Integer> map = utils.thirdparty.MiscMethods.sortByComparator(components);
@@ -156,11 +148,11 @@ public class CompSummary {
                         + utils.text.pluralize(count, "file")
                         + ")")
                     //+ addIfNotEmpty("Description", component.getDescription(), true)
-                    + addIfNotEmpty("Description", component.getDescription(), true)
-                    + addIfNotEmpty("Declared license", component.getLic(), false)
-                    + addIfNotEmpty("Main author(s)", component.getAuthors(), false)
-                    + addLinkIfNotEmpty("Reference URL", component.getReferenceURL())
-                    + addLinkIfNotEmpty("Download URL", component.getDownloadURL())
+                    + addIfNotEmpty("description", component.getDescription())
+                    + addIfNotEmpty("declaredlicense", component.getLic())
+                    + addIfNotEmpty("mainauthor", component.getAuthors())
+                    + addLinkIfNotEmpty("referenceURL", component.getReferenceURL())
+                    + addLinkIfNotEmpty("downloadURL", component.getDownloadURL())
                     + fileList
                     + html.br
                     + html.line
@@ -174,9 +166,9 @@ public class CompSummary {
         }
         
         // add the spacing
-        result = html.div()
-                + result
-                + html._div;
+//        result = html.div()
+//                + result
+//                + html._div;
         
         
         return result;
@@ -244,15 +236,12 @@ public class CompSummary {
      * @param key       The title
      * @param value     The value
      */
-    private String addIfNotEmpty(final String key, final String value, boolean italic){
+    private String addIfNotEmpty(final String key, final String value){
         if(value == null || value.isEmpty()){
             return "";
         }else{
             String result = value;
-            if(italic){
-                result = "<i>" + value + "</i>";
-            }
-            return key + ": " + result + html.br;
+            return "<" + key + ">" + result + "</" + key + ">" + html.br;
         }
     }
 
@@ -265,7 +254,7 @@ public class CompSummary {
         if(value == null || value.isEmpty()){
             return "";
         }else{
-            return key + ": " + html.link(value, value) + html.br;
+            return "<" + key + ">" + html.link(value, value) + "</" + key + ">" + html.br;
         }
     }
 

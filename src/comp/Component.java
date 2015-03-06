@@ -257,9 +257,10 @@ public class Component {
             title = id;
         }
         
-        String result = this.title
-                + " "
-                + html.textGrey("("+ id +")")
+        String result = ""
+                + "<%t1%>"
+                + this.title
+                + "</%t1%>"
                 + " ";
         
         for(LinkType link : links){
@@ -286,8 +287,7 @@ public class Component {
             descOutput = desc;
         }
         
-        
-        result += html.textGrey(" <i>" + descOutput + "</i>");
+        result += html.textGrey(" <%d1%>" + descOutput + "</%d1%>");
         
         // all done
         return result;
