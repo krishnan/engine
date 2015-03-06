@@ -121,14 +121,14 @@ public class FileExtension {
         FileCategory category = getCategory();
         
         // source code of some kind?
-        if((category == FileCategory.SOURCE)
-                ||(category == FileCategory.SCRIPT)
-                && (targetFile.length() < 1000)){
-            // read the contents of this file
-            String result = utils.files.readAsString(targetFile);
-
-            return utils.code.convertToHTML(result);
-        }
+//        if((category == FileCategory.SOURCE)
+//                ||(category == FileCategory.SCRIPT)
+//                && (targetFile.length() < 1000)){
+//            // read the contents of this file
+//            String result = utils.files.readAsString(targetFile);
+//
+//            return utils.code.convertToHTML(result);
+//        }
         
 //        // if this is a compressed file of some kind, no need to bother
 //        if(category == FileCategory.SCHEMA 

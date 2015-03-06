@@ -19,7 +19,6 @@
 
 package provenance;
 
-import provenance.TriggerType;
 import java.io.File;
 import java.io.Serializable;
 
@@ -38,10 +37,7 @@ public interface Trigger extends Serializable{
     
     // used only by License triggers
     final String LicenseInfoInFile = "LicenseInfoInFile: ";
-    
-    // file authorship
-    final String FileOriginInFile = "FileOrigin: ";
-    
+
     /**
      * Verifies if the provided text applies to the triggers that
      * included on this license.
