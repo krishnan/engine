@@ -412,6 +412,13 @@ public class FileInfo {
      * @return 
      */
     public String toSPDX() {
+        // handles the case of the license being null
+        String licenseConcludedText;
+        if(getLicenseConcluded() == null){
+            licenseConcludedText = "";
+        }else{
+            licenseConcludedText = getLicenseConcluded().toId();
+        }
         
         StringBuilder output = new StringBuilder();
         output.append(addText(is.tagFileName + " ", getFileName()));
@@ -428,19 +435,31 @@ public class FileInfo {
             output.append(addText(is.tagLicenseInfoInFile + " ", licenseType.toId()));
         }
         // concluded license
-        output.append(addText(is.tagLicenseConcluded + " ", this.getLicenseConcluded().toId()));
+        output.append(addText(is.tagLicenseConcluded + " ", licenseConcludedText));
         // copyright statements
         //TODO we need an array here one day
         output.append(addText(is.tagFileCopyrightText + " ", fileCopyrightText));
-        
+        // add the file origin details
         output.append(addText(is.tagFileOrigin + " ", fileOrigin.toString()));
-        
-        
+        // add the file origin details
+        // TODO: we might have this file belonging to different component layers
+        output.append(addText(is.tagFileComponent + " ", fileComponent));
+        // add the binary matches
+        for(BinaryFile binaryFile : this.matchesBinary){
+            output.append(addText(is.tagFileMatchBinary + " ", binaryFile.getReference()));
+        }
         
         
         output.append("\n");
         return output.toString();
     }
+    
+    /**
+     * Output a text string related to the size of the file on disk. This
+     * string is intended for use within an SPDX entry.
+     * @param fileSize
+     * @return 
+     */
     private String getFileSizeTag(long fileSize){
         final String tagFileSize = ( fileSize > 1000 ? 
             is.tagFileSize.concat(" ".concat(

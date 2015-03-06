@@ -12,7 +12,6 @@
 
 package spdxlib;
 
-import definitions.is;
 import java.io.File;
 import license.License;
 import main.engine;
