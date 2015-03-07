@@ -472,7 +472,7 @@ public enum LicenseType {
 	public String toId(){
         switch(this){
         // own usage
-        case Public_Domain: return "Public Domain";
+        case Public_Domain: return "Public_Domain";
         case Proprietary: return "Proprietary";
         case MPL_2_0_plus: return "MPL-2.0+";                                 
         case GPL: return "GPL";                                 

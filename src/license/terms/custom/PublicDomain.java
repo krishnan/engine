@@ -29,11 +29,11 @@ public class PublicDomain extends License{
     
     /**
      * The SPDX identifier
-     * @return  The unique identifier for this license
+     * @return  The unique identifier. This is not a license, but it treated similarly
      */
     @Override
     public String getId(){
-        return "Public domain"; // short and unique id
+        return "Public_Domain"; // short and unique id
     }
     
     /**
@@ -42,7 +42,7 @@ public class PublicDomain extends License{
      */
     @Override
     public String getTitle(){
-        return "Released on public domain"; // full text title
+        return "Released as public domain"; // full text title
     }
     
     /**
