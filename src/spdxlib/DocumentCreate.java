@@ -468,7 +468,7 @@ public class DocumentCreate {
      * Writes the header for this SPDX document
      * @param folderSource  The folder from where we get information
      */
-    private void createHeader(final File folderSourceCode) {
+    private void createHeader(final File folderSourceCode) throws Exception {
         launchCreateHeaderThread(folderSourceCode);
     }
 
@@ -476,7 +476,7 @@ public class DocumentCreate {
      * The thread that creates the header and license inference
      * @param folderSourceCode 
      */
-    private void launchCreateHeaderThread(final File folderSourceCode) {
+    private void launchCreateHeaderThread(final File folderSourceCode) throws Exception {
         // let's hold everything in memory until the buffer is written
         //buffer.setHoldInMemory(true);
         // define the package name if still empty at this stage
