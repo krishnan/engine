@@ -1,8 +1,13 @@
+/*
+ * SPDXVersion: SPDX-1.1
+ * Creator: Person: Nuno Brito
+ * Created: 2014-04-28T14:37:41Z
+ * LicenseName: AGPL-3.0+
+ * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito, TripleCheck </text>
+ */
 package license.terms.custom;
 
 import license.terms.SPDXLL.*;
-
-
 
 public class MPL_1_0plus extends MPL_1_0{
    /**

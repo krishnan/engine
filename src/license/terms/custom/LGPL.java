@@ -1,7 +1,3 @@
-package license.terms.custom;
-
-import license.License;
-
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: nuno
@@ -11,7 +7,9 @@ import license.License;
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2014, nuno </text>
  */
+package license.terms.custom;
 
+import license.License;
 
 public class LGPL extends License{
    /**

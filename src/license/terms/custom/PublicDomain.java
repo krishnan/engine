@@ -1,12 +1,8 @@
-package license.terms.custom;
-
-import license.License;
-
 /*
  * SPDXVersion: SPDX-1.1
  * Creator: Person: Nuno Brito
  * Created: 2014-04-28T22:24:34Z
- * LicenseName: Apache-2.0
+ * LicenseName: AGPL-3.0+
  * FileName: PublicDomain.java 
  * FileCategory: SOURCE
  * FileCopyrightText: <text> Copyright (c) 2014, Nuno Brito </text>
@@ -15,7 +11,9 @@ import license.License;
  * It is used here on a licensing context that specifies a very unique licensing
  * characteristic.
  */
+package license.terms.custom;
 
+import license.License;
 
 public class PublicDomain extends License{
    /**

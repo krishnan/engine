@@ -672,9 +672,8 @@ public class SPDXfile implements Serializable{
                              "file")
                     + ")"
                     + " "
-                    + "<%t1%>"
-                    + license.toId()
-                    + "<%t1%>"
+                    + "<%t1%>" + license.toId() + "</%t1%>"
+                    + "<%t2%>" + license.toId() + "</%t2%>"
                     + html.br;
         }
         return result;

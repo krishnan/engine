@@ -18,6 +18,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import main.engine;
 import main.script.log;
+import provenance.Trigger;
+import provenance.TriggerData;
+import provenance.TriggerType;
 import utils.hashing.TLSH;
 
 
@@ -51,8 +54,9 @@ public class LicenseInfer {
     /**
      * Indicate the folder where the source code files are located.
      * @param folder A folder on disk
+     * @throws java.lang.Exception
      */
-    public LicenseInfer(final File folder){
+    public LicenseInfer(final File folder) throws Exception{
         // preflight checks
         if(folder.exists() == false){
             log.write(is.ERROR, "LI31 - Error, folder does not exist: %1",
@@ -73,7 +77,7 @@ public class LicenseInfer {
      * Process the files inside the source code folder to find a match with
      * a license declaration
      */
-    private void processFolder() {
+    private void processFolder() throws Exception {
         // find the files on the root and first folders
         final ArrayList<File> files = utils.files.findFiles(sourceCodeFolder, 2);
         // iterate each file
@@ -112,12 +116,31 @@ public class LicenseInfer {
      * comparison to discover the applicable license
      * @param file A file on disk with the possible License information
      */
-    private void processLicense(final File file) {
-        
-        if(engine.licenses == null){
-            engine.licenses = new LicenseControl();
+    private void processLicense(final File file) throws Exception {
+        // start with a lightweight license reference discovery
+        final String content = utils.files.readAsString(file);
+        final String contentLowerCase = content.toLowerCase();
+        // iterate through each of our triggers
+        for(Trigger trigger : engine.triggers.getList()){
+            // we only want license-related triggers to apply
+            if(trigger.getType() != TriggerType.LICENSE){
+                continue;
+            }
+            // do we have a match?
+            if(trigger.isApplicable(content, contentLowerCase)){
+                ArrayList<String> triggerData = trigger.getResult().getData();
+                License thisLicense = engine.licenses.get(triggerData.get(0));
+                licenseFinalist.add(thisLicense);
+            }
         }
-        processLicenseWithCache(file);
+        
+        // last stage, did we had good results or need to do brute force compare?
+        if(licenseFinalist.size() > 0){
+            doLicenseFinalistSelection(content);
+        }else{
+            // proceed to brute force comparison
+            processLicenseWithCache(file);
+        }
     }
     
     
@@ -145,7 +168,14 @@ public class LicenseInfer {
             // compare the content against this specific license
             licenseCompare(content, tlshThisLicense, thisLicense);
         }
-        
+        // do an indepth comparison
+        doLicenseFinalistSelection(content);
+    } 
+    
+    /**
+     * Go through the possible candidates to discover the most eligible license
+     */
+    private void doLicenseFinalistSelection(final String content){
         // compare between what we have on our queue to find a match
         for(License thisLicense : licenseFinalist){
             final int levenValue = utils.hashing.similarity
@@ -157,7 +187,7 @@ public class LicenseInfer {
                 license = thisLicense;
             }
         }
-    } 
+    }
     
     /**
      * How similar is this license compared against a given content?
@@ -207,7 +237,7 @@ public class LicenseInfer {
         return license != null;
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         final String location = "../../source/corefx-master-2014-11-15/";
         File folder = new File(location);
         LicenseInfer infer = new LicenseInfer(folder);
