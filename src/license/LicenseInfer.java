@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 import main.engine;
 import main.script.log;
 import provenance.Trigger;
-import provenance.TriggerData;
 import provenance.TriggerType;
 import utils.hashing.TLSH;
 
@@ -82,31 +81,41 @@ public class LicenseInfer {
         final ArrayList<File> files = utils.files.findFiles(sourceCodeFolder, 2);
         // iterate each file
         for(final File file : files){
-            // transform the file name to lower case
-            final String fileName = file.getName().toLowerCase();
-            
-            // use a specific regular expression to detect license combinations
-            Pattern pattern = Pattern.compile("(\\b[\\w]+-|)licen(c|s)e(.|)+");
-            Matcher matcher = pattern.matcher(fileName);
-            
-            /*
-            This regular expression should work for these combinations:
-                LICENSE
-                MIT-LICENSE
-                LICENSE-MIT
-                LICENCE-APACHE
-                APACHE-LICENSE
-                MIT-LICENSE.txt
-                MIT-LICENSE.md
-                LICENSE-MIT.txt
-            */
-            if(matcher.matches()==false){
-                continue;
-            }
-          
-            // we have a match, process the file
-            processLicense(file);
+            processFile(file);
         }
+    }
+    /**
+     * Tries to find the files where the license could be described
+     * @param file
+     * @throws Exception 
+     */
+    private void processFile(File file) throws Exception{
+        // adopt lower case names by default
+        final String fileName = file.getName().toLowerCase();
+
+        // use a specific regular expression to detect license combinations
+        Pattern pattern = Pattern.compile("(\\b[\\w]+-|)licen(c|s)e(.|)+");
+        Matcher matcher = pattern.matcher(fileName);
+
+        /*
+        This regular expression should work for these combinations:
+            LICENSE
+            MIT-LICENSE
+            LICENSE-MIT
+            LICENCE-APACHE
+            APACHE-LICENSE
+            MIT-LICENSE.txt
+            MIT-LICENSE.md
+            LICENSE-MIT.txt
+        */
+        
+        //TODO: we miss processing COPYING files at this point
+        
+        if(matcher.matches()==false){
+            return;
+        }
+        // we have a match, process the file
+        processLicense(file);
     }
     
     /**
