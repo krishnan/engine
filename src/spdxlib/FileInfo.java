@@ -412,6 +412,16 @@ public class FileInfo {
     public void addMatchSnippets(ArrayList<SourceCodeSnippet> snippets) {
         matchSnippets.addAll(snippets);
     }
+
+    public ArrayList<BinaryFile> getMatchBinaries() {
+        return matchBinaries;
+    }
+
+    public ArrayList<SourceCodeSnippet> getMatchSnippets() {
+        return matchSnippets;
+    }
+    
+    
     
     /**
      * Outputs a text string with the contents of this FileInfo object that
