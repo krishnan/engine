@@ -640,11 +640,12 @@ public class SPDXfile implements Serializable{
     }
 
 
-        /**
+        
+    /**
      * Get the summary for the languages adopted across this project
      * @return      An HTML string with the summary of adopted licenses
      */
-    public String getLicenseEvaluation() {
+    public String getLicenseEvaluationHTML() {
         if(languagesWereNotEvaluated){
             evaluateLanguagesAndLicenses();
         }
@@ -677,6 +678,48 @@ public class SPDXfile implements Serializable{
                     + html.br;
         }
         return result;
+    }
+    
+    /**
+     * Provides a text array with each license found on the document
+     * First field is the percentage, second field is the license type
+     * and the last field is the number of occurrences.
+     * @return 
+     */
+    public String getLicenseEvaluationArray() {
+        if(languagesWereNotEvaluated){
+            evaluateLanguagesAndLicenses();
+        }
+        
+        // where we will store the results
+        String result = "";
+        
+         // create a licensing list sorted according to biggest on top
+        Map<LicenseType,Integer> mapLicenses = licenseCounter.sortedMap();
+        // how many files do we have in total?
+        int totalLicenses = licenseCounter.getOverallCounter();
+        // 
+        if(mapLicenses.keySet().isEmpty()){
+            return null;
+        }
+        for(LicenseType license : mapLicenses.keySet()){
+            int value = licenseCounter.get(license);
+            // ignore the empty languages
+            if(value == 0){
+                continue;
+            }
+            result += ""
+                    + utils.misc.getPercentage(value, totalLicenses)
+                    + "|"
+                    + license.toId()
+                    + "|"
+                    + value
+                    + "\n"
+                    ;
+            
+        }
+        // remove the last line break
+        return result.substring(0, result.length() -1);
     }
     
     /**
