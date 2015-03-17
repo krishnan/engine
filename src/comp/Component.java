@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import main.engine;
 import license.License;
+import spdxlib.FileInfo;
 import utils.www.html;
 
 
@@ -47,6 +48,9 @@ public class Component {
     protected ArrayList<License> applicableLicenses;  // set of applicable licenses
     protected ArrayList<Component> subComponents;  // components included within
 
+    // files within an SPDX document associated with this component (on runtime)
+    protected ArrayList<FileInfo> associatedFiles = new ArrayList();
+    
     public void setApplicableLicenses(ArrayList<License> applicableLicenses) {
         this.applicableLicenses = applicableLicenses;
     }
@@ -55,6 +59,10 @@ public class Component {
         this.authors = authors;
     }
 
+    public ArrayList<FileInfo> getAssociatedFiles() {
+        return associatedFiles;
+    }
+    
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }

@@ -960,7 +960,7 @@ public class SPDXfile implements Serializable{
         // create the settings node
         nodeSettings = createNode("Settings", "/spdx/settings.java",
                 NodeType.sectionSettings);
-        // create the node for reporting components
+        // create the node for reporting componentsHTML
         nodeComponents = createNode("Components", "/components/summary.java",
                 NodeType.sectionComponents);
         // node for exporting the compliance data

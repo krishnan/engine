@@ -33,10 +33,10 @@ public class SummaryControl {
     }
     
     /**
-     * Return the summary of the components for a given SPDX
+     * Return the summary of the componentsHTML for a given SPDX
      * @return  An HTML string ready to be displayed to the end-user
      */
-    public String components(){
+    public String componentsHTML(){
         return components.getComponentSummary();
     }
     

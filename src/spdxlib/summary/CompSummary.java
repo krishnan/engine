@@ -85,7 +85,7 @@ public class CompSummary {
         for(String componentID : map.keySet()){
             
             int count = map.get(componentID);
-            
+            // get the details for this component from our database
             Component component = engine.components.get(componentID);
             
             // what happens if the component was not found?
