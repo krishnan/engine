@@ -235,7 +235,8 @@ public enum LicenseType {
 	ZPL_1_1,                                 // Zope Public License 1.1
 	ZPL_2_0,                                 // Zope Public License 2.0
 	ZPL_2_1,                                 // Zope Public License 2.1
-	Unlicense;                               // The Unlicense
+	Unlicense,
+        Not_Recognized;                               // The Unlicense
 
 
 	public String toTitle(){
@@ -695,7 +696,7 @@ public enum LicenseType {
 	case ZPL_2_0: return "ZPL-2.0";
 	case ZPL_2_1: return "ZPL-2.1";
 	case Unlicense: return "Unlicense";
-	default: return "Not recognized";
+	default: return notRecognized;
 		}
 	}
 
@@ -920,12 +921,13 @@ public enum LicenseType {
 		}
 	}
         
-        
+        final String notRecognized = "Not recognized";
+    
         
         
     /**
      * Convert the SPDX identifier of a license into an ENUM
-     * @param id the id to a meaninful object
+     * @param id the id to a meaningful object
      * @return  The LicenseType when identified
      */
     public static LicenseType convertToEnum(final String id) {
@@ -934,7 +936,15 @@ public enum LicenseType {
                 .replace("-", "_")
                 .replace(".", "_")
                 .replace("+", "_plus");
-        return LicenseType.valueOf(result);
+        
+        try{
+            return LicenseType.valueOf(result);
+        }
+        catch(Exception e){
+            return LicenseType.Not_Recognized;
+        }
+        
+        
     }
     
    

@@ -11,6 +11,7 @@
 package spdxlib.summary;
 
 import comp.Component;
+import comp.ComponentControl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.engine;
@@ -35,6 +36,12 @@ public class AssociatedComponents {
         uncategorized = new Component();
         uncategorized.setDescription("Files not associated to a component");
         uncategorized.setId("Uncategorized");
+        
+        // avoid null components
+        if(engine.components == null){
+            engine.components = new ComponentControl();
+        }
+        
     }
     
     /**
