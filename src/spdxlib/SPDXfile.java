@@ -101,7 +101,8 @@ public class SPDXfile implements Serializable{
     private License packageLicenseDeclared;
     private String 
             packageLicenseDeclaredText,
-            packageName;
+            packageName,
+            sourceFolder;
     
     // global variables only used during a read of the document
     String globalLine;
@@ -434,7 +435,17 @@ public class SPDXfile implements Serializable{
         if(tagStartsWith(is.tagLicenseConcluded, line)){
             final String temp = tagGetValue(is.tagLicenseConcluded, line);
             tempInfo.setLicenseConcluded(LicenseType.convertToEnum(temp));
+        }else
+        if(tagStartsWith(is.tagFileMatchSnippet, line)){
+            tempInfo.addMatchSnippet(line);
         }
+        else
+        if(tagStartsWith(is.tagFileMatchBinary, line)){
+            final String temp = tagGetValue(is.tagLicenseConcluded, line);
+            tempInfo.addMatchBinary(temp);
+        }
+        
+        
     }
     
     /**
@@ -554,23 +565,46 @@ public class SPDXfile implements Serializable{
      * @return A pointer to the folder where the source code files are located
      */
     public File getSourceFolder() {
+        // do we have this value in cache or not? If so, provide the cache.
+        if(sourceFolder != null){
+            return new File(sourceFolder);
+        }
+        
+        // we need the file associated to this spdx to exist
         if(file== null){
             return null;
         }
         // get the title
         final String title = id.SOURCEFOLDER + file.getName();
+        final File fileSettings = new File("settings.xml");
+        // read the settings content
+        final String content = utils.files.readAsString(fileSettings);
+        final String[] lines = content.split("\n");
+        String folderLocation = "";
+        for(final String line : lines){
+            // skips lines that don't matter
+            if(line.contains(title) == false){
+                continue;
+            }
+            final int p1 = line.indexOf(">") + 1;
+            final int p2 = line.indexOf("</entry>");
+            folderLocation = line.substring(p1, p2);
+            break;
+        }
         
-        if(engine.settings.hasKey(title)==false){
-            System.err.println("SPDXfile344: Didn't found " + title);
+        // empty value means nothing found
+        if(folderLocation.isEmpty()){
             return null;
         }
+        
         // create the folder pointer
-        File folder = new File(engine.settings.read(title));
+        File folder = new File(folderLocation);
         
         // doesn't exist?
         if(folder.exists() == false){
             return null;
         }
+        sourceFolder = folder.getAbsolutePath();
         // all done!
         return folder;
     }
@@ -718,6 +752,12 @@ public class SPDXfile implements Serializable{
                     ;
             
         }
+        
+        // nothing was found here
+        if(result.isEmpty()){
+            return null;
+        }
+        
         // remove the last line break
         return result.substring(0, result.length() -1);
     }

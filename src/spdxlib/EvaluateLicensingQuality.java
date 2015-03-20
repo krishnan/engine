@@ -544,7 +544,7 @@ public class EvaluateLicensingQuality {
      * Computes an HTML output with a list of suggestions of what can be fixed
      * @return A list of what can be fixed in HTML format
      */
-    public String getSuggestionFixCopyright(){
+    public String getSuggestionFixCopyrightHTML(){
         // do we really need an evaluation for this topic?
         if(getMaxPointsForCopyright() == getScoreCopyright()){
             fixSuggestionCopyright = "No action needed for this topic, looking good.";
@@ -574,7 +574,7 @@ public class EvaluateLicensingQuality {
      * Computes an HTML output with a list of suggestions of what can be fixed
      * @return A list of what can be fixed in HTML format
      */
-    public String getSuggestionFixLicense(){
+    public String getSuggestionFixLicenseHTML(){
         // do we really need an evaluation for this topic?
         if(getMaxPointsForLicensesDeclared() == getScoreLicensesDeclared()){
             fixSuggestionLicense = "No action needed for this topic, looking good.";
@@ -605,7 +605,7 @@ public class EvaluateLicensingQuality {
      * Computes an HTML output with a list of suggestions of what can be fixed
      * @return A list of what can be fixed in HTML format
      */
-    public String getSuggestionFixDocumentation(){
+    public String getSuggestionFixDocumentationHTML(){
         // do we really need an evaluation for this topic?
         if(countMandatoryDocs == docsMandatory.length){
             fixSuggestionDocumentation = "No action needed for docs, looking good.";
@@ -628,6 +628,18 @@ public class EvaluateLicensingQuality {
                 + fixSuggestionDocumentation.replaceAll("\n", html.br);
         }
         // all done
+        return fixSuggestionDocumentation;
+    }
+
+    public String getFixSuggestionLicense() {
+        return fixSuggestionLicense;
+    }
+
+    public String getFixSuggestionCopyright() {
+        return fixSuggestionCopyright;
+    }
+
+    public String getFixSuggestionDocumentation() {
         return fixSuggestionDocumentation;
     }
     
@@ -711,5 +723,6 @@ public class EvaluateLicensingQuality {
     public int getCountLicensesNotDeclared() {
         return countLicensesNotDeclared;
     }
+    
     
 }

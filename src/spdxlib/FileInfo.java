@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import main.engine;
 import FileExtension.FileExtension;
 import definitions.is;
+import spdxlib.specific.LineToMatchSnippet;
 import spdxlib.swing.TreeviewUtils;
 import tokenizator.BinaryFile;
 import tokenizator.SourceCodeSnippet;
@@ -520,6 +521,41 @@ public class FileInfo {
             return "";
         }
         return key + text + "\n";
+    }
+
+    /**
+     * Add this snippet to the file
+     * @param line 
+     */
+    void addMatchSnippet(String line) {
+        // get the line reference
+        final String referenceLines = LineToMatchSnippet.referenceLines(line);
+        
+        SourceCodeSnippet snippet  = null;
+        for(SourceCodeSnippet mySnippet : this.matchSnippets){
+            if(utils.text.equals(mySnippet.getLines(), referenceLines) == false){
+                continue;
+            }
+            // finally found a match
+            snippet = mySnippet;
+            // no need to continue this loop
+            break;
+        }
+        
+        // did we ended up nullified or not?
+        if(snippet == null){
+            // we don't have this snippet on the list, then create one
+            snippet = LineToMatchSnippet.createSnippet(this, referenceLines);
+            matchSnippets.add(snippet);
+        }
+        // create the new matched snippet
+        SourceCodeSnippetMatched newMatch = LineToMatchSnippet.convert(line);
+        // add it up to our list
+        snippet.addMatch(newMatch);
+    }
+
+    void addMatchBinary(String temp) {
+        System.out.println("FI558: " + temp);
     }
     
 }

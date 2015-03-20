@@ -23,7 +23,14 @@ import spdxlib.EvaluateLicensingQuality;
  *
  * @author Nuno Brito, 2nd of September 2014 in Darmstadt, Germany
  */
-public class cmdLine {
+public class CmdLine {
+    
+    public static final String 
+            spdx_expecting_more_parameters = "Expecting more parameters.",
+            spdx_created_document = "Created a new SPDX document";
+    
+    // what is given as answer after processing a message
+    private String answer = "";
     
     // version with SPDX evaluation
     
@@ -33,34 +40,41 @@ public class cmdLine {
      * @param args  The arguments provided on command line
      * @return      True if valid parameters were found, false otherwise.
      */
-    public static boolean isCommandLineUsed(final String[] args) {
+    public boolean isCommandLineUsed(final String[] args) {
         // what is the outcome of our processing?
         Boolean result = false;
         String packageName = "";
         String packageURL = "";
         
+        // no values? nothing to do.
+        if(args == null){
+            return false;
+        }
         
         // no arguments? No need to continue
         if(args.length == 0){
             return result;
         }
-        
-        
-        if(args[0].equalsIgnoreCase("downloadSPDX")){
-            // this feature was not added at this point
-            System.exit(0);
-            return true;
-        }
-        
+       
+        // open up the settings for this processing
         warmUp();
         
         // get the first argument
         final String cmdAction = args[0].toLowerCase();
-        
          
          // do we want to evaluate the license quality from a given SPDX?
-        if(cmdAction.equals("evaluate")){
+        if(cmdAction.equals("score")){
             commandEvaluateSPDX(args);
+            return true;
+        }
+        
+        if(cmdAction.equals("suggestions")){
+            commandSuggestionsSPDX(args);
+            return true;
+        }
+        
+        if(cmdAction.equals("originality")){
+            commandEvaluateOriginality(args);
             return true;
         }
         
@@ -68,10 +82,10 @@ public class cmdLine {
         if(cmdAction.equals("spdx")){
             // do we have the right amount of parameters?
             if(args.length < 3){
-                System.out.println("Expecting more parameters.");
+                answer = spdx_expecting_more_parameters;
+                System.out.println(answer);
                 return true;
             }
-            
             
             log.write(is.INFO, "Processing an SPDX folder/file:");
             // do we have a parameter for the package name?
@@ -90,8 +104,9 @@ public class cmdLine {
             // now create the document      
             createCmdLineSPDX(spdxFile, sourceTarget, packageName, packageURL, "");
            
+            answer = spdx_created_document;
+            System.out.println(answer);
             //result = true;
-            System.exit(0);
         }
         
         // all done
@@ -106,13 +121,13 @@ public class cmdLine {
      * @param packageURL            Is there an URL associated with it?
      * @param documentCreator       Who is authoring the document itself
      */
-    public static void createCmdLineSPDX(final File spdxFile, 
+    public void createCmdLineSPDX(final File spdxFile, 
             final File sourceCodeFolderOrFile,
             final String packageName, final String packageURL, 
             final String documentCreator) {
         
         // the SPDX document that we are about to create    
-        DocumentCreate spdx = new DocumentCreate();
+        final DocumentCreate spdx = new DocumentCreate();
         
         // if this is a directory, we can't proceed
         if(spdxFile.isDirectory()){
@@ -157,13 +172,10 @@ public class cmdLine {
      * Launch the code to evaluate the licensing quality of an SPDX document
      * @param args  The arguments from command line
      */
-    private static void commandEvaluateSPDX(final String[] args) {
-        
-        log.write(is.INFO, "Evaluating SPDX: %1", args[1]);
-        
+    private void commandEvaluateSPDX(final String[] args) {
         // do the initial checks to ensure things are ok
         if(args.length != 2){
-            log.write(is.ERROR, "CL165 Error: Not enough parameters to evaluate SPDX");
+            log.write(is.ERROR, "CL165 Error: Not enough parameters to score a document");
             return;
         }
         
@@ -179,23 +191,78 @@ public class cmdLine {
         // create the object to handle the quality tests
         EvaluateLicensingQuality qualityTest = new EvaluateLicensingQuality();
         qualityTest.process(file);
-        log.write(is.COMPLETED, "Concluded the SPDX evaluation");
-        //System.exit(2);
+        answer =  qualityTest.getScore() + "";
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    private void commandSuggestionsSPDX(String[] args) {
+        // do the initial checks to ensure things are ok
+        if(args.length != 2){
+            log.write(is.ERROR, "CL165 Error: Not enough parameters to score a document");
+            return;
+        }
+        
+        // transform the appointed string into a file on disk, check if real
+        final String fileName = args[1];
+        // do the file
+        final File file = new File(fileName);
+        // does our file really exist?
+        if(file.exists() == false || file.isDirectory()){
+            log.write(is.ERROR, "SPDX provided: Invalid file");
+            return;
+        }
+        // create the object to handle the quality tests
+        EvaluateLicensingQuality qualityTest = new EvaluateLicensingQuality();
+        qualityTest.process(file);
+        
+        String output = "";
+        final String endSection = "-----\n";
+        
+        if(qualityTest.getFixSuggestionLicense().isEmpty() == false){
+            output += "license headers missing:\n"
+                    + qualityTest.getFixSuggestionLicense()
+                    + endSection;
+        }
+        if(qualityTest.getFixSuggestionCopyright().isEmpty() == false){
+            output += "copyright headers missing:\n"
+                    + qualityTest.getFixSuggestionCopyright()
+                    + endSection;
+        }
+        if(qualityTest.getFixSuggestionDocumentation().isEmpty() == false){
+            output += "documentation files missing:\n"
+                    + qualityTest.getFixSuggestionDocumentation()
+                    + endSection;
+        }
+        answer =  output;
     }
     
-    /**
-     * Call this method for the command line operations
-     * @param args The arguments from command line
+        /**
+     * Launch the code to evaluate the licensing quality of an SPDX document
+     * @param args  The arguments from command line
      */
-    public static void main(String[] args){
+    private void commandEvaluateOriginality(final String[] args) {
+        // do the initial checks to ensure things are ok
+        if(args.length != 2){
+            log.write(is.ERROR, "CL165 Error: Not enough parameters to score a document");
+            return;
+        }
         
-        // express that third-party projects need to initialize as libraries
-        System.setProperty(is.methodStartUp, is.library);
+        // transform the appointed string into a file on disk, check if real
+        final String fileName = args[1];
+        // do the file
+        final File file = new File(fileName);
+        // does our file really exist?
+        if(file.exists() == false || file.isDirectory()){
+            log.write(is.ERROR, "Evaluate SPDX: Invalid file");
+            return;
+        }
         
-        //warmUp();
         
-        isCommandLineUsed(args);
+        
+        answer =  "";
     }
-    
     
 }
