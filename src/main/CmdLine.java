@@ -16,8 +16,10 @@ import definitions.is;
 import java.io.File;
 import static main.engine.warmUp;
 import main.script.log;
+import output.formats.HTML.OutputSPDXToHTML;
 import spdxlib.DocumentCreate;
 import spdxlib.EvaluateLicensingQuality;
+import spdxlib.SPDXfile;
 
 /**
  *
@@ -27,12 +29,14 @@ public class CmdLine {
     
     public static final String 
             spdx_expecting_more_parameters = "Expecting more parameters.",
-            spdx_created_document = "Created a new SPDX document";
-    
+            spdx_created_document = "Created a new SPDX document",
+            html_failed_to_create_report = "HTML report: failed to create a report",
+            html_created_report = "HTML report: success",
+            html_failed_to_find_file = "HTML report: Failed to find SPDX document";
     // what is given as answer after processing a message
     private String answer = "";
     
-    // version with SPDX evaluation
+    
     
         
     /**
@@ -75,6 +79,11 @@ public class CmdLine {
         
         if(cmdAction.equals("originality")){
             commandEvaluateOriginality(args);
+            return true;
+        }
+        
+        if(cmdAction.equals("report")){
+            commandReportSPDX(args);
             return true;
         }
         
@@ -245,8 +254,8 @@ public class CmdLine {
      */
     private void commandEvaluateOriginality(final String[] args) {
         // do the initial checks to ensure things are ok
-        if(args.length != 2){
-            log.write(is.ERROR, "CL165 Error: Not enough parameters to score a document");
+        if(args.length != 3){
+            log.write(is.ERROR, "CL249 Originality scan error: Not enough parameters");
             return;
         }
         
@@ -260,9 +269,54 @@ public class CmdLine {
             return;
         }
         
+        //final String changeDir = "../../triplechecker/run";
+        //Process p = Runtime.getRuntime().exec("cd");
         
+        System.out.println("Where are we?");
+        //engine.settings.write("triplechecker_local_", "");
         
         answer =  "";
+    }
+
+    /**
+     * Create a new HTML report based on a given SPDX document
+     * @param args 
+     */
+    private void commandReportSPDX(String[] args) {
+        // do the initial checks to ensure things are ok
+        if(args.length != 3){
+            log.write(is.ERROR, "CL165 Error: Not enough parameters to create a report");
+            return;
+        }
+        
+        // transform the appointed string into a file on disk, check if real
+        final String fileName = args[1];
+        // do the file
+        final File file = new File(fileName);
+        // does our file really exist?
+        if(file.exists() == false || file.isDirectory()){
+            answer = html_failed_to_find_file;
+            log.write(is.ERROR, answer);
+            return;
+        }
+        
+        // prepare the location where the report files will be placed
+        File folderOutput = new File(args[2]);
+        // check if the folder exists or not
+        if(folderOutput.exists() == false || folderOutput.isFile()){
+            answer = html_failed_to_create_report;
+            log.write(is.ERROR, answer);
+            return;
+        }
+        
+        
+        // create the HTML report
+        SPDXfile spdx = new SPDXfile(file);
+        
+        OutputSPDXToHTML outputHTML = new OutputSPDXToHTML(folderOutput, spdx);
+        outputHTML.doOutput();
+        
+        answer =  html_created_report;
     }
     
 }
