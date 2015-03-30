@@ -8,7 +8,7 @@
  * FileType: SOURCE
  * FileCopyrightText: <text> Copyright 2014 Nuno Brito, TripleCheck </text>
  * FileComment: <text> The manager for triggers that detect licenses and 
-    other details inside source code files.</text> 
+ *  other details inside source code files.</text> 
  */
 
 package provenance;
