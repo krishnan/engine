@@ -314,39 +314,39 @@ public class GNU implements Trigger {
          }
          
          // now let's fetch the version and the "or later" part
-         String result;
+         String output;
          if(header.contains("either version 1")){
-             result = GPL1_0 + "+";
+             output = GPL1_0 + "+";
          }else
          if(header.contains("either version 2")){
-             result = GPL2_0 + "+";
+             output = GPL2_0 + "+";
          }else
          if(header.contains("either version 3")){
-             result = GPL3_0 + "+";
+             output = GPL3_0 + "+";
          }else
          // now iterate for single GPL (no automatic upgrade)
          if(header.contains("version 1")){
-             result = GPL1_0.getId() + "";
+             output = GPL1_0.getId() + "";
          }else
          if(header.contains("version 2")){
-             result = GPL2_0.getId() + "";
+             output = GPL2_0.getId() + "";
          }else
          if(header.contains("version 3")){
-             result = GPL3_0.getId() + "";
+             output = GPL3_0.getId() + "";
          }
          else{
-             result =GPL.getId();
+             output =GPL.getId();
          }
          
          // check for exception declarations
          if(header.contains("exception, the respective autoconf")){
              // replace the "plus" and add the autoconf exception attribute
-             result = result.replace("+", "") +  "-with-autoconf-exception";
+             output = output.replace("+", "") +  "-with-autoconf-exception";
              isGPL = true;
          }
          
          // add the license as detected
-         addLicense(result);
+         addLicense(output);
          isGPL = true;
      };
      
@@ -534,16 +534,16 @@ public class GNU implements Trigger {
 
     @Override
     public String getResultSPDX() {
-        String result = "";
+        String output = "";
          // list the detected licenses
         for(final String license : licenses){
-            result = result.concat(LicenseInfoInFile.concat(license));
+            output = output.concat(LicenseInfoInFile.concat(license));
         }
         if(licenses.size() > 1){
-            result = result.replace(LicenseInfoInFile, "\n" + LicenseInfoInFile).substring(1);
+            output = output.replace(LicenseInfoInFile, "\n" + LicenseInfoInFile).substring(1);
         }
         // all done
-        return result;
+        return output;
     }
 
     @Override
