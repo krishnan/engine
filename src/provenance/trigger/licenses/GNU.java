@@ -556,6 +556,7 @@ public class GNU implements Trigger {
      * something that resembles AGPL.
      * @param contentLowerCase The content to be analysed
      */
+    //TODO this code is redundant
     private void checkForEvidenceAndVersionAGPL(final String contentLowerCase) {
         for(final String evidence : keywordsAGPL){
             if(contentLowerCase.contains(evidence)){
