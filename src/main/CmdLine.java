@@ -17,6 +17,7 @@ import java.io.File;
 import static main.engine.warmUp;
 import main.script.log;
 import output.formats.HTML.OutputSPDXToHTML;
+import provenance.Trigger;
 import spdxlib.DocumentCreate;
 import spdxlib.EvaluateLicensingQuality;
 import spdxlib.SPDXfile;
@@ -43,8 +44,9 @@ public class CmdLine {
      * Are we calling command line parameters? If so, start them up
      * @param args  The arguments provided on command line
      * @return      True if valid parameters were found, false otherwise.
+     * @throws java.lang.Exception
      */
-    public boolean isCommandLineUsed(final String[] args) {
+    public boolean isCommandLineUsed(final String[] args) throws Exception {
         // what is the outcome of our processing?
         Boolean result = false;
         String packageName = "";
@@ -71,6 +73,12 @@ public class CmdLine {
             commandEvaluateSPDX(args);
             return true;
         }
+        
+        if(cmdAction.equals("detect")){
+            commandEvaluateLicenses(args);
+            return true;
+        }
+        
         
         if(cmdAction.equals("suggestions")){
             commandSuggestionsSPDX(args);
@@ -248,7 +256,8 @@ public class CmdLine {
         answer =  output;
     }
     
-        /**
+        
+    /**
      * Launch the code to evaluate the licensing quality of an SPDX document
      * @param args  The arguments from command line
      */
@@ -278,6 +287,44 @@ public class CmdLine {
         answer =  "";
     }
 
+    
+    /**
+     * Launch the code to evaluate the licensing quality of an SPDX document
+     * @param args  The arguments from command line
+     */
+    private void commandEvaluateLicenses(final String[] args) throws Exception {
+        // do the initial checks to ensure things are ok
+        if(args.length != 2){
+            log.write(is.ERROR, "CL96 Detection error: Not enough parameters");
+            return;
+        }
+        
+        // transform the appointed string into a file on disk, check if real
+        final String fileName = args[1];
+        // do the file
+        final File file = new File(fileName);
+        // does our file really exist?
+        if(file.exists() == false || file.isDirectory()){
+            log.write(is.ERROR, "Dectection: Invalid file");
+            return;
+        }
+        
+        // read the contents of this file, convert to lower case
+        final String content = utils.files.readAsString(file);
+        answer =  "";
+        
+        // iterate each trigger, see if it is applicable
+        for(Trigger thisTrigger: engine.triggers.getList()){
+            if(thisTrigger.isApplicable(content, content.toLowerCase())){
+                answer += 
+                        thisTrigger.getShortIdentifier()
+                        + "\n";
+            }
+         }
+        
+    }
+
+    
     /**
      * Create a new HTML report based on a given SPDX document
      * @param args 
