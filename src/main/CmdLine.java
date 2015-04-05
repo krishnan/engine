@@ -322,6 +322,11 @@ public class CmdLine {
             }
          }
         
+        // did we found something? then remove the last break line
+        if(answer.isEmpty() == false){
+            answer = answer.substring(0, answer.length()-1);
+        }
+        
     }
 
     
