@@ -14,6 +14,7 @@ package main;
 
 import definitions.is;
 import java.io.File;
+import java.util.ArrayList;
 import static main.engine.warmUp;
 import main.script.log;
 import output.formats.HTML.OutputSPDXToHTML;
@@ -35,7 +36,7 @@ public class CmdLine {
             html_created_report = "HTML report: success",
             html_failed_to_find_file = "HTML report: Failed to find SPDX document";
     // what is given as answer after processing a message
-    private String answer = "";
+    private String answer;
     
     
     
@@ -51,6 +52,7 @@ public class CmdLine {
         Boolean result = false;
         String packageName = "";
         String packageURL = "";
+        answer = "";
         
         // no values? nothing to do.
         if(args == null){
@@ -62,23 +64,29 @@ public class CmdLine {
             return result;
         }
        
-        // open up the settings for this processing
-        warmUp();
         
         // get the first argument
         final String cmdAction = args[0].toLowerCase();
          
+        // run the switches that don't need the slow warm-up
+        
+        if(cmdAction.equals("detect")){
+            commandEvaluateLicenses(args);
+            return true;
+        }
+       
+        
+        // actions that require a warm up
+        warmUp();
+        
+        
          // do we want to evaluate the license quality from a given SPDX?
         if(cmdAction.equals("score")){
             commandEvaluateSPDX(args);
             return true;
         }
         
-        if(cmdAction.equals("detect")){
-            commandEvaluateLicenses(args);
-            return true;
-        }
-        
+         
         
         if(cmdAction.equals("suggestions")){
             commandSuggestionsSPDX(args);
@@ -305,7 +313,7 @@ public class CmdLine {
         final File file = new File(fileName);
         // does our file really exist?
         if(file.exists() == false || file.isDirectory()){
-            log.write(is.ERROR, "Dectection: Invalid file");
+            log.write(is.ERROR, "Detection: Invalid file");
             return;
         }
         
@@ -315,9 +323,14 @@ public class CmdLine {
         
         // iterate each trigger, see if it is applicable
         for(Trigger thisTrigger: engine.triggers.getList()){
+            //System.out.println("Trigger: " + thisTrigger.getTriggerTitle());
             if(thisTrigger.isApplicable(content, content.toLowerCase())){
-                answer += 
-                        thisTrigger.getShortIdentifier()
+                // create the new answer
+                answer +=  ""
+                        + thisTrigger.getType().toString()
+                        + ": "
+                        + arrayToString(thisTrigger.getResult().getData()
+                                , ", ")
                         + "\n";
             }
          }
@@ -327,6 +340,8 @@ public class CmdLine {
             answer = answer.substring(0, answer.length()-1);
         }
         
+        // output the answer
+        //System.out.println(answer);
     }
 
     
@@ -369,6 +384,23 @@ public class CmdLine {
         outputHTML.doOutput();
         
         answer =  html_created_report;
+    }
+
+    private String arrayToString(ArrayList<String> a, String separator) {
+        StringBuilder result = new StringBuilder();
+        if (a.isEmpty()) {
+            return "";
+        }
+           
+        for(String line : a){
+            result.append(line);
+            result.append(separator);
+        }
+        
+        // grab the final result and remove the last separator, create a new output String
+        String output = result.toString().substring(0, result.toString().length() - separator.length());
+        
+        return output;
     }
     
 }

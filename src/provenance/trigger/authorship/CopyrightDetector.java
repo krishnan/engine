@@ -31,7 +31,7 @@ public class CopyrightDetector implements Trigger {
     String copyrightText = "";
     int copyrightCounter = 0;
     
-    private TriggerData result = new TriggerData();
+    private final TriggerData result = new TriggerData();
     
     
     final String[] blackList = {
@@ -39,7 +39,7 @@ public class CopyrightDetector implements Trigger {
         "law",
         "the software",
         "owner",
-        "(C)",
+        "(c)",
         "disclaimer",
         "holder",
         "statement",
@@ -51,13 +51,14 @@ public class CopyrightDetector implements Trigger {
         "date",
         "info",
         "footer",
-        "[YEAR] by [YOUR NAME] <YOUR EMAIL>",
+        "[year] by [your name] <your email>",
         "many different people",
         "variable",
         "_copyright",
         "conditions",
-        "COPYRIGHT_YEARS",
-        "barrier"
+        "copyright_years",
+        "barrier",
+        "http://fsf.org/" // No need to extract copyright from files with xGPL terms 
     };
     
     // the super-duper-mega expression to catch copyright statements
@@ -72,7 +73,7 @@ public class CopyrightDetector implements Trigger {
             
             patternCleaner = "(\\((C|c)\\) |)(C|c)opyright( \\((C|c)\\) |)";
     
-    Pattern pattern = Pattern.compile(patternString);
+    final Pattern pattern = Pattern.compile(patternString);
         
     
     /**
@@ -84,6 +85,14 @@ public class CopyrightDetector implements Trigger {
     @Override
     public Boolean isApplicable(final String text, final String textLowerCase){
        
+        // avoid terms that were black listed
+        for(final String blackListedTerm : blackList){
+            if(textLowerCase.contains(blackListedTerm)){
+                return false;
+            }
+        }
+        
+        // proceed to normal copyright extracting
         Matcher matcher = pattern.matcher(text);
         
         String copyright = "";
@@ -165,6 +174,7 @@ public class CopyrightDetector implements Trigger {
         // iterate all our ids
         for(String id : blackList){
             if(text.contains(id)){
+                System.out.println("-->" + id);
                 return true;
             }
         }

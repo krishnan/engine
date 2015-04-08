@@ -143,9 +143,10 @@ public class engine {
     public static File getMiscFolder(){
         File result = new File(getWorkFolder(), "misc");
         // if the folder doesn't exist, create one
-        if(result.exists() == false){
-            utils.files.mkdirs(result);
-        }
+        //TODO We don't want to always create a misc folder, shouldn't be here
+//        if(result.exists() == false){
+//            utils.files.mkdirs(result);
+//        }
         return result;
     }
     

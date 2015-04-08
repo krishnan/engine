@@ -74,18 +74,18 @@ public class BSD implements Trigger {
         "bsd-3-clause"
     };
     
-     // BSD-3-Clause-Clear
-    final String[] keywordsFreeBSD = {
-        "freebsd project",
-        "bsd-2-clause-freebsd"
-    };
-     // BSD-3-Clause-Clear
-    final String[] keywordsNetBSD = {
-        "netbsd foundation",
-        "bsd-2-clause-netbsd"
-    };
-    
-    
+     // BSD-2-Clause-freebsd
+    final String[] 
+        keywordsFreeBSD = {
+            "freebsd project",
+            "bsd-2-clause-freebsd"
+    },
+        // BSD-2-Clause for NetBSD
+        keywordsNetBSD = {
+            "netbsd foundation",
+            "bsd-2-clause-netbsd"
+        }
+        ;
     
     // non determined type of BSD, we just know it is a BSD-like license
     final String[] 
@@ -114,13 +114,13 @@ public class BSD implements Trigger {
     private final TriggerData result = new TriggerData();
     
     final LicenseBSD 
-            bsd2Clause = new LicenseBSD("BSD-2-Clause"),
-            bsd2ClauseFreeBSD = new LicenseBSD("BSD-2-Clause-FreeBSD"),
-            bsd2ClauseNetBSD = new LicenseBSD("BSD-2-Clause-NetBSD"),
-            bsd3Clause = new LicenseBSD("BSD-3-Clause"),
-            bsd3ClauseClear = new LicenseBSD("BSD-3-Clause-Clear"),
-            bsd4Clause = new LicenseBSD("BSD-4-Clause"),
-            bsd4ClauseUC = new LicenseBSD("BSD-4-Clause-UC");
+        bsd2Clause = new LicenseBSD("BSD-2-Clause"),
+        bsd2ClauseFreeBSD = new LicenseBSD("BSD-2-Clause-FreeBSD"),
+        bsd2ClauseNetBSD = new LicenseBSD("BSD-2-Clause-NetBSD"),
+        bsd3Clause = new LicenseBSD("BSD-3-Clause"),
+        bsd3ClauseClear = new LicenseBSD("BSD-3-Clause-Clear"),
+        bsd4Clause = new LicenseBSD("BSD-4-Clause"),
+        bsd4ClauseUC = new LicenseBSD("BSD-4-Clause-UC");
     
     /**
      * Verifies if the provided text applies to the triggers that
@@ -225,7 +225,6 @@ public class BSD implements Trigger {
         
            // no conclusive results, better safe than sorry. Don't mention BSD
            resultText = null;
-            
         }
         
     }
