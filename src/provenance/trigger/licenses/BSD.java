@@ -231,7 +231,6 @@ public class BSD implements Trigger {
     
     /**
      * Checks if a given content has the expected list of keyword identifiers
-     * @param spdxId    The designation as provided by SPDX when available
      * @return          True if a match was found, otherwise return false
      */
     private Boolean isBSD(final String textLowerCase,
