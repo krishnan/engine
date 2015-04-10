@@ -10,8 +10,8 @@
 
 package provenance.javascript;
 
+import java.io.File;
 import license.License;
-import license.terms.LicenseList;
 import main.engine;
 
 /**
@@ -22,11 +22,22 @@ public class OutputLicenseList {
   
     public static void main(String[] args){
         
-        String output = "[";
+        String output = ""
+                + "// Based on the license list from http://spdx.org/licenses/\n"
+                + "// Generated on "
+                + utils.time.getDateTimeISO()
+                + " with " + engine.licenses.getList().size() + " licenses"
+                + "\n"
+                + "// You can ask for updates at http://github.com/triplecheck\n"
+                + "\n"
+                + "var licenseList =[\n";
         
         for(License license : engine.licenses.getList()){
-            output += "{\"name\": \""
-                    + license.getTitle()
+            
+            final String title = license.getTitle().replace("\"", "\\\"");
+            
+            output += "\t{\"name\": \""
+                    + title
                     + "\", "
                     + "\"shortname\": \""
                     + license.getId()
@@ -34,9 +45,16 @@ public class OutputLicenseList {
             
         }
         
-        output += "]";
+        // remove the last comma
+        output = output.substring(0, output.length()-2);
         
+        output += "];";
+        
+        // output the result to console
         System.out.println(output);
+        
+        // save the file to disk
+        utils.files.SaveStringToFile(new File("licenseList.js"), output);
     }
     
 }
